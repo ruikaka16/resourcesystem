@@ -31,7 +31,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements Databas
 		 
 		 conn.close();    
 	     stmt.close(); 
-	     System.out.println("null connection");
+	     System.out.println("connection close");
 	}
 	 public void freeCon(Connection conn){    
 		    try{    
