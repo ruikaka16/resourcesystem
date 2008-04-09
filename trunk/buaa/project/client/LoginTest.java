@@ -61,6 +61,9 @@ import com.gwtext.client.widgets.grid.GridPanel;
 import com.gwtext.client.widgets.grid.GridView;
 
 import com.gwtext.client.widgets.grid.RowNumberingColumnConfig;
+import com.gwtext.client.widgets.grid.event.ColumnModelListener;
+import com.gwtext.client.widgets.grid.event.ColumnModelListenerAdapter;
+import com.gwtext.client.widgets.grid.event.GridCellListenerAdapter;
 
 import com.gwtext.client.widgets.layout.AccordionLayout;
 
@@ -588,7 +591,7 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		Store store = new Store(proxy, reader);
 		store.load();
 
-		BaseColumnConfig[] columns = new BaseColumnConfig[] {
+		final BaseColumnConfig[] columns = new BaseColumnConfig[] {
 				new RowNumberingColumnConfig(),
 				// column ID is company which is later used in
 				// setAutoExpandColumn
@@ -601,7 +604,7 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		// new ColumnConfig("Industry", "industry", 60, true)
 		};
 
-		ColumnModel columnModel = new ColumnModel(columns);
+		final ColumnModel columnModel = new ColumnModel(columns);
 
 		GridPanel grid = new GridPanel();
 		grid.setStore(store);
@@ -611,11 +614,38 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		grid.setHeight(300);
 		grid.setWidth(600);
 		grid.setIconCls("grid-icon");
+	//	grid.setAutoExpandColumn(columns);
 
 		GridView view = new GridView();
 		view.setForceFit(true);
 		grid.setView(view);
 
+		
+		grid.addGridCellListener(new GridCellListenerAdapter (){
+			
+			public void onCellClick(GridPanel grid, int rowIndex, int title, EventObject e){
+				
+				
+				String id = columnModel.getColumnHeader(title);
+				Window window_grid = new Window();
+				window_grid.setHeight(400);
+				window_grid.setWidth(400);
+				
+				
+				Panel news = new HTMLPanel();
+				news.setTitle(id);
+				news.setHeight(400);
+				window_grid.add(news);
+				window_grid.show();
+				
+				System.out.println(columnModel.getColumnHeader(title));
+				System.out.println(columnModel.getColumnTooltip(title));
+				
+				
+				
+				//MessageBox.alert("jessiens");
+			}
+		});
 		
 		borderPanel.add(centerPanel,new BorderLayoutData(RegionPosition.CENTER));
 
@@ -774,7 +804,7 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 	public Map getFormDataAsMap(Form form) {
 		// 用户名=rui&密码=rui
 		String formvalues = form.getValues();
-
+         
 		Map formData = new HashMap();
 
 		String[] nameValuePairs = formvalues.split("&");
