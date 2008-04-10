@@ -4,7 +4,9 @@ import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Map;
 
 import com.buaa.project.client.DatabaseService;
@@ -33,7 +35,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements Databas
 	     stmt.close(); 
 	     System.out.println("connection close");
 	}
-	 public void freeCon(Connection conn){    
+	/* public void freeCon(Connection conn){    
 		    try{    
 		      if (conn!=null){    
 		        conn.close();  
@@ -53,7 +55,49 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements Databas
 		      }    
 		    } catch (Exception e){    
 		      e.printStackTrace();    
-		    }    
-		  }    
+		    }   
+		  }    */ 
 
+	public ResultSet getInfo(String id)throws Exception{
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		String url ="jdbc:mysql://localhost:3306/test" ;
+		Connection conn= DriverManager.getConnection(url,"root","rui"); 
+		
+		String sql = "select email,password from test where id = '" +
+          id + "'";
+		
+		 Statement stat = conn.createStatement();
+	     ResultSet rs = stat.executeQuery(sql);
+
+		return rs;
+	}
+
+	 public boolean validate(String id) {
+		    try {
+		    	
+		    Class.forName("com.mysql.jdbc.Driver");
+			String url ="jdbc:mysql://localhost:3306/test" ;
+			Connection conn= DriverManager.getConnection(url,"root","rui"); 
+		    String sql = "select * from test where id='" +
+		          id + "'";
+		      Statement stat = conn.createStatement();
+		      ResultSet rs = stat.executeQuery(sql);
+		      int i = 0;
+		      while (rs.next()) {
+		        i++;
+		      }
+
+		      if (i > 0) {
+		        return true;
+		      }
+		      else {
+		        return false;
+		      }
+		    }
+		    catch (Exception ex) {
+		      ex.printStackTrace();
+		      return false;
+		    }
+		  }
 }

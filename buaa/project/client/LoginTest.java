@@ -19,6 +19,7 @@ import com.gwtext.client.core.RegionPosition;
 import com.gwtext.client.data.ArrayReader;
 import com.gwtext.client.data.DateFieldDef;
 import com.gwtext.client.data.FieldDef;
+import com.gwtext.client.data.Record;
 
 import com.gwtext.client.data.MemoryProxy;
 import com.gwtext.client.data.Node;
@@ -45,6 +46,7 @@ import com.gwtext.client.widgets.WindowMgr;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.event.TabPanelListenerAdapter;
 import com.gwtext.client.widgets.form.DateField;
+import com.gwtext.client.widgets.form.Field;
 import com.gwtext.client.widgets.form.Form;
 import com.gwtext.client.widgets.form.FormPanel;
 
@@ -54,6 +56,8 @@ import com.gwtext.client.widgets.form.VType;
 import com.gwtext.client.widgets.form.event.TextFieldListenerAdapter;
 import com.gwtext.client.widgets.grid.BaseColumnConfig;
 
+import com.gwtext.client.widgets.grid.CheckboxColumnConfig;
+import com.gwtext.client.widgets.grid.CheckboxSelectionModel;
 import com.gwtext.client.widgets.grid.ColumnConfig;
 import com.gwtext.client.widgets.grid.ColumnModel;
 
@@ -126,32 +130,45 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		formPanel.setVisible(true);
 		formPanel.setAnimCollapse(true);
 
-		TextField firstName = new TextField("First Name", "first", 230);
+		TextField firstName = new TextField("First Name", "id", 230);
 		firstName.setAllowBlank(false);
 		formPanel.add(firstName);
 
-		TextField lastName = new TextField("Last Name", "last", 230);
-		formPanel.add(lastName);
+	//	TextField lastName = new TextField("Last Name", "last", 230);
+	//	formPanel.add(lastName);
 
-		TextField company = new TextField("Company", "company", 230);
+		TextField company = new TextField("Company", "password", 230);
 		formPanel.add(company);
 
 		TextField email = new TextField("Email", "email", 230);
 		email.setVtype(VType.EMAIL);
 		formPanel.add(email);
 
-		TimeField time = new TimeField("Time", "time", 230);
-		time.setMinValue("8:00am");
-		time.setMaxValue("6:00pm");
-		formPanel.add(time);
+	//	TimeField time = new TimeField("Time", "time", 230);
+	//	time.setMinValue("8:00am");
+	//	time.setMaxValue("6:00pm");
+	//	formPanel.add(time);
 
 		Button save = new Button("Save");
 		formPanel.addButton(save);
+		
+		save.addListener(new ButtonListenerAdapter(){
+			
+			public void onClick(final Button button ,EventObject e){
+				
+				MessageBox.alert("fsdfsfs");
+				
+				String id = formPanel.getFields().toString();
+				
+				
+				System.out.println(id);
+			}
+		});
 
 		Button cancel = new Button("Cancel");
 		formPanel.addButton(cancel);
 
-		// **********************tree1*********************************************
+// **********************tree1*********************************************
 
 		final TreePanel treePanel1 = new TreePanel();
 		treePanel1.setWidth(200);
@@ -577,7 +594,11 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 
 		centerPanelTwo.setTitle("Center Panel");
 		centerPanelTwo.setAutoScroll(true);
+		
+		centerPanelTwo.add(formPanel);
 //**************************************************************************
+		final CheckboxSelectionModel cbSelectionModel = new CheckboxSelectionModel();   
+		
 		RecordDef recordDef = new RecordDef(new FieldDef[] {
 				new StringFieldDef("title"), new StringFieldDef("company"),
 				new DateFieldDef("time", "n/j h:ia"),
@@ -591,8 +612,8 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		Store store = new Store(proxy, reader);
 		store.load();
 
-		final BaseColumnConfig[] columns = new BaseColumnConfig[] {
-				new RowNumberingColumnConfig(),
+		BaseColumnConfig[] columns = new BaseColumnConfig[]{   
+                new CheckboxColumnConfig(cbSelectionModel),   
 				// column ID is company which is later used in
 				// setAutoExpandColumn
 				new ColumnConfig("文件标题", "title", 160, true, null, "title"),
@@ -606,6 +627,8 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 
 		final ColumnModel columnModel = new ColumnModel(columns);
 
+		
+		
 		GridPanel grid = new GridPanel();
 		grid.setStore(store);
 		grid.setColumnModel(columnModel);
@@ -614,7 +637,8 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		grid.setHeight(300);
 		grid.setWidth(600);
 		grid.setIconCls("grid-icon");
-	//	grid.setAutoExpandColumn(columns);
+	 	grid.setAutoExpandColumn("title");
+	 	grid.setSelectionModel(cbSelectionModel);
 
 		GridView view = new GridView();
 		view.setForceFit(true);
@@ -626,21 +650,36 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 			public void onCellClick(GridPanel grid, int rowIndex, int title, EventObject e){
 				
 				
-				String id = columnModel.getColumnHeader(title);
+				Record[] records = cbSelectionModel.getSelections();   
+				
+				String id_title = "";
+				for(int i=0;i<records.length;++i)
+				{
+					Record record = records[i];   
+				
+				  id_title  += record.getAsString("title");
+				
+				}
 				Window window_grid = new Window();
 				window_grid.setHeight(400);
-				window_grid.setWidth(400);
-				
+				window_grid.setWidth(600);
+				window_grid.setTitle(id_title);
 				
 				Panel news = new HTMLPanel();
-				news.setTitle(id);
+				news.setBorder(false);
 				news.setHeight(400);
+				news.setHtml("<p>十一届全国人大第一次会议《政府工作报告》提出，要建设“面向企业的创新支撑平台”，“加强科技基础能力建设”。为深入贯彻落实大会精神和有关要求，按照科技部党组和部领导的指示，2008年3月19日-22日，平台中心徐建国主任、计划司相关负责同志等，赴浙江开展了面向企业的创新支撑平台调研," +
+						"调研组在杭州召开了工作座谈会，并在杭州、绍兴、舟山分别考察了浙江省新药创制科技服务平台、浙江省现代纺织技术及装备创新服务平台、浙江省海洋科技创新服务平台。座谈会上，浙江省科技厅介绍了浙江科技平台建设的总体情况，重点介绍了“六个一批”创新载体建设以及三类重大创新平台建设。实地调研中，" +
+						"三个平台建设单位分别就组织机构、管理制度、专业培训、交流研讨、创新服务、科研攻关、人才队伍等各方面情况进行了详细介绍。总体来说，三个创新平台各具特色、非常典型，在优化科技资源配置、提高科技资源利用效率，推进新型产学研结合、服务企业和行业技术创新等方面发挥了重要作用。浙江省创新平台" +
+						"建设一些好的经验和做法，为国家和其它地方面向企业的创新支撑平台建设提供了重要启示。一是必须坚持需求导向，立足区域和地方的产业集群优势，这是基本前提；二是必须坚持整合共享和必要投入，有效盘活存量和调控增量，这是必要手段；三是必须坚持机制创新，结合实际建立适应企业自主创新的服务机制，" +
+						"<hr>"+
+						"这是核心关键；四是必须坚持开放服务，大力提高创新支撑和服务能力，这是最终目标。调研过程中也了解到当前平台建设的一些问题需要研究解决，如平台共享服务和技术创新服务中的知识产权问题、平台建设中的人才培养和稳定问题以及平台持续运行与长远发展问题等。 此次调研对于地方在面向企业的创新支撑平台建设方面所做的工作有了进一步的了解，对于地方科技管理部门和有关平台建设单位的想法和认识有了深入的体会，这些将为国家层面开展面向企业的创新支撑平台顶层设计和布局建设提供有益的支持和帮助。 ");
 				window_grid.add(news);
 				window_grid.show();
 				
-				System.out.println(columnModel.getColumnHeader(title));
-				System.out.println(columnModel.getColumnTooltip(title));
-				
+				//System.out.println(columnModel.getColumnHeader(title));
+				//System.out.println(columnModel.getColumnTooltip(title));
+				System.out.println(id_title);
 				
 				
 				//MessageBox.alert("jessiens");
@@ -652,7 +691,7 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		centerPanelTwo.add(formPanel);
 
 		centerPanel.add(grid);
-		
+		centerPanel.add(centerPanelTwo);
 //****************************************************************
 		treeNode6_1.addListener(new TreeNodeListenerAdapter() {
 
@@ -693,7 +732,8 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		frm.setWidth(300);
 		frm.setFrame(true);
 
-		TextField txtUsername = new TextField("用户名", "username");
+		final TextField  txtUsername = new TextField("用户名", "username");
+		txtUsername.setId("name");
 		TextField txtPassword = new TextField("密码", "password");
 		TextField txtEmail = new TextField("Email", "email");
 
@@ -723,6 +763,24 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		btSave.setId("save");
 		btSave.addListener(new ButtonListenerAdapter() {
 			public void onClick(final Button button, EventObject e) {
+				
+				
+				TextField txtUsername1 = (TextField)frm.getComponent(0);
+				System.out.println(txtUsername1.getText());
+				
+			//	String item = frm.getId(name);
+				
+				//item.
+				
+			//	 txtUsername2 = (TextField)frmf.getId();
+				
+				/*TextField txtUsername2 = (TextField)frm.getComponent(3);
+				System.out.println(txtUsername2.getText());
+				
+				TextField txtUsername3 = (TextField)frm.getComponent(5);
+				System.out.println(txtUsername3.getText());*/
+				
+				
 				if (frm.getForm().isValid()) {
 
 					DatabaseServiceAsync service = DatabaseService.Util
@@ -833,39 +891,30 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 
 	private Object[][] getCompanyData() {
 		return new Object[][] {
-				new Object[] { "3m Co", "教育部", "9/1 12:00am" },
-				new Object[] { "Alcoa Inc", "科技部", "9/1 12:00am" },
-				new Object[] { "Altria Group Inc", "财政部", "9/1 12:00am" },
-				new Object[] { "American Express Company", "体育部", "9/1 12:00am" },
-				new Object[] { "American International Group, Inc.", "司法",
+				new Object[] { "计划司、平台中心赴浙江开展面向企业创新支撑平台调研", "教育部", "9/1 12:00am" },
+				new Object[] { "平台中心召开平台门户建设工作会议", "科技部", "9/1 12:00am" },
+				new Object[] { "国家科技基础条件平台中心网站正式开通", "财政部", "9/1 12:00am" },
+				new Object[] { "国家科技基础条件平台建设专家顾问组2008年工作座", "体育部", "9/1 12:00am" },
+				new Object[] { "关于开展国家科技基础条件平台门户建设的通知", "司法",
 						"9/1 12:00am" },
-				new Object[] { "AT&T Inc.", "国防科工委", "9/1 12:00am" },
-				new Object[] { "Boeing Co.", "新闻办", "9/1 12:00am" },
-				new Object[] { "Caterpillar Inc.", "外交部", "9/1 12:00am" },
-				new Object[] { "Citigroup, Inc.", "公安部", "9/1 12:00am" },
-				new Object[] { "E.I. du Pont de Nemours and Company", "铁道部",
+				new Object[] { "召开国家科技基础条件平台门户建设标准规范培训会议", "国防科工委", "9/1 12:00am" },
+				new Object[] { "国家自然科技资源共享平台项目年度总结交流会昆明召开", "新闻办", "9/1 12:00am" },
+				new Object[] { "平台中心召开平台门户建设联络员会议", "外交部", "9/1 12:00am" },
+				new Object[] { "召开科技基础条件资源调查动员暨工作部署会议的通知", "公安部", "9/1 12:00am" },
+				new Object[] { "科技部、财政部召开国家重点实验室工作会议 ", "铁道部",
 						"9/1 12:00am" },
-				new Object[] { "American International Group, Inc.", "司法",
-						"9/1 12:00am" },
-				new Object[] { "AT&T Inc.", "国防科工委", "9/1 12:00am" },
-				new Object[] { "Boeing Co.", "新闻办", "9/1 12:00am" },
-				new Object[] { "Caterpillar Inc.", "外交部", "9/1 12:00am" },
-				new Object[] { "Citigroup, Inc.", "公安部", "9/1 12:00am" },
-				new Object[] { "E.I. du Pont de Nemours and Company", "铁道部",
-						"9/1 12:00am" },
-				new Object[] { "Boeing Co.", "新闻办", "9/1 12:00am" },
-				new Object[] { "Caterpillar Inc.", "外交部", "9/1 12:00am" },
-				new Object[] { "Citigroup, Inc.", "公安部", "9/1 12:00am" },
-				new Object[] { "E.I. du Pont de Nemours and Company", "铁道部",
-						"9/1 12:00am" },
-				new Object[] { "American International Group, Inc.", "司法",
-						"9/1 12:00am" },
-				new Object[] { "AT&T Inc.", "国防科工委", "9/1 12:00am" },
-				new Object[] { "Boeing Co.", "新闻办", "9/1 12:00am" },
-				new Object[] { "Caterpillar Inc.", "外交部", "9/1 12:00am" },
-				new Object[] { "Citigroup, Inc.", "公安部", "9/1 12:00am" },
-				new Object[] { "E.I. du Pont de Nemours and Company", "铁道部",
-						"9/1 12:00am" } };
+				new Object[] { "召开国家科技基础条件平台门户建设标准规范培训会议", "国防科工委", "9/1 12:00am" },
+				new Object[] { "国家自然科技资源共享平台项目年度总结交流会昆明召开", "新闻办", "9/1 12:00am" },
+				new Object[] { "平台中心召开平台门户建设联络员会议", "外交部", "9/1 12:00am" },
+				new Object[] { "召开科技基础条件资源调查动员暨工作部署会议的通知", "公安部", "9/1 12:00am" },
+				new Object[] { "科技部、财政部召开国家重点实验室工作会议 ", "铁道部",
+								"9/1 12:00am" },
+				new Object[] { "计划司、平台中心赴浙江开展面向企业创新支撑平台调研", "教育部", "9/1 12:00am" },
+				new Object[] { "平台中心召开平台门户建设工作会议", "科技部", "9/1 12:00am" },
+				new Object[] { "国家科技基础条件平台中心网站正式开通", "财政部", "9/1 12:00am" },
+				new Object[] { "国家科技基础条件平台建设专家顾问组2008年工作座", "体育部", "9/1 12:00am" },
+				new Object[] { "关于开展国家科技基础条件平台门户建设的通知", "司法",
+										"9/1 12:00am" } };
 	}
 
 }
