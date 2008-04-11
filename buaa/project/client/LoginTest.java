@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.buaa.project.client.panel.FarenPanel;
+import com.buaa.project.client.panel.LoginPanel;
 import com.buaa.project.client.panel.PiechartPanel;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Image;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Ext;
@@ -43,6 +45,7 @@ import com.gwtext.client.widgets.WaitConfig;
 import com.gwtext.client.widgets.Window;
 import com.gwtext.client.widgets.WindowMgr;
 
+import com.gwtext.client.widgets.event.ButtonListener;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.event.TabPanelListenerAdapter;
 import com.gwtext.client.widgets.form.DateField;
@@ -73,6 +76,9 @@ import com.gwtext.client.widgets.layout.AccordionLayout;
 
 import com.gwtext.client.widgets.layout.BorderLayout;
 import com.gwtext.client.widgets.layout.BorderLayoutData;
+import com.gwtext.client.widgets.layout.ColumnLayout;
+import com.gwtext.client.widgets.layout.RowLayout;
+import com.gwtext.client.widgets.layout.RowLayoutData;
 
 import com.gwtext.client.widgets.layout.FitLayout;
 
@@ -89,9 +95,6 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 
 	public void onModuleLoad() {
 
-	
-
-
 
 		// Button btAdd = new Button();
 		Panel panel = new Panel();
@@ -103,70 +106,88 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 
 		Panel borderPanel = new Panel();
 		borderPanel.setLayout(new BorderLayout());
+		
 		Panel northPanel = new Panel();
 		northPanel.setHeight(60);
+		northPanel.setLayout(new RowLayout());	
+		northPanel.setLayout(new HorizontalLayout(1));
 		borderPanel.add(northPanel, new BorderLayoutData(RegionPosition.NORTH));
 
-		Toolbar toolbar = new Toolbar();
-		toolbar.setSize(1024, 60);
+	    Toolbar toolbar = new Toolbar();
+		toolbar.setSize(600, 58);
 		Image image = new Image();
 		image.setUrl("image/logo.jpg");
-		image.setWidth("1024px");
-		northPanel.add(image);
+		image.setWidth("600px");
+		//northPanel.add(image);
+	
+		
+		
+		Hyperlink hy = new Hyperlink();
+		hy.setHTML("jessiena");
+		
+		//toolbar.addField(txtLoginname);
+		//toolbar.addSeparator();
 		northPanel.add(toolbar);
+		
+		
+		LoginPanel loginPanel = new LoginPanel();
+		
+		northPanel.add(loginPanel);
+		
 
 		ToolbarTextItem title = new ToolbarTextItem("欢迎访问资源填报系统");
 		toolbar.addItem(title);
 		title.setText("jessiena");
 		title.setSize("1024px", "58px");
 		title.setStyleName("ext-el-mask-msg");
+		
+	
+		
+		
+//****************************************************************
+		final FormPanel formPanel_1 = new FormPanel();
+		formPanel_1.setFrame(true);
+		formPanel_1.setTitle("gfdgfgd");
 
-		final FormPanel formPanel = new FormPanel();
-		formPanel.setFrame(true);
-		formPanel.setTitle("Simple Form");
+		formPanel_1.setWidth(350);
+		formPanel_1.setLabelWidth(75);
+		formPanel_1.setVisible(true);
+		//formPanel_1.setAnimCollapse(true);
+		
+		formPanel_1.add(hy);
 
-		formPanel.setWidth(350);
-		formPanel.setLabelWidth(75);
-		formPanel.setVisible(true);
-		formPanel.setAnimCollapse(true);
-
-		TextField firstName = new TextField("First Name", "id", 230);
+		TextField firstName = new TextField("Name", "id", 230);
 		firstName.setAllowBlank(false);
-		formPanel.add(firstName);
+		formPanel_1.add(firstName);
 
 	//	TextField lastName = new TextField("Last Name", "last", 230);
 	//	formPanel.add(lastName);
 
 		TextField company = new TextField("Company", "password", 230);
-		formPanel.add(company);
+		formPanel_1.add(company);
 
 		TextField email = new TextField("Email", "email", 230);
 		email.setVtype(VType.EMAIL);
-		formPanel.add(email);
+		formPanel_1.add(email);
 
 	//	TimeField time = new TimeField("Time", "time", 230);
 	//	time.setMinValue("8:00am");
 	//	time.setMaxValue("6:00pm");
 	//	formPanel.add(time);
 
-		Button save = new Button("Save");
-		formPanel.addButton(save);
-		
-		save.addListener(new ButtonListenerAdapter(){
+		Button save = new Button("Save",new ButtonListenerAdapter(){
 			
-			public void onClick(final Button button ,EventObject e){
+			public void onClick(Button button,EventObject e){
 				
-				MessageBox.alert("fsdfsfs");
+				MessageBox.alert("ghjgjjkhkj");
 				
-				String id = formPanel.getFields().toString();
-				
-				
-				System.out.println(id);
 			}
 		});
+	
 
 		Button cancel = new Button("Cancel");
-		formPanel.addButton(cancel);
+		formPanel_1.addButton(save);
+		formPanel_1.addButton(cancel);
 
 // **********************tree1*********************************************
 
@@ -223,10 +244,21 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 						datePicker.show();
 					}
 				});
+				
+				
 
 				formPanel_tn_11.add(txtName_tn_11);
 				formPanel_tn_11.add(txtData_tn_11);
 
+				Button bt1 = new Button("bt1",new ButtonListenerAdapter(){
+					public void onClick(Button button ,EventObject e){
+						
+						MessageBox.alert("ghjghjhj");
+						
+					}
+				});
+				
+				formPanel_tn_11.add(bt1);
 				window_tn_11.add(formPanel_tn_11);
 				window_tn_11.show();
 
@@ -508,14 +540,17 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 
 		// *************************************************************
 		final AccordionLayout accordion = new AccordionLayout(true);
-
+    
+		
+		
+		
 		Panel westPanel = new Panel();
 		westPanel.setTitle("导航栏");
 		westPanel.setIconCls("westPanel-icon");
 		westPanel.setCollapsible(true);
 		westPanel.setWidth(200);
 		westPanel.setLayout(accordion);
-
+		
 		Panel navPanel1 = new Panel();
 
 		navPanel1.setTitle("文件管理");
@@ -590,12 +625,12 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		
 
 		Panel centerPanelTwo = new Panel();
-		centerPanelTwo.setHtml("");
-
+		centerPanelTwo.setVisible(true);
+		
 		centerPanelTwo.setTitle("Center Panel");
 		centerPanelTwo.setAutoScroll(true);
 		
-		centerPanelTwo.add(formPanel);
+		centerPanelTwo.add(formPanel_1);
 //**************************************************************************
 		final CheckboxSelectionModel cbSelectionModel = new CheckboxSelectionModel();   
 		
@@ -688,7 +723,16 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		
 		borderPanel.add(centerPanel,new BorderLayoutData(RegionPosition.CENTER));
 
-		centerPanelTwo.add(formPanel);
+		Button bt = new Button("bt",new ButtonListenerAdapter(){
+			
+			public void onClick(Button button,EventObject e){
+				MessageBox.alert("fsfsfdsff");
+			}
+		});
+		
+		//formPanel_1.add(bt);
+		centerPanelTwo.add(bt);
+		centerPanelTwo.add(formPanel_1);
 
 		centerPanel.add(grid);
 		centerPanel.add(centerPanelTwo);
@@ -701,7 +745,7 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 				piePanel.setVisible(true);
 			    centerPanel.activate(0);
 				centerPanel.add(piePanel);
-				
+				centerPanel.doLayout();
 				
 			}
 		});
@@ -851,7 +895,7 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 
 		treePanel2.add(btAdd);
 
-		// RootPanel.get().add(centerPanel);
+		
 
 		panel.add(borderPanel);
 
@@ -877,14 +921,14 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 
 	public void onFailure(Throwable arg0) {
 		MessageBox.hide();
-		System.out.println("Done, Your fake data was failer!");
+		System.out.println(" data save failer!");
 		MessageBox.alert("保存失败");
 
 	}
 
 	public void onSuccess(Object arg0) {
 		MessageBox.hide();
-		System.out.println("Done, Your fake data was saved!");
+		System.out.println(" data  saved!");
 		MessageBox.alert("保存成功");
 
 	}
