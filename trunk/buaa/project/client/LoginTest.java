@@ -79,6 +79,7 @@ import com.gwtext.client.widgets.layout.BorderLayoutData;
 import com.gwtext.client.widgets.layout.ColumnLayout;
 import com.gwtext.client.widgets.layout.RowLayout;
 import com.gwtext.client.widgets.layout.RowLayoutData;
+import com.gwtext.client.widgets.layout.VerticalLayout;
 
 import com.gwtext.client.widgets.layout.FitLayout;
 
@@ -108,17 +109,17 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		borderPanel.setLayout(new BorderLayout());
 		
 		Panel northPanel = new Panel();
-		northPanel.setHeight(60);
+		northPanel.setHeight(58);
 		northPanel.setLayout(new RowLayout());	
 		northPanel.setLayout(new HorizontalLayout(1));
 		borderPanel.add(northPanel, new BorderLayoutData(RegionPosition.NORTH));
 
 	    Toolbar toolbar = new Toolbar();
-		toolbar.setSize(600, 58);
+		toolbar.setSize(1024, 58);
 		Image image = new Image();
 		image.setUrl("image/logo.jpg");
-		image.setWidth("600px");
-		//northPanel.add(image);
+		image.setWidth("1024px");
+		northPanel.add(image);
 	
 		
 		
@@ -130,9 +131,9 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		northPanel.add(toolbar);
 		
 		
-		LoginPanel loginPanel = new LoginPanel();
+	//	LoginPanel loginPanel = new LoginPanel();
 		
-		northPanel.add(loginPanel);
+	//	northPanel.add(loginPanel);
 		
 
 		ToolbarTextItem title = new ToolbarTextItem("欢迎访问资源填报系统");
@@ -606,6 +607,52 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		westData.setMargins(new Margins(0, 2, 0, 0));
 
 		borderPanel.add(westPanel, westData);
+//****************************************************************
+		Panel eastPanel = new Panel();
+		//eastPanel.setTitle("导航栏");
+		eastPanel.setIconCls("eastPanel-icon");
+		//eastPanel.setCollapsible(true);
+		eastPanel.setBorder(false);
+		eastPanel.setWidth(200);
+		eastPanel.setLayout(new VerticalLayout());
+		
+		BorderLayoutData eastData = new BorderLayoutData(RegionPosition.EAST);
+		eastData.setSplit(true);
+		eastData.setMinSize(175);
+		eastData.setMaxSize(400);
+		eastData.setMargins(new Margins(0, 1, 0, 0));
+		
+		borderPanel.add(eastPanel, eastData);
+		
+		Panel eastPanel_1 = new Panel();
+		//eastPanel_1.setPaddings(15);
+		eastPanel_1.setBodyBorder(true);
+		eastPanel_1.setTitle("用户登陆");
+		eastPanel_1.setHeight(160);
+		eastPanel_1.setWidth(200);
+		
+		Panel eastPanel_2 = new Panel();
+		eastPanel_2.setPaddings(15);
+		eastPanel_2.setBodyBorder(true);
+		eastPanel_2.setTitle("相关链接");
+		eastPanel_2.setHeight(185);
+		eastPanel_2.setWidth(200);
+		
+		Panel eastPanel_3 = new Panel();
+		eastPanel_3.setPaddings(15);
+		eastPanel_3.setBodyBorder(true);
+		eastPanel_3.setTitle("广告");
+		eastPanel_3.setHeight(185);
+		eastPanel_3.setWidth(200);
+		
+		eastPanel.add(eastPanel_1);
+		eastPanel.add(eastPanel_2);
+		eastPanel.add(eastPanel_3);
+		
+		LoginPanel loginPanel_1 = new LoginPanel();
+		
+		eastPanel_1.add(loginPanel_1);
+		
 		// ************************tip********************************
 		ToolTip tip1 = new ToolTip();
 		tip1.setHtml("可以预览并且下载已经提交的文件");
