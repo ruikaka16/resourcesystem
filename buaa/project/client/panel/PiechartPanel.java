@@ -20,13 +20,14 @@ import com.gwtext.client.widgets.grid.GridPanel;
 import com.gwtext.client.widgets.grid.Renderer;
 import com.gwtext.client.widgets.grid.event.EditorGridListenerAdapter;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
+import com.gwtext.client.widgets.layout.VerticalLayout;
 
 public class PiechartPanel extends Panel {
 
 	public PiechartPanel() {
 		this.setTitle("统计饼状图");
 		this.setAutoScroll(true);
-		this.setLayout(new HorizontalLayout(10));
+		this.setLayout(new VerticalLayout(5));
 		this.setPaddings(15); 
 		this.setClosable(true);
 		this.setAutoShow(true);

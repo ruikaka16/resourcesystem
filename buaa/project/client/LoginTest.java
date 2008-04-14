@@ -3,6 +3,7 @@ package com.buaa.project.client;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
 import com.buaa.project.client.panel.LoginPanel;
 import com.buaa.project.client.panel.PiechartPanel;
@@ -109,13 +110,13 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		borderPanel.setLayout(new BorderLayout());
 		
 		Panel northPanel = new Panel();
-		northPanel.setHeight(58);
+		northPanel.setHeight(56);
 		northPanel.setLayout(new RowLayout());	
 		northPanel.setLayout(new HorizontalLayout(1));
 		borderPanel.add(northPanel, new BorderLayoutData(RegionPosition.NORTH));
 
 	    Toolbar toolbar = new Toolbar();
-		toolbar.setSize(1024, 58);
+		toolbar.setSize(1024, 57);
 		Image image = new Image();
 		image.setUrl("image/logo.jpg");
 		image.setWidth("1024px");
@@ -139,56 +140,11 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		ToolbarTextItem title = new ToolbarTextItem("欢迎访问资源填报系统");
 		toolbar.addItem(title);
 		title.setText("jessiena");
-		title.setSize("1024px", "58px");
+		title.setSize("1024px", "56px");
 		title.setStyleName("ext-el-mask-msg");
 		
 	
 		
-		
-//****************************************************************
-		final FormPanel formPanel_1 = new FormPanel();
-		formPanel_1.setFrame(true);
-		formPanel_1.setTitle("gfdgfgd");
-
-		formPanel_1.setWidth(350);
-		formPanel_1.setLabelWidth(75);
-		formPanel_1.setVisible(true);
-		//formPanel_1.setAnimCollapse(true);
-		
-		formPanel_1.add(hy);
-
-		TextField firstName = new TextField("Name", "id", 230);
-		firstName.setAllowBlank(false);
-		formPanel_1.add(firstName);
-
-	//	TextField lastName = new TextField("Last Name", "last", 230);
-	//	formPanel.add(lastName);
-
-		TextField company = new TextField("Company", "password", 230);
-		formPanel_1.add(company);
-
-		TextField email = new TextField("Email", "email", 230);
-		email.setVtype(VType.EMAIL);
-		formPanel_1.add(email);
-
-	//	TimeField time = new TimeField("Time", "time", 230);
-	//	time.setMinValue("8:00am");
-	//	time.setMaxValue("6:00pm");
-	//	formPanel.add(time);
-
-		Button save = new Button("Save",new ButtonListenerAdapter(){
-			
-			public void onClick(Button button,EventObject e){
-				
-				MessageBox.alert("ghjgjjkhkj");
-				
-			}
-		});
-	
-
-		Button cancel = new Button("Cancel");
-		formPanel_1.addButton(save);
-		formPanel_1.addButton(cancel);
 
 // **********************tree1*********************************************
 
@@ -207,17 +163,25 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		tr1.setIconCls("treeNode1-icon");
 		tr1.setExpanded(true);
 		treePanel1.setRootNode(tr1);
-		final TreeNode treeNode1_1 = new TreeNode("文件浏览");
-		treeNode1_1.setText("文件浏览");
-		treeNode1_1.setIconCls("treeNode1_1-icon");
+		
+		final TreeNode treeNode1_1 = new TreeNode("文件发布");
+		treeNode1_1.setText("文件发布");
+		treeNode1_1.setIconCls("treeNode1_2-icon");
 		tr1.appendChild(treeNode1_1);
-
-		final TreeNode treeNode1_2 = new TreeNode("文件下载");
-		treeNode1_2.setText("文件下载");
-		treeNode1_2.setIconCls("treeNode1_2-icon");
+		
+	
+		
+		final TreeNode treeNode1_2 = new TreeNode("文件浏览");
+		treeNode1_2.setText("文件浏览");
+		treeNode1_2.setIconCls("treeNode1_1-icon");
 		tr1.appendChild(treeNode1_2);
 
-		treeNode1_1.addListener(new TreeNodeListenerAdapter() {
+		final TreeNode treeNode1_3 = new TreeNode("文件下载");
+		treeNode1_3.setText("文件下载");
+		treeNode1_3.setIconCls("treeNode1_2-icon");
+		tr1.appendChild(treeNode1_3);
+
+		treeNode1_2.addListener(new TreeNodeListenerAdapter() {
 
 			public void onClick(Node Node, EventObject e) {
 				final DatePicker datePicker = new DatePicker();
@@ -547,10 +511,12 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		
 		Panel westPanel = new Panel();
 		westPanel.setTitle("导航栏");
+		westPanel.setId("westPanel");
 		westPanel.setIconCls("westPanel-icon");
 		westPanel.setCollapsible(true);
 		westPanel.setWidth(200);
 		westPanel.setLayout(accordion);
+		westPanel.setMaskDisabled(true);
 		
 		Panel navPanel1 = new Panel();
 
@@ -628,7 +594,7 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		//eastPanel_1.setPaddings(15);
 		eastPanel_1.setBodyBorder(true);
 		eastPanel_1.setTitle("用户登陆");
-		eastPanel_1.setHeight(160);
+		//eastPanel_1.setHeight(160);
 		eastPanel_1.setWidth(200);
 		
 		Panel eastPanel_2 = new Panel();
@@ -652,6 +618,7 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		LoginPanel loginPanel_1 = new LoginPanel();
 		
 		eastPanel_1.add(loginPanel_1);
+	//	eastPanel_1.add(formPanel_1);
 		
 		// ************************tip********************************
 		ToolTip tip1 = new ToolTip();
@@ -668,16 +635,16 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		centerPanel.setEnableTabScroll(true);
 		centerPanel.setDeferredRender(false);
 		centerPanel.setAutoShow(true);
-
+      
 		
 
 		Panel centerPanelTwo = new Panel();
-		centerPanelTwo.setVisible(true);
+		//centerPanelTwo.setVisible(true);
 		
 		centerPanelTwo.setTitle("Center Panel");
 		centerPanelTwo.setAutoScroll(true);
 		
-		centerPanelTwo.add(formPanel_1);
+		//centerPanelTwo.add(formPanel_1);
 //**************************************************************************
 		final CheckboxSelectionModel cbSelectionModel = new CheckboxSelectionModel();   
 		
@@ -779,7 +746,7 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		
 		//formPanel_1.add(bt);
 		centerPanelTwo.add(bt);
-		centerPanelTwo.add(formPanel_1);
+		//centerPanelTwo.add(formPanel_1);
 
 		centerPanel.add(grid);
 		centerPanel.add(centerPanelTwo);
@@ -797,6 +764,17 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 			}
 		});
 //***********************************************************
+		treeNode1_1.addListener(new TreeNodeListenerAdapter() {
+			public void onClick(Node Node, EventObject e) {
+				
+				EditorPanel editPanel = new EditorPanel();
+				editPanel.setVisible(true);
+			    centerPanel.activate(0);
+				centerPanel.add(editPanel);
+				centerPanel.doLayout(); 
+			}
+		});
+//****************************************************************		
 		HorizontalPanel horizontalPanel2 = new HorizontalPanel();
 		horizontalPanel2.setSpacing(15);
 		Panel windowPanel = new Panel();
@@ -844,7 +822,7 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		frm.add(txtUsername);
 		frm.add(txtPassword);
 		frm.add(txtEmail);
-
+        
 		Panel buttonPanel = new Panel();
 		buttonPanel.setLayout(new HorizontalLayout(10));
 
@@ -926,9 +904,8 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 				final ExtElement element = Ext.get("main-panel");
 				window.setVisible(true);
 
-				// window.addListener(listener);
                      element.mask();
-				// window.close();
+				
 
 			}
 
@@ -953,7 +930,11 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 	public Map getFormDataAsMap(Form form) {
 		// 用户名=rui&密码=rui
 		String formvalues = form.getValues();
-         
+        
+		MessageBox.alert(form.getValues()); 
+		//System.out.println(form.getValues());
+		System.out.println("\n");
+		
 		Map formData = new HashMap();
 
 		String[] nameValuePairs = formvalues.split("&");
@@ -961,10 +942,13 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 			String[] oneItem = nameValuePairs[i].split("=");
 
 			formData.put(oneItem[0], oneItem[1]);
+			//System.out.println(formData.get(oneItem[1]));
 		}
-
+          
 		return formData;
 	}
+	
+
 
 	public void onFailure(Throwable arg0) {
 		MessageBox.hide();
