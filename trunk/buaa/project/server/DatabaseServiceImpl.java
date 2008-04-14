@@ -33,71 +33,27 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements Databas
 		 
 		 conn.close();    
 	     stmt.close(); 
-	     System.out.println("connection close");
+	   //  System.out.println("connection close");
 	}
-	/* public void freeCon(Connection conn){    
-		    try{    
-		      if (conn!=null){    
-		        conn.close();  
-		        System.out.println("null connection");
-		      }    
-		    } catch (Exception e){    
-		      e.printStackTrace();    
-		    }    
-		  }    
 
-	 public void freeCon(Connection conn, PreparedStatement stmt){    
-		    try{    
-		      if (conn!=null||stmt!=null){    
-		        conn.close();    
-		        stmt.close();    
-		          
-		      }    
-		    } catch (Exception e){    
-		      e.printStackTrace();    
-		    }   
-		  }    */ 
-
-	public ResultSet getInfo(String id)throws Exception{
-		
+	public void login(String id_txtLoginname) throws Exception {
+	
 		Class.forName("com.mysql.jdbc.Driver");
 		String url ="jdbc:mysql://localhost:3306/test" ;
 		Connection conn= DriverManager.getConnection(url,"root","rui"); 
 		
-		String sql = "select email,password from test where id = '" +
-          id + "'";
+		String sql = "select * from test where id = '" +
+		id_txtLoginname + "'";
 		
-		 Statement stat = conn.createStatement();
-	     ResultSet rs = stat.executeQuery(sql);
-
-		return rs;
+		Statement stat = conn.createStatement();
+		ResultSet rs = stat.executeQuery(sql);
+		
+		 int i = 0;
+		while(rs.next()){
+			
+			i++;
+		}
+		
 	}
 
-	 public boolean validate(String id) {
-		    try {
-		    	
-		    Class.forName("com.mysql.jdbc.Driver");
-			String url ="jdbc:mysql://localhost:3306/test" ;
-			Connection conn= DriverManager.getConnection(url,"root","rui"); 
-		    String sql = "select * from test where id='" +
-		          id + "'";
-		      Statement stat = conn.createStatement();
-		      ResultSet rs = stat.executeQuery(sql);
-		      int i = 0;
-		      while (rs.next()) {
-		        i++;
-		      }
-
-		      if (i > 0) {
-		        return true;
-		      }
-		      else {
-		        return false;
-		      }
-		    }
-		    catch (Exception ex) {
-		      ex.printStackTrace();
-		      return false;
-		    }
-		  }
 }
