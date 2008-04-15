@@ -1,4 +1,4 @@
-package com.buaa.project.client;
+﻿package com.buaa.project.client;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +8,7 @@ import com.buaa.project.client.panel.FarenPanel;
 import com.buaa.project.client.panel.LoginPanel;
 import com.buaa.project.client.panel.PiechartPanel;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -48,6 +49,7 @@ import com.gwtext.client.widgets.WindowMgr;
 
 import com.gwtext.client.widgets.event.ButtonListener;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
+import com.gwtext.client.widgets.event.PanelListener;
 import com.gwtext.client.widgets.event.PanelListenerAdapter;
 import com.gwtext.client.widgets.event.TabPanelListenerAdapter;
 import com.gwtext.client.widgets.form.DateField;
@@ -89,6 +91,7 @@ import com.gwtext.client.widgets.layout.HorizontalLayout;
 
 import com.gwtext.client.widgets.tree.TreeNode;
 import com.gwtext.client.widgets.tree.TreePanel;
+import com.gwtext.client.widgets.tree.event.TreeNodeListener;
 import com.gwtext.client.widgets.tree.event.TreeNodeListenerAdapter;
 
 /**
@@ -318,6 +321,8 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		treeNode3_1_2.appendChild(treeNode3_1_2_1);
 		treeNode3_1_2_1.setIconCls("treeNode3_1_2_1-icon");
 
+        
+		
 		
 
 		final TreeNode treeNode3_1_2_2 = new TreeNode("科研仪器设备概况  ");
@@ -375,12 +380,15 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		treePanel4.setRootVisible(true);
 
 		TreeNode tr4 = new TreeNode("审核意见");
+		tr4.setExpanded(true);
 		treePanel4.setRootNode(tr4);
+		
 		tr4.setIconCls("treeNode1-icon");
 
 		final TreeNode treeNode4_1 = new TreeNode("查询审核意见 ");
 		treeNode4_1.setText("查询审核意见 ");
 		treeNode4_1.setIconCls("treeNode4_1-icon");
+		tr4.setExpanded(true);
 		tr4.appendChild(treeNode4_1);
 
 		// ****************************tree5**************************
@@ -393,7 +401,9 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		treePanel5.setRootVisible(true);
 
 		TreeNode tr5 = new TreeNode("数据采集");
+		tr5.setExpanded(true);
 		treePanel5.setRootNode(tr5);
+		
 		tr5.setIconCls("treeNode1-icon");
 
 		final TreeNode treeNode5_1 = new TreeNode("数据导入");
@@ -476,26 +486,24 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 				window_tn_3121.setWidth(800);
 				window_tn_3121.setHeight(600);
 				
-				final ExtElement element = Ext.get("main-panel");
+				final ExtElement  element = Ext.get("main-panel");
+				
 				element.mask();
 				
+				
+
 		        FarenPanel panel_tn_3121 = new FarenPanel();
                 
 				window_tn_3121.add(panel_tn_3121);
-				window_tn_3121.addListener(new PanelListenerAdapter() {
-					
-					
-					public void onClose(Panel panel){
-						
-					//	final ExtElement element = Ext.get("main-panel");
-					//	element.mask();
-						element.unmask();
-						// MessageBox.alert("Window is closing !!!");
-
-					}
-					
-				});
 				
+		window_tn_3121.addListener(new PanelListenerAdapter(){
+			
+			public void onClose(Panel panel){
+				
+				element.unmask();
+				
+			}
+		})	;	
 				window_tn_3121.show();
 
 				// MessageBox.alert("jessiena");
@@ -611,6 +619,7 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 		//eastPanel_1.setPaddings(15);
 		eastPanel_1.setBodyBorder(true);
 		eastPanel_1.setTitle("用户登陆");
+		eastPanel_1.setIconCls("eastPanel_1-icon");
 		//eastPanel_1.setHeight(160);
 		eastPanel_1.setWidth(200);
 		
@@ -726,6 +735,8 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 				  id_title  += record.getAsString("title");
 				
 				}
+				final ExtElement element = Ext.get("main-panel");
+				element.mask();
 				Window window_grid = new Window();
 				window_grid.setHeight(400);
 				window_grid.setWidth(600);
@@ -742,6 +753,14 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 						"这是核心关键；四是必须坚持开放服务，大力提高创新支撑和服务能力，这是最终目标。调研过程中也了解到当前平台建设的一些问题需要研究解决，如平台共享服务和技术创新服务中的知识产权问题、平台建设中的人才培养和稳定问题以及平台持续运行与长远发展问题等。 此次调研对于地方在面向企业的创新支撑平台建设方面所做的工作有了进一步的了解，对于地方科技管理部门和有关平台建设单位的想法和认识有了深入的体会，这些将为国家层面开展面向企业的创新支撑平台顶层设计和布局建设提供有益的支持和帮助。 ");
 				window_grid.add(news);
 				window_grid.show();
+				
+				window_grid.addListener(new PanelListenerAdapter(){
+					
+					public void onClose(Panel panel){
+						element.unmask();
+						
+					}
+				});
 				
 				//System.out.println(columnModel.getColumnHeader(title));
 				//System.out.println(columnModel.getColumnTooltip(title));
@@ -791,6 +810,21 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 				centerPanel.doLayout(); 
 			}
 		});
+//*************************************************************
+		treeNode3_1_2_1.addListener(new TreeNodeListenerAdapter(){
+			
+			public void onClick(Node node,EventObject e){
+				 FarenPanel win_treeNode_3121 = new FarenPanel();
+				 win_treeNode_3121.setClosable(true);
+				 win_treeNode_3121.setTitle("法人单位概况");
+				 win_treeNode_3121.setVisible(true);
+				 centerPanel.activate(0);
+				 centerPanel.add(win_treeNode_3121);
+				 centerPanel.doLayout();
+				
+			}
+		});
+       
 //****************************************************************		
 		HorizontalPanel horizontalPanel2 = new HorizontalPanel();
 		horizontalPanel2.setSpacing(15);
@@ -919,11 +953,20 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 			public void onClick(Button button, EventObject e) {
 
 				final ExtElement element = Ext.get("main-panel");
-				window.setVisible(true);
+				window.show();
 
                      element.mask();
 				
 
+			
+			
+			window.addListener(new PanelListenerAdapter(){
+				
+				public void onClose(Panel panel){
+					
+					element.unmask();
+				}
+			});
 			}
 
 		});
