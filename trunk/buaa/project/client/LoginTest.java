@@ -48,6 +48,7 @@ import com.gwtext.client.widgets.WindowMgr;
 
 import com.gwtext.client.widgets.event.ButtonListener;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
+import com.gwtext.client.widgets.event.PanelListenerAdapter;
 import com.gwtext.client.widgets.event.TabPanelListenerAdapter;
 import com.gwtext.client.widgets.form.DateField;
 import com.gwtext.client.widgets.form.Field;
@@ -475,10 +476,26 @@ public class LoginTest   implements EntryPoint,AsyncCallback {
 				window_tn_3121.setWidth(800);
 				window_tn_3121.setHeight(600);
 				
-
+				final ExtElement element = Ext.get("main-panel");
+				element.mask();
+				
 		        FarenPanel panel_tn_3121 = new FarenPanel();
                 
 				window_tn_3121.add(panel_tn_3121);
+				window_tn_3121.addListener(new PanelListenerAdapter() {
+					
+					
+					public void onClose(Panel panel){
+						
+					//	final ExtElement element = Ext.get("main-panel");
+					//	element.mask();
+						element.unmask();
+						// MessageBox.alert("Window is closing !!!");
+
+					}
+					
+				});
+				
 				window_tn_3121.show();
 
 				// MessageBox.alert("jessiena");
