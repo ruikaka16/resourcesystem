@@ -38,6 +38,7 @@ public class LoginPanel extends FormPanel implements AsyncCallback {
 	 	this.setFrame(true);
 		this.setWidth(200);
 		this.setLabelWidth(75);
+		this.setIconCls("loginPanel-icon");
 		
 		final ComboBox cb = new ComboBox();
 		
@@ -69,8 +70,9 @@ public class LoginPanel extends FormPanel implements AsyncCallback {
        
 		//System.out.println("1*******************");
 	
-		final Button login = new Button("登陆");
-		login.addListener(new ButtonListenerAdapter(){
+		final Button btLogin = new Button("登陆");
+		btLogin.setIconCls("btLogin-icon");
+		btLogin.addListener(new ButtonListenerAdapter(){
 			
 
 		//	final  AsyncCallback callback = this;
@@ -79,7 +81,7 @@ public class LoginPanel extends FormPanel implements AsyncCallback {
 			public void onClick(Button button,EventObject e){
 				
 				//	String id_txtLoginname = txtLoginname.getText();
-				
+			if(txtLoginname.isValid()){	
 				
 				DatabaseServiceAsync service = DatabaseService.Util
 				.getInstance();
@@ -88,6 +90,7 @@ public class LoginPanel extends FormPanel implements AsyncCallback {
 	        	service.login(id_txtLoginname, callback);
 			
 				System.out.println(id_txtLoginname);
+			}
 			}
 		});
 		
@@ -102,7 +105,7 @@ public class LoginPanel extends FormPanel implements AsyncCallback {
         		}
         	}
         });
-		this.addButton(login);
+		this.addButton(btLogin);
 		this.addButton(cancel);
 
 		

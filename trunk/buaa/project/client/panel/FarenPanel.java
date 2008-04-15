@@ -21,6 +21,7 @@ public class FarenPanel extends Panel{
 		this.setPaddings(15);
 		this.setHeight(400);
 		this.setLayout(new FitLayout());
+		//this.setTitle("法人单位概况");
 
 		final Panel wrapperPanel = new Panel();
 		wrapperPanel.setLayout(new RowLayout());
