@@ -485,3 +485,11 @@ a:visited {
 .grid-icon{
 	background-image: url( image/book_open.gif ) !important;
 }
+
+
+.eastPanel_1-icon{
+	background-image: url( image/vcard_edit.gif) !important;
+}
+.btLogin-icon{
+	background-image: url( image/connect.gif) !important;
+}
