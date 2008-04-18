@@ -56,10 +56,10 @@ public class PiechartPanel extends Panel {
         chart.setCategoryField("response");   
         
         chart.setExpressInstall("js/yui/assets/expressinstall.swf");   
-        chart.setWidth(500);   
+        chart.setWidth(550);   
         chart.setHeight(400);   
         
-        this.add(chart);
+        
        
       
         ColumnConfig responseConfig = new ColumnConfig("发送的发速度", "response", 100, true);   
@@ -99,6 +99,8 @@ public class PiechartPanel extends Panel {
                 chart.refresh();   
             }   
         });   
+        
+        this.add(chart);
         this.add(grid_1);
   
 	}
