@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.buaa.project.client.DatabaseService;
 import com.buaa.project.client.DatabaseServiceAsync;
+import com.buaa.project.client.LoginTest;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.SuggestOracle.Callback;
@@ -29,7 +30,7 @@ import com.gwtext.client.widgets.layout.VerticalLayout;
 
 public class LoginPanel extends FormPanel implements AsyncCallback {
 	
-	//protected static final AsyncCallback callback = null;
+	
 
 	public LoginPanel(){
 		
@@ -82,6 +83,7 @@ public class LoginPanel extends FormPanel implements AsyncCallback {
 				
 				//	String id_txtLoginname = txtLoginname.getText();
 			if(txtLoginname.isValid()){	
+				
 				
 				DatabaseServiceAsync service = DatabaseService.Util
 				.getInstance();
