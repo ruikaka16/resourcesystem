@@ -1,10 +1,10 @@
 package com.buaa.project.client;
 
 import java.util.Date;
+
 import java.util.HashMap;
 import java.util.Map;
-
-
+import com.buaa.project.client.panel.MainMapPanel;
 
 import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
@@ -128,8 +128,6 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		
 		Panel northPanel = new Panel();
 		northPanel.setHeight(56);
-		//northPanel.setLayout(new RowLayout());	
-		//northPanel.setLayout(new HorizontalLayout(1));
 		northPanel.setLayout(new VerticalLayout());
 		borderPanel.add(northPanel, new BorderLayoutData(RegionPosition.NORTH));
 
@@ -147,17 +145,24 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		psw.setPassword(true);
 		
 	 
+		
+		
 		Date date = new Date();
 	    String date1 = date.toString();
-	    String date2 = date.toGMTString();
+	   String date2 = date.toLocaleString();
+	  
+	    //String date2 = date.toGMTString();
 	    
 	 
 	    
 		
 	    System.out.println(date1);
 	    System.out.println(date2);
-		ToolbarButton btl = new ToolbarButton("登    陆");
+		ToolbarButton bt1 = new ToolbarButton("登    陆");
+		ToolbarButton bt2 = new ToolbarButton("忘记密码");
 	
+	
+		
 		
 		toolbar.addText("用户名");
 		toolbar.addField(name);
@@ -165,10 +170,12 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		toolbar.addText("密码");
 		toolbar.addField(psw);
 		toolbar.addSpacer();
-		toolbar.addButton(btl);
+		toolbar.addButton(bt1);
 		toolbar.addSpacer();
-		toolbar.addText(date1);
-		
+		toolbar.addButton(bt2);
+		toolbar.addSpacer();
+		toolbar.addText(date2);
+
 		toolbar.addSpacer();
 
 		
@@ -187,9 +194,9 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 	 //toolbar1.addText(a);
 	 
 	 northPanel1.add(toolbar1);
-	Panel northPanel2 = new Panel();
+	 Panel northPanel2 = new Panel();
 	//northPanel2.setBorder(false);	
-	northPanel2.add(toolbar);	
+	 northPanel2.add(toolbar);	
 		
 		
 		Hyperlink hy = new Hyperlink();
@@ -598,7 +605,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
     
 		
 		
-		Panel westPanel = new Panel();
+		final Panel westPanel = new Panel();
 		westPanel.setTitle("导航栏");
 		westPanel.setId("westPanel");
 		westPanel.setIconCls("westPanel-icon");
@@ -675,6 +682,8 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		westData.setMaxSize(400);
 		westData.setMargins(new Margins(0, 2, 0, 0));
 
+		//westPanel.getEl().mask("fdfs");
+		
 		borderPanel.add(westPanel, westData);
 //****************************************************************
 		Panel eastPanel = new Panel();
@@ -714,19 +723,28 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		//eastPanel_3.setHeight(185);
 		eastPanel_3.setWidth(200);
 		
+
 	
 		
-		MainMapPanel map = new MainMapPanel();
+		
+	
+		
+		//CreatMapPanel crea = CreatMapPanel.this;
+		
+
+	
+		
+		//MainMapPanel map = new MainMapPanel();
 
 		//map.createMapPanel();
 	//	map.addMapControls();
-		eastPanel_3.add(map);
+	//	eastPanel_3.add(map);
 	//	map.updateMap("Beijing", JavaScriptObjectHelper.createObject(), map);
 		
 		
 		
 		//CreatMapPanel crea = CreatMapPanel.this;
-		
+
 		eastPanel.add(eastPanel_1);
 		eastPanel.add(eastPanel_2);
 		eastPanel.add(eastPanel_3);
@@ -761,11 +779,16 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		centerPanelTwo.setAutoScroll(true);
 		
 		MainMapPanel map1 = new MainMapPanel();
-		map1.setTitle("map1");
+	
+		map1.setTitle("google");
+		map1.setVisible(true);
+	
+        map1.addMapControls();	
 		
-		//map1.updateMap("Beijing", JavaScriptObjectHelper.createObject(), map1);
 		
-		centerPanelTwo.add(map1);
+		centerPanelTwo.add(map1.mapPanel);
+		Viewport v = new Viewport(map1);
+		map1.updateMap("beijing", JavaScriptObjectHelper.createObject(), map1);
           		
 		
 //**************************************************************************
@@ -944,6 +967,14 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 				
 						}
 		});
+//******************************************************
+	bt1.addListener(new ButtonListenerAdapter(){
+			
+			public void onClick(Button button,EventObject e){
+				westPanel.getEl().unmask();
+			}
+		});
+//*******************************************************	
 		HorizontalPanel horizontalPanel2 = new HorizontalPanel();
 		horizontalPanel2.setSpacing(15);
 		Panel windowPanel = new Panel();
@@ -1102,6 +1133,8 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		panel.add(borderPanel);
 
 		Viewport viewPort = new Viewport(panel);
+		
+		westPanel.getEl().mask("请您先登陆！");
 
 	}
 
