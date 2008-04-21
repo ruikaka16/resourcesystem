@@ -79,7 +79,7 @@ public class LoginPanel extends FormPanel implements AsyncCallback {
 		//	final  AsyncCallback callback = this;
 		// 
 
-			public void onClick(Button button,EventObject e){
+	/*		public void onClick(Button button,EventObject e){
 				
 				//	String id_txtLoginname = txtLoginname.getText();
 			if(txtLoginname.isValid()){	
@@ -94,19 +94,20 @@ public class LoginPanel extends FormPanel implements AsyncCallback {
 				System.out.println(id_txtLoginname);
 			}
 			}
+		});*/
+		
 		});
-		
-		
+
 
 		
 		Button cancel = new Button("取消");
-        cancel.addListener(new ButtonListenerAdapter(){
+     /*   cancel.addListener(new ButtonListenerAdapter(){
         	public void onClick(Button button,EventObject e){
         		if(txtLoginname.getText().length()!=0){
         		txtLoginname.clearInvalid();
         		}
         	}
-        });
+        });*/
 		this.addButton(btLogin);
 		this.addButton(cancel);
 

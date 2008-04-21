@@ -402,7 +402,12 @@ a:visited {
 }
 
 .treeNode6-icon{
-	background-image: url( image/folder_database.gif ) !important;
+	background-image: url(image/folder_database.gif ) !important;
+}
+
+
+.treeNode6_1-icon{
+	background-image: url(image/chart_pie.gif) !important;
 }
 .treeNode7-icon{
 	background-image: url( image/folder_database.gif ) !important;
@@ -441,9 +446,6 @@ a:visited {
 }
 
 
-.treeNode6_1-icon{
-	background-image: url( image/chart_pie.gif ) !important;
-}
 
 
 .navPanel1-icon{
