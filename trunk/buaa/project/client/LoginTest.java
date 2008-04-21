@@ -8,6 +8,7 @@ import com.buaa.project.client.panel.MainMapPanel;
 
 import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
+import com.buaa.project.client.panel.Login;
 import com.buaa.project.client.panel.LoginPanel;
 import com.buaa.project.client.panel.MainMapPanel;
 //import com.buaa.project.client.panel.MainMapPanel;
@@ -22,6 +23,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Widget;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Ext;
 import com.gwtext.client.core.ExtElement;
@@ -131,7 +133,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		northPanel.setLayout(new VerticalLayout());
 		borderPanel.add(northPanel, new BorderLayoutData(RegionPosition.NORTH));
 
-	    Toolbar toolbar = new Toolbar();
+	    final Toolbar toolbar = new Toolbar();
 		toolbar.setWidth(1024);
 		//toolbar.setStyleName("ext-el-mask-msg");
 		
@@ -139,9 +141,9 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 	//	image.setUrl("image/logo.jpg");
 	//	image.setWidth("1024px");
 	//	northPanel.add(image);
-		TextField name = new TextField();
+		final TextField name = new TextField();
 		name.setValue("");
-		TextField psw = new TextField();
+		final TextField psw = new TextField();
 		psw.setPassword(true);
 		
 	 
@@ -150,6 +152,10 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		Date date = new Date();
 	    String date1 = date.toString();
 	   String date2 = date.toLocaleString();
+	   
+	   DateFieldDef time = new DateFieldDef("time", "n/j h:ia");
+	   
+	   String date3 = time.getName();
 	  
 	    //String date2 = date.toGMTString();
 	    
@@ -158,6 +164,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		
 	    System.out.println(date1);
 	    System.out.println(date2);
+	    System.out.println(date3);
 		ToolbarButton bt1 = new ToolbarButton("登    陆");
 		ToolbarButton bt2 = new ToolbarButton("忘记密码");
 	
@@ -592,8 +599,9 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		treePanel6.setRootVisible(true);
 
 		TreeNode tr6 = new TreeNode("进度管理");
-		treePanel6.setRootNode(tr6);
 		tr6.setIconCls("treeNode1-icon");
+		treePanel6.setRootNode(tr6);
+	    
 
 		final TreeNode treeNode6_1 = new TreeNode("进度浏览");
 		treeNode6_1.setText("进度浏览");
@@ -612,19 +620,6 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		westPanel.setCollapsible(true);
 		westPanel.setWidth(200);
 		westPanel.setLayout(accordion);
-		//westPanel.setMaskDisabled(true);
-		//westPanel.setEl(westPanel);
-		//String message = "请您先登陆";
-		//westPanel.setEl("fdfsfs");
-		//ExtElement element = Ext.get("fdfsfs");
-		//element.mask();
-		
-		
-		
-		
-		
-		
-		
 		
 		Panel navPanel1 = new Panel();
 		
@@ -724,22 +719,13 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		eastPanel_3.setWidth(200);
 		
 
-	
-		
-		
-	
-		
-		//CreatMapPanel crea = CreatMapPanel.this;
-		
 
-	
 		
-		//MainMapPanel map = new MainMapPanel();
+		MainMapPanel map = new MainMapPanel();
 
-		//map.createMapPanel();
-	//	map.addMapControls();
-	//	eastPanel_3.add(map);
-	//	map.updateMap("Beijing", JavaScriptObjectHelper.createObject(), map);
+		map.addMapControls();
+		eastPanel_3.add(map.mapPanel);
+		map.updateMap("Beijing", JavaScriptObjectHelper.createObject(), map);
 		
 		
 		
@@ -771,7 +757,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		centerPanel.setDeferredRender(false);
 		centerPanel.setAutoShow(true);
       
-		
+//*********************************************************		
 
 		Panel centerPanelTwo = new Panel();
 		
@@ -779,23 +765,26 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		centerPanelTwo.setAutoScroll(true);
 		
 		MainMapPanel map1 = new MainMapPanel();
+		   
+	       map1.addMapControls();  
+	       
+	    
+	       
+	       centerPanelTwo.add(map1.mapPanel);
+	       
+	       map1.updateMap("Beijing", JavaScriptObjectHelper.createObject(), map1);
+	       
+	      
 	
-		map1.setTitle("google");
-		map1.setVisible(true);
-	
-        map1.addMapControls();	
-		
-		
-		centerPanelTwo.add(map1.mapPanel);
-		Viewport v = new Viewport(map1);
-		map1.updateMap("beijing", JavaScriptObjectHelper.createObject(), map1);
+	      
           		
 		
 //**************************************************************************
 		final CheckboxSelectionModel cbSelectionModel = new CheckboxSelectionModel();   
 		
 		RecordDef recordDef = new RecordDef(new FieldDef[] {
-				new StringFieldDef("title"), new StringFieldDef("company"),
+				new StringFieldDef("title"),
+				new StringFieldDef("company"),
 				new DateFieldDef("time", "n/j h:ia"),
 
 		});
@@ -812,7 +801,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 				// column ID is company which is later used in
 				// setAutoExpandColumn
 				new ColumnConfig("文件标题", "title", 160, true, null, "title"),
-				new ColumnConfig("发布单位", "company", 35),
+				new ColumnConfig("发布单位", "company", 35,true,null,"company"),
 				new ColumnConfig("发布时间", "time", 65),
 				new ColumnConfig("选项", "select", 30),
 		// new ColumnConfig("% Change", "pctChange", 65),
@@ -914,6 +903,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 				PiechartPanel piePanel = new PiechartPanel();
 			
 				piePanel.setVisible(true);
+				piePanel.setClosable(true);
 			    centerPanel.activate(0);
 				centerPanel.add(piePanel);
 				centerPanel.doLayout();
@@ -951,13 +941,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		treeNode1_3.addListener(new TreeNodeListenerAdapter(){
 			public void onClick(Node node,EventObject e){
 				
-				MainMapPanel map1 = new MainMapPanel();
-				map1.setTitle("dsdssdsd");
-				map1.setVisible(true);
-			//	map1.createMapPanel();
-			//	map1.addMapControls();
-				centerPanel.add(map1);
-			//	map1.updateMap("Beijing", JavaScriptObjectHelper.createObject(), map1);
+			
 				
 				
 				
@@ -968,10 +952,27 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 						}
 		});
 //******************************************************
+
 	bt1.addListener(new ButtonListenerAdapter(){
 			
 			public void onClick(Button button,EventObject e){
+				
 				westPanel.getEl().unmask();
+				
+				name.setVisible(false);
+				psw.setVisible(false);
+				toolbar.addText("欢迎"+name.getText()+"访问");
+				
+				Window loginWin = new Window();
+				loginWin.setTitle("身份验证");
+				loginWin.setWidth(400);
+				
+				Login lg = new Login();
+				loginWin.add(lg);
+				
+				loginWin.show();				
+
+		//	loginService.login(username, password, callback)
 			}
 		});
 //*******************************************************	
@@ -979,7 +980,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		horizontalPanel2.setSpacing(15);
 		Panel windowPanel = new Panel();
 		// windowPanel.setHtml(getShortBogusMarkup());
-		windowPanel.setShadow(true);
+		
 
 		final Window window = new Window();
 		window.setTitle("用户信息");

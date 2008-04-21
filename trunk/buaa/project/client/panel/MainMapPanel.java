@@ -1,6 +1,5 @@
 package com.buaa.project.client.panel;
 
-
 import com.google.gwt.core.client.JavaScriptObject;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.util.JavaScriptObjectHelper;
@@ -17,30 +16,31 @@ import com.gwtext.client.widgets.map.Marker;
 
 
 
-
 public class MainMapPanel extends Panel{
-
-	MapPanel mapPanel; 
-	TextField addressField;
-	ToolbarButton refreshMapButton;
+		
+	public MapPanel mapPanel; 
+	public TextField addressField;
+	public ToolbarButton refreshMapButton;
 	
-	public void createMapPanel(){
+	public MainMapPanel(){
 		
 		mapPanel = new GoogleMap();
-		mapPanel.setWidth(200);
-		mapPanel.setHeight(200);
+		mapPanel.setTitle("Google Maps");
+		mapPanel.setWidth(400);
+		mapPanel.setHeight(400);
 		mapPanel.addLargeControls();
-		mapPanel.setTitle("Google Maps ");
 		
+		//LatLonPoint myPoint = new LatLonPoint(51.387745, -0.50914);
+		//mapPanel.setCenterAndZoom(myPoint, 14);
+
 	}
-	
-	public void addMapControls()
-	{
+
+	public void addLargeControls(){
 		
 		final MainMapPanel thisModule = this;
 		
 		addressField = new TextField();
-		addressField.setValue("Beijing");
+		addressField.setValue("Bei Jing");
 		refreshMapButton = new ToolbarButton("Refresh map", new ButtonListenerAdapter() {
 			public void onClick(Button button, EventObject e) {
 				String address = addressField.getText();
@@ -50,7 +50,6 @@ public class MainMapPanel extends Panel{
 		});
 		
 		Toolbar toolbar = new Toolbar();
-	//	toolbar.setWidth(200);
 		toolbar.addText("Enter an address: ");
 		toolbar.addField(addressField);
 		toolbar.addSpacer();
@@ -59,10 +58,31 @@ public class MainMapPanel extends Panel{
 		mapPanel.setTopToolbar(toolbar);
 	}
 	
-	
+	public void addMapControls()
+	{
+		final MainMapPanel thisModule = this;
+		
+		addressField = new TextField();
+		addressField.setValue("Bei Jing");
+		refreshMapButton = new ToolbarButton("Refresh map", new ButtonListenerAdapter() {
+			public void onClick(Button button, EventObject e) {
+				String address = addressField.getText();
+				if (!address.trim().equals(""))
+					updateMap(address, JavaScriptObjectHelper.createObject(), thisModule);
+			}
+		});
+		
+		Toolbar toolbar = new Toolbar();
+		toolbar.addText("Enter an address: ");
+		toolbar.addField(addressField);
+		toolbar.addSpacer();
+		toolbar.addButton(refreshMapButton);
+		
+		mapPanel.setTopToolbar(toolbar);
+	}
 	
 	public native void updateMap(String locationAddress, JavaScriptObject llp, MainMapPanel thisModule) /*-{
-	
+
 }-*/;
 
 

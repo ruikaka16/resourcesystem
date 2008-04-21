@@ -24,7 +24,7 @@ public interface DatabaseService extends RemoteService {
 	
 	public void saveData(Map formData)throws Exception;
 	
-	public void login(String txtLoginname)throws Exception;
+    public boolean login(String username,String password) throws Exception;
 	
 
 
