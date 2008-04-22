@@ -162,9 +162,9 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 	 
 	    
 		
-	    System.out.println(date1);
-	    System.out.println(date2);
-	    System.out.println(date3);
+	 //   System.out.println(date1);
+	 //   System.out.println(date2);
+	 //   System.out.println(date3);
 		ToolbarButton bt1 = new ToolbarButton("登    陆");
 		ToolbarButton bt2 = new ToolbarButton("忘记密码");
 	
@@ -721,11 +721,11 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 
 
 		
-		MainMapPanel map = new MainMapPanel();
+	//	MainMapPanel map = new MainMapPanel();
 
-		map.addMapControls();
-		eastPanel_3.add(map.mapPanel);
-		map.updateMap("Beijing", JavaScriptObjectHelper.createObject(), map);
+	//	map.addMapControls();
+	//	eastPanel_3.add(map.mapPanel);
+	//	map.updateMap("Beijing", JavaScriptObjectHelper.createObject(), map);
 		
 		
 		
@@ -766,13 +766,13 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		
 		MainMapPanel map1 = new MainMapPanel();
 		   
-	       map1.addMapControls();  
+	   //    map1.addMapControls();  
 	       
 	    
 	       
-	       centerPanelTwo.add(map1.mapPanel);
+	   //    centerPanelTwo.add(map1.mapPanel);
 	       
-	       map1.updateMap("Beijing", JavaScriptObjectHelper.createObject(), map1);
+	  //     map1.updateMap("Beijing", JavaScriptObjectHelper.createObject(), map1);
 	       
 	      
 	
@@ -967,8 +967,8 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 				loginWin.setTitle("身份验证");
 				loginWin.setWidth(400);
 				
-				Login lg = new Login();
-				loginWin.add(lg);
+				Login frm = new Login();
+				loginWin.add(frm);
 				
 				loginWin.show();				
 

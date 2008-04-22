@@ -3,6 +3,7 @@ package com.buaa.project.client.panel;
 
 import com.buaa.project.client.DatabaseService;
 import com.buaa.project.client.DatabaseServiceAsync;
+import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.widgets.Button;
@@ -11,7 +12,9 @@ import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.TextField;
 
-public class Login extends FormPanel{
+public class Login extends FormPanel implements AsyncCallback{
+	
+
 	
 	public Login(){
 		
@@ -26,6 +29,7 @@ public class Login extends FormPanel{
 		
 		Button btLogin = new Button("登陆");
 		
+		final AsyncCallback cb = this;
 		
 		btLogin.addListener(new ButtonListenerAdapter(){
 			
@@ -33,36 +37,34 @@ public class Login extends FormPanel{
 				
 				final DatabaseServiceAsync loginService =DatabaseService.Util.getInstance();
 				
-				   AsyncCallback cb = new AsyncCallback(){
+				String name = txtName.getText();
+				String psw = txtPsw.getText();
 				
-				  
+				loginService.login(name, psw, cb);	 
+					 MessageBox.wait("正在登陆");
+				}
 
-					public void onFailure(Throwable arg0) {
-						
-						MessageBox.alert("登陆失败");
-					}
-
-					public void onSuccess(Object rs) {
-						
-						Boolean bool = (Boolean) rs;
-						if(bool.booleanValue() == true){
-							
-							Login.this.hide();
-
-						}								
-					}				
-				  };
-					  
-				  System.out.println("test");
-				  loginService.login(txtName.getText(), txtPsw.getText(), cb);
 			
-			}
 			
 				
 			
 		});
         
 		this.add(btLogin);
+		
+	}
+
+	public void onFailure(Throwable arg0) {
+		MessageBox.hide();
+		System.out.println("login failer");
+		Login.this.hide();
+		MessageBox.alert("登陆失败");
+		
+	}
+
+	public void onSuccess(Object arg0) {
+		System.out.println("login sucess");
+		Login.this.hide();
 		
 	}
 

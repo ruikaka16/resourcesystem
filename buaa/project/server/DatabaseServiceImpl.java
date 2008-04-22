@@ -15,6 +15,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class DatabaseServiceImpl extends RemoteServiceServlet implements DatabaseService {
 
 	ResultSet rs = null;
+	ResultSet rs1 = null;
 	
 	Statement stmt = null;
 	
@@ -40,32 +41,35 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements Databas
 	   //  System.out.println("connection close");
 	}
 
-	public boolean login(String username, String password)throws Exception {
+	public  boolean login(String username, String password)throws Exception {
 	
-		System.out.println("ok");
+		
 		Class.forName("com.mysql.jdbc.Driver");
 		String url ="jdbc:mysql://localhost:3306/test" ;
 		Connection conn= DriverManager.getConnection(url,"root","rui");
 		
 		String sql ="select *  from test where id'"+ username  +"'and psw = '"+password+"'";
-		
-	
+		String sql1 = "select * from test ";
 		
 		stmt = conn.createStatement();
+		
+		
+		
 		rs = stmt.executeQuery(sql);
+		rs1 = stmt.executeQuery(sql1);
+	while(rs1.next()){
 		
-		if(rs.next()){
-			
-			System.out.println("ok");
-			return true;
-		}
+		System.out.println(rs1.getString(1));
 		
+	}
+		
+		
+		if(rs.next())
+		 return true;
 		else
-			System.out.println("not");
 			return false;
 
 	}
-
-	
-
 }
+
+
