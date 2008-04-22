@@ -8,8 +8,8 @@ public interface DatabaseServiceAsync {
 
 	public void saveData(Map formData, AsyncCallback callback);
 	
-    public void login(String username,String password, AsyncCallback callback);
+   
 	
-
+    public void login(String username,String password, AsyncCallback callback);
 
 }
