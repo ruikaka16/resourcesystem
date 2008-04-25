@@ -8,16 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
+import com.buaa.project.client.panel.Login;
 
 import com.buaa.project.client.DatabaseService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.gwtext.client.widgets.form.TextField;
 
 public class DatabaseServiceImpl extends RemoteServiceServlet implements DatabaseService {
 
-	ResultSet rs = null;
-	ResultSet rs1 = null;
-	
-	Statement stmt = null;
 	
 	public void saveData(Map formData) throws Exception {
 		
@@ -35,40 +33,36 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements Databas
 		ps.setString(3, URLDecoder.decode(formData.get("email").toString(),"UTF-8"));
 		 
 		ps.execute();
-		 
 		 conn.close();    
-	     stmt.close(); 
+	     ps.close(); 
 	   //  System.out.println("connection close");
 	}
 
 	public  boolean login(String username, String password)throws Exception {
 	
-		
+	//	public boolean login(Map formData)throws Exception{
+	
+		System.out.println(username);
 		Class.forName("com.mysql.jdbc.Driver");
 		String url ="jdbc:mysql://localhost:3306/test" ;
 		Connection conn= DriverManager.getConnection(url,"root","rui");
 		
-		String sql ="select *  from test where id'"+ username  +"'and psw = '"+password+"'";
-		String sql1 = "select * from test ";
+		String sql ="select *  from test where id='"+ username  +"'and psw = '"+password+"'";
+	
+		System.out.println(username);
 		
-		stmt = conn.createStatement();
-		
-		
-		
-		rs = stmt.executeQuery(sql);
-		rs1 = stmt.executeQuery(sql1);
-	while(rs1.next()){
-		
-		System.out.println(rs1.getString(1));
-		
-	}
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
 		
 		
+	
 		if(rs.next())
 		 return true;
 		else
-			return false;
+			return false; 
+	
 
+		
 	}
 }
 
