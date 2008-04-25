@@ -8,6 +8,7 @@ import com.buaa.project.client.panel.MainMapPanel;
 
 import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
+import com.buaa.project.client.panel.LargeDevice;
 import com.buaa.project.client.panel.Login;
 import com.buaa.project.client.panel.LoginPanel;
 import com.buaa.project.client.panel.MainMapPanel;
@@ -112,13 +113,14 @@ import com.gwtext.client.widgets.tree.event.TreeNodeListenerAdapter;
  */
 public class LoginTest implements EntryPoint,AsyncCallback {
 
-	
+	public Panel panel;
+	public Panel westPanel;
 	
 	public void onModuleLoad() {
 
 		
 		// Button btAdd = new Button();
-		Panel panel = new Panel();
+		panel = new Panel();
 		panel.setBorder(false);
 		panel.setPaddings(15);
 		panel.setLayout(new FitLayout());
@@ -130,61 +132,40 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		
 		Panel northPanel = new Panel();
 		northPanel.setHeight(56);
-		northPanel.setLayout(new VerticalLayout());
+		northPanel.setLayout(new HorizontalLayout(0));
 		borderPanel.add(northPanel, new BorderLayoutData(RegionPosition.NORTH));
 
 	    final Toolbar toolbar = new Toolbar();
-		toolbar.setWidth(1024);
-		//toolbar.setStyleName("ext-el-mask-msg");
+		toolbar.setWidth(224);
+		toolbar.setHeight(56);
+		toolbar.setStyleName("ext-el-mask-msg");
 		
-	//	Image image = new Image();
-	//	image.setUrl("image/logo.jpg");
-	//	image.setWidth("1024px");
-	//	northPanel.add(image);
-		final TextField name = new TextField();
-		name.setValue("");
-		final TextField psw = new TextField();
-		psw.setPassword(true);
+		Image image = new Image();
+		image.setUrl("image/title.jpg");
+		image.setWidth("800px");
+		northPanel.add(image);
 		
+
+
 	 
 		
 		
 		Date date = new Date();
 	    String date1 = date.toString();
-	   String date2 = date.toLocaleString();
-	   
-	   DateFieldDef time = new DateFieldDef("time", "n/j h:ia");
-	   
-	   String date3 = time.getName();
-	  
-	    //String date2 = date.toGMTString();
-	    
-	 
-	    
-		
-	 //   System.out.println(date1);
-	 //   System.out.println(date2);
-	 //   System.out.println(date3);
+
+
+
 		ToolbarButton bt1 = new ToolbarButton("登    陆");
-		ToolbarButton bt2 = new ToolbarButton("忘记密码");
-	
+	  //  bt1.setSize("100px", "30px");
 	
 		
-		
-		toolbar.addText("用户名");
-		toolbar.addField(name);
-		toolbar.addSpacer();
-		toolbar.addText("密码");
-		toolbar.addField(psw);
-		toolbar.addSpacer();
+
 		toolbar.addButton(bt1);
-		toolbar.addSpacer();
-		toolbar.addButton(bt2);
-		toolbar.addSpacer();
-		toolbar.addText(date2);
 
-		toolbar.addSpacer();
-
+	
+		
+        northPanel.add(toolbar);
+	
 		
 		
 		
@@ -200,10 +181,10 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 	 
 	 //toolbar1.addText(a);
 	 
-	 northPanel1.add(toolbar1);
+	 northPanel.add(toolbar1);
 	 Panel northPanel2 = new Panel();
 	//northPanel2.setBorder(false);	
-	 northPanel2.add(toolbar);	
+	// northPanel2.add(toolbar);	
 		
 		
 		Hyperlink hy = new Hyperlink();
@@ -211,8 +192,8 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		
 		//toolbar.addField(txtLoginname);
 		//toolbar.addSeparator();
-		northPanel.add(northPanel1);
-		northPanel.add(northPanel2);
+		//northPanel.add(northPanel1);
+		//northPanel.add(northPanel2);
 		
 		
 	//	LoginPanel loginPanel = new LoginPanel();
@@ -550,7 +531,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		treeNode5_3.setIconCls("treeNode5_3-icon");
 		tr5.appendChild(treeNode5_3);
 		
-		
+//********************************************************************		
 		treeNode5_2_2_1.addListener(new TreeNodeListenerAdapter() {
 
 			public void onClick(Node Node, EventObject e) {
@@ -588,8 +569,18 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 				// MessageBox.alert("jessiena");
 			}
 		});
-
-		// ********************************tree6*******************************
+//*****************************************************
+		treeNode5_2_2_3.addListener(new TreeNodeListenerAdapter(){
+			
+			public void onClick(Node node,EventObject e){
+				
+				LargeDevice largeDevice = new  LargeDevice();
+				largeDevice.setVisible(true);
+				largeDevice.show();	
+			}
+			
+		});
+// ********************************tree6*******************************
 		final TreePanel treePanel6 = new TreePanel();
 		treePanel6.setWidth(200);
 		treePanel6.setHeight(600);
@@ -613,13 +604,15 @@ public class LoginTest implements EntryPoint,AsyncCallback {
     
 		
 		
-		final Panel westPanel = new Panel();
+		westPanel = new Panel();
 		westPanel.setTitle("导航栏");
 		westPanel.setId("westPanel");
 		westPanel.setIconCls("westPanel-icon");
 		westPanel.setCollapsible(true);
 		westPanel.setWidth(200);
 		westPanel.setLayout(accordion);
+		
+		System.out.println(westPanel.getId());
 		
 		Panel navPanel1 = new Panel();
 		
@@ -684,7 +677,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		Panel eastPanel = new Panel();
 		//eastPanel.setTitle("导航栏");
 		eastPanel.setIconCls("eastPanel-icon");
-		//eastPanel.setCollapsible(true);
+		eastPanel.setCollapsible(true);
 		eastPanel.setBorder(false);
 		eastPanel.setWidth(200);
 		eastPanel.setLayout(new VerticalLayout());
@@ -705,12 +698,14 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		//eastPanel_1.setHeight(160);
 		eastPanel_1.setWidth(200);
 		
-		Panel eastPanel_2 = new Panel();
+		Panel eastPanel_2 = new HTMLPanel();
 		eastPanel_2.setPaddings(15);
 		eastPanel_2.setBodyBorder(true);
 		eastPanel_2.setTitle("相关链接");
 		eastPanel_2.setHeight(185);
 		eastPanel_2.setWidth(200);
+		
+		
 		
 		Panel eastPanel_3 = new Panel();
 		//eastPanel_3.setBodyBorder(true);
@@ -959,18 +954,18 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 				
 				westPanel.getEl().unmask();
 				
-				name.setVisible(false);
-				psw.setVisible(false);
-				toolbar.addText("欢迎"+name.getText()+"访问");
+			//panel.getEl().mask();
 				
-				Window loginWin = new Window();
-				loginWin.setTitle("身份验证");
-				loginWin.setWidth(400);
+			//	name.setVisible(false);
+			//	psw.setVisible(false);
+			//	toolbar.addText("欢迎"+name.getText()+"访问");
+		
 				
-				Login frm = new Login();
-				loginWin.add(frm);
+				Login loginWin = new Login();
 				
-				loginWin.show();				
+				loginWin.show();	
+				
+				
 
 		//	loginService.login(username, password, callback)
 			}

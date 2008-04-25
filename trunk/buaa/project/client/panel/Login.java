@@ -3,69 +3,148 @@ package com.buaa.project.client.panel;
 
 import com.buaa.project.client.DatabaseService;
 import com.buaa.project.client.DatabaseServiceAsync;
+import com.buaa.project.client.LoginTest;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Image;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.widgets.Button;
+import com.gwtext.client.widgets.Container;
 import com.gwtext.client.widgets.MessageBox;
+import com.gwtext.client.widgets.MessageBoxConfig;
+import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.Toolbar;
+import com.gwtext.client.widgets.ToolbarButton;
+import com.gwtext.client.widgets.WaitConfig;
+import com.gwtext.client.widgets.Window;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
+import com.gwtext.client.widgets.form.Form;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.TextField;
+import com.gwtext.client.widgets.layout.HorizontalLayout;
 
-public class Login extends FormPanel implements AsyncCallback{
-	
+public class Login extends Window {
 
+	public Toolbar toolbar;
+	TextField txtName;
+	TextField txtPsw;
+	LoginTest l = new LoginTest();
 	
-	public Login(){
+	public Login() {
+
+
 		
-		this.setBorder(true);
-		this.setFrame(true);
-		final TextField txtName = new TextField("用户名","username",100);
-		final TextField txtPsw = new TextField("密码","psw",100);
+		this.setTitle("身份验证");
+		this.setWidth(495);
+		this.setIconCls("eastPanel_1-icon");
+	
+		Image logo = new Image();
+		logo.setUrl("image/logo1.jpg");
+		logo.setVisible(true);
+	
+
+		toolbar = new Toolbar();
+		toolbar.setWidth(480);
+		
+
+	    txtName = new TextField();
+		txtName.setValue("");
+		
+		txtPsw = new TextField();
 		txtPsw.setPassword(true);
-		
-		this.add(txtName);
-		this.add(txtPsw);
-		
-		Button btLogin = new Button("登陆");
-		
-		final AsyncCallback cb = this;
-		
-		btLogin.addListener(new ButtonListenerAdapter(){
-			
-			public void onClick(final Button button, EventObject e){
-				
-				final DatabaseServiceAsync loginService =DatabaseService.Util.getInstance();
-				
-				String name = txtName.getText();
-				String psw = txtPsw.getText();
-				
-				loginService.login(name, psw, cb);	 
-					 MessageBox.wait("正在登陆");
-				}
 
-			
-			
-				
-			
-		});
+		ToolbarButton bt1 = new ToolbarButton("登    陆");
+		ToolbarButton bt2 = new ToolbarButton("忘记密码");
         
-		this.add(btLogin);
+		Image image = new Image();
+		image.setUrl("image/user.gif");
 		
-	}
+		
+		
+		toolbar.addText("用户名");
+		toolbar.addField(txtName);
+		toolbar.addSpacer();
+		
+		toolbar.addText("密码");
+		toolbar.addField(txtPsw);
+		toolbar.addSpacer();
+		toolbar.addButton(bt1);
+		toolbar.addSpacer();
+		toolbar.addButton(bt2);
+		toolbar.addSpacer();
+		
+		txtPsw.setPassword(true);
 
-	public void onFailure(Throwable arg0) {
-		MessageBox.hide();
-		System.out.println("login failer");
-		Login.this.hide();
-		MessageBox.alert("登陆失败");
-		
-	}
+		bt1.addListener(new ButtonListenerAdapter() {
 
-	public void onSuccess(Object arg0) {
-		System.out.println("login sucess");
-		Login.this.hide();
-		
+			public void onClick(final Button button, EventObject e) {
+
+				String username = txtName.getText();
+				String password = txtPsw.getText();
+				DatabaseServiceAsync loginService = DatabaseService.Util
+						.getInstance();
+
+				// MessageBox.wait("正在登陆");
+
+				MessageBox.show(new MessageBoxConfig() {
+					{
+						setMsg("正在登陆......");
+						setProgressText("登陆中...");
+						setWidth(300);
+						setWait(true);
+						setWaitConfig(new WaitConfig() {
+							{
+								setInterval(200);
+							}
+						});
+						setAnimEl(button.getId());
+
+						Timer timer = new Timer() {
+							public void run() {
+								MessageBox.hide();
+								System.out.println("欢迎您访问!");
+								
+							}
+						};
+						timer.schedule(100000);
+					}
+				});
+
+				AsyncCallback cb = new AsyncCallback() {
+
+					public void onFailure(Throwable arg0) {
+
+					}
+
+					public void onSuccess(Object result) {
+					
+						Boolean ok = (Boolean) result;
+
+						if (ok.booleanValue()) {
+							
+							MessageBox.alert("登陆成功!");
+							close();
+							System.out.println(l.westPanel.getId());
+							l.westPanel.getEl().unmask();
+							
+						} else {
+							MessageBox.alert("用户名或密码不正确!");
+						}
+
+					}
+
+				};
+
+				loginService.login(username, password, cb);
+			}
+
+		});
+
+	
+		this.add(logo);
+		this.add(toolbar);
+
 	}
 
 }
