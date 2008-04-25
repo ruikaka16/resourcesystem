@@ -5,6 +5,7 @@ import java.util.Map;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.gwtext.client.widgets.form.Validator;
 
 public interface DatabaseService extends RemoteService {
 
@@ -26,6 +27,7 @@ public interface DatabaseService extends RemoteService {
 	//客户端与服务器端的接口，可以是任何类型的数据
     public boolean login(String username,String password) throws Exception;
 	//public void login(Map formData)throws Exception;
+    public boolean validate(String username)throws Exception;
   
 
 }

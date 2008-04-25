@@ -16,6 +16,7 @@ import com.gwtext.client.widgets.MessageBoxConfig;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.Toolbar;
 import com.gwtext.client.widgets.ToolbarButton;
+import com.gwtext.client.widgets.ToolbarItem;
 import com.gwtext.client.widgets.WaitConfig;
 import com.gwtext.client.widgets.Window;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
@@ -56,6 +57,7 @@ public class Login extends Window {
 
 		ToolbarButton bt1 = new ToolbarButton("登    陆");
 		ToolbarButton bt2 = new ToolbarButton("忘记密码");
+		ToolbarButton bt3 = new ToolbarButton("验证");
         
 		Image image = new Image();
 		image.setUrl("image/user.gif");
@@ -63,16 +65,23 @@ public class Login extends Window {
 		
 		
 		toolbar.addText("用户名");
+		toolbar.addSpacer();
+		toolbar.addItem(new ToolbarItem(new Image("image/user.gif").getElement()));
+		toolbar.addSpacer();
 		toolbar.addField(txtName);
 		toolbar.addSpacer();
 		
 		toolbar.addText("密码");
+		toolbar.addSpacer();
+		toolbar.addItem(new ToolbarItem(new Image("image/mm.gif").getElement()));
+		toolbar.addSpacer();
 		toolbar.addField(txtPsw);
 		toolbar.addSpacer();
 		toolbar.addButton(bt1);
 		toolbar.addSpacer();
 		toolbar.addButton(bt2);
 		toolbar.addSpacer();
+		toolbar.addButton(bt3);
 		
 		txtPsw.setPassword(true);
 
@@ -84,6 +93,8 @@ public class Login extends Window {
 				String password = txtPsw.getText();
 				DatabaseServiceAsync loginService = DatabaseService.Util
 						.getInstance();
+				
+			
 
 				// MessageBox.wait("正在登陆");
 
@@ -111,7 +122,7 @@ public class Login extends Window {
 					}
 				});
 
-				AsyncCallback cb = new AsyncCallback() {
+				AsyncCallback cb_login = new AsyncCallback() {
 
 					public void onFailure(Throwable arg0) {
 
@@ -135,10 +146,50 @@ public class Login extends Window {
 					}
 
 				};
-
-				loginService.login(username, password, cb);
+				
+			
+				loginService.login(username, password, cb_login);
+				
 			}
+			
+			
 
+		});
+		
+		bt3.addListener(new ButtonListenerAdapter(){
+			
+			public void onClick(final Button button, EventObject e){
+				final String username = txtName.getText();
+				final DatabaseServiceAsync validatorService = DatabaseService.Util.getInstance();
+				
+				final AsyncCallback cb_validator = new AsyncCallback() {
+
+					public void onFailure(Throwable arg0) {
+						// TODO Auto-generated method stub
+						
+						
+					}
+
+					public void onSuccess(Object result) {
+						// TODO Auto-generated method stub
+						Boolean ok = (Boolean) result;
+
+						if (ok.booleanValue()) {
+							
+							MessageBox.alert("验证成功!");
+					
+						} else {
+							MessageBox.alert("该用户名不存在!");
+						}
+						
+					
+						
+					}
+					
+				};
+				validatorService.validate(username, cb_validator);
+			
+			}
 		});
 
 	
