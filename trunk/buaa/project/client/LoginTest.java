@@ -4,14 +4,14 @@ import java.util.Date;
 
 import java.util.HashMap;
 import java.util.Map;
-import com.buaa.project.client.panel.MainMapPanel;
+
 
 import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
 import com.buaa.project.client.panel.LargeDevice;
 import com.buaa.project.client.panel.Login;
 import com.buaa.project.client.panel.LoginPanel;
-import com.buaa.project.client.panel.MainMapPanel;
+
 //import com.buaa.project.client.panel.MainMapPanel;
 
 import com.buaa.project.client.panel.PiechartPanel;
@@ -536,25 +536,16 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 
 			public void onClick(Node Node, EventObject e) {
 
-				Window window_tn_3121 = new Window();
+				FarenPanel window_tn_3121 = new FarenPanel();
+				window_tn_3121.setVisible(true);
+				window_tn_3121.show();
 
-				window_tn_3121.setDraggable(true);
-				window_tn_3121.setTitle("法人单位概况");
-				window_tn_3121.setMaximizable(true);
-				window_tn_3121.setResizable(true);
-				window_tn_3121.setDraggable(true);
-				window_tn_3121.setWidth(800);
-				window_tn_3121.setHeight(600);
 				
 				final ExtElement  element = Ext.get("main-panel");
 				
 				element.mask();
-				
-			  FarenPanel panel_tn_3121 = new FarenPanel();
 
-		      //  FarenPanel panel_tn_3121 = new FarenPanel();
-                
-				window_tn_3121.add(panel_tn_3121);
+		
 				
 		window_tn_3121.addListener(new PanelListenerAdapter(){
 			
@@ -563,8 +554,8 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 				element.unmask();
 				
 			}
-		})	;	
-				window_tn_3121.show();
+		});	
+			
 
 				// MessageBox.alert("jessiena");
 			}
@@ -759,8 +750,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		centerPanelTwo.setTitle("Center Panel");
 		centerPanelTwo.setAutoScroll(true);
 		
-		MainMapPanel map1 = new MainMapPanel();
-		   
+		
 	   //    map1.addMapControls();  
 	       
 	    

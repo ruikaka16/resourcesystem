@@ -17,6 +17,8 @@ import com.gwtext.client.widgets.form.TextField;
 public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		DatabaseService {
 
+	private Object conn;
+
 	public void saveData(Map formData) throws Exception {
 
 		Class.forName("com.mysql.jdbc.Driver");
@@ -74,21 +76,50 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
 		int i = 0;
-		try {
-			while (rs.next()) {
+		
+			while (rs.next()) 
 
 				i++;
-				if (i > 0) {
+				if (i > 0) 
 					return true;
-				} else {
+				 else 
 					return false;
-				}
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return false;
-		}
+
 	
+	}
+
+	public void saveLargeDevice(Map formData) throws Exception {
+		// TODO Auto-generated method stub
+		Class.forName("com.mysql.jdbc.Driver");
+		String url = "jdbc:mysql://localhost:3306/test";
+		Connection conn = DriverManager.getConnection(url, "root", "rui");
+
+		
+		
+	}
+
+	public boolean addDevice(String name, String id) throws Exception {
+		// TODO Auto-generated method stub
+		Class.forName("com.mysql.jdbc.Driver");
+		String url = "jdbc:mysql://localhost:3306/test";
+		Connection conn = DriverManager.getConnection(url, "root", "rui");
+		
+		 String cmd = "insert into largedevice(name,id) values('" +name + "','" + id + "')";
+		 Statement stmt = conn.createStatement();
+	     stmt.executeUpdate(cmd);
+	     
+		return true;
+	}
+
+	public boolean addFaren(String name, String zhuguan, String address, String suozaiaddress, String xingzhi, String id, String id_1, String jigouid, String xzzgbm, String zipcode, String dwwz, String dwsx, String hymc, String xkmc) throws Exception {
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		String url = "jdbc:mysql://localhost:3306/test";
+		Connection conn = DriverManager.getConnection(url, "root", "rui");
+		String cmd = "insert into faren(name,zhuguan,address,suozaiaddress,xingzhi,id,id_1,jigouid,xzzgbm,zipcode, dwwz,dwsx,hymc,xkmc) values('" +name + "','" + zhuguan + "','" + address + "','" + suozaiaddress + "'," +
+				"'" + xingzhi + "','" + id + "','" + id_1 + "','" + jigouid + "','" + xzzgbm + "','" + zipcode + "','" + dwwz + "','" + dwsx + "','" + hymc + "','" + xkmc + "')";
+		 Statement stmt = conn.createStatement();
+	     stmt.executeUpdate(cmd);
 		return true;
 	}
 

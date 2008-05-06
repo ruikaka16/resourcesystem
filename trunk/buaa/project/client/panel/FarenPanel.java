@@ -1,7 +1,15 @@
 package com.buaa.project.client.panel;
 
+import com.buaa.project.client.DatabaseService;
+import com.buaa.project.client.DatabaseServiceAsync;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Position;
+import com.gwtext.client.widgets.Button;
+import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.Window;
+import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.layout.AnchorLayoutData;
@@ -12,20 +20,20 @@ import com.gwtext.client.widgets.layout.FormLayout;
 import com.gwtext.client.widgets.layout.RowLayout;
 import com.gwtext.client.widgets.layout.RowLayoutData;
 
-public class FarenPanel extends Panel{
+public class FarenPanel extends Window{
 	
 	public FarenPanel(){
 		
-	
+	    
 		this.setBorder(false);
 		this.setPaddings(15);
-		this.setHeight(400);
-		this.setLayout(new FitLayout());
+		this.setHeight(600);
+		this.setWidth(800);
+		this.setDraggable(true);
+		this.setLayout(new RowLayout());
 		//this.setTitle("法人单位概况");
 
-		final Panel wrapperPanel = new Panel();
-		wrapperPanel.setLayout(new RowLayout());
-		wrapperPanel.setBorder(true);
+		
 		// wrapperPanel.setBodyStyle("border-style:dotted;border-color:blue;");
 
 		FormPanel formPanel_tn_3121_1 = new FormPanel();
@@ -85,24 +93,34 @@ public class FarenPanel extends Panel{
 		Panel columnOnePanel_third = new Panel();
 		columnOnePanel_third.setLayout(new FormLayout());
 
-		firstColumn_first.add(new TextField("单位全称", "first"),
-				new AnchorLayoutData("80%"));
-		firstColumn_first.add(new TextField("上一级主管单位", "company"),
-				new AnchorLayoutData("80%"));
-		firstColumn_first.add(new TextField("单位通讯地址", "company"),
-				new AnchorLayoutData("80%"));
-		firstColumn_first.add(new TextField("所在单位地址", "company"),
-				new AnchorLayoutData("80%"));
-		firstColumn_first.add(new TextField("法人性质", "company"),
-				new AnchorLayoutData("80%"));
+		
+		
+		final TextField name = new TextField("单位全称", "name");
+		final TextField zhuguan = new TextField("上一级主管单位", "company");
+		final TextField address = new TextField("单位通讯地址", "address");
+		final TextField suozaiaddress = new TextField("所在单位地址", "suozaiaddress");
+		final TextField xingzhi = new TextField("法人性质", "xingzhi");
+		
+		firstColumn_first.add(name,new AnchorLayoutData("80%"));
+		firstColumn_first.add(zhuguan,new AnchorLayoutData("80%"));
+		firstColumn_first.add(address,new AnchorLayoutData("80%"));
+		firstColumn_first.add(suozaiaddress,new AnchorLayoutData("80%"));
+		firstColumn_first.add(xingzhi,new AnchorLayoutData("80%"));
+		
+		
 		firstPanel.add(firstColumn_first, new ColumnLayoutData(0.5));
-
-		firstColumn_sec.add(new TextField("序号", "first"),
-				new AnchorLayoutData("80%"));
+		
+		final TextField id = new TextField("序号", "id");
+		
+		
+		firstColumn_sec.add(id,new AnchorLayoutData("80%"));
+		
+	
 		secPanel.add(firstColumn_sec, new ColumnLayoutData(0.5));
-
-		firstColumn_third.add(new TextField("序号", "first"),
-				new AnchorLayoutData("80%"));
+		
+		final TextField id_1 = new TextField("序号", "id");
+		
+		firstColumn_third.add(id_1,new AnchorLayoutData("80%"));
 		thirdPanel.add(firstColumn_third, new ColumnLayoutData(0.5));
 
 		Panel secondColumn_first = new Panel();
@@ -117,24 +135,27 @@ public class FarenPanel extends Panel{
 		secondColumn_third.setLayout(new FormLayout());
 		secondColumn_third.setBorder(false);
 
-		secondColumn_first.add(new TextField("组织机构代码", "last"),
-				new AnchorLayoutData("80%"));
-		secondColumn_first.add(new TextField("行政主管部门", "email"),
-				new AnchorLayoutData("80%"));
-		secondColumn_first.add(new TextField("邮政编码", "email"),
-				new AnchorLayoutData("80%"));
-		secondColumn_first.add(new TextField("单位网址", "email"),
-				new AnchorLayoutData("80%"));
-		secondColumn_first.add(new TextField("单位属性", "email"),
-				new AnchorLayoutData("80%"));
+		
+		final TextField jigouid = new TextField("组织机构代码", "last");
+		final TextField xzzgbm = new TextField("行政主管部门", "xzzgbm");
+		final TextField zipcode = new TextField("邮政编码", "zipcode");
+		final TextField dwwz = new TextField("单位网址", "dwwz");
+		final TextField dwsx = new TextField("单位属性", "dwsx");
+		
+		secondColumn_first.add(jigouid,new AnchorLayoutData("80%"));
+		secondColumn_first.add(xzzgbm,new AnchorLayoutData("80%"));
+		secondColumn_first.add(zipcode,new AnchorLayoutData("80%"));
+		secondColumn_first.add(dwwz,new AnchorLayoutData("80%"));
+		secondColumn_first.add(dwsx,new AnchorLayoutData("80%"));
+		
 		firstPanel.add(secondColumn_first, new ColumnLayoutData(0.5));
 
-		secondColumn_sec.add(new TextField("行业名称", "last"),
-				new AnchorLayoutData("80%"));
+		final TextField hymc = new TextField("行业名称", "hymc");	
+		secondColumn_sec.add(hymc,new AnchorLayoutData("80%"));
+		
 		secPanel.add(secondColumn_sec, new ColumnLayoutData(0.5));
-
-		secondColumn_third.add(new TextField("学科名称", "last"),
-				new AnchorLayoutData("80%"));
+		final TextField xkmc = new TextField("学科名称", "xkmc");	
+		secondColumn_third.add(xkmc,new AnchorLayoutData("80%"));
 		thirdPanel.add(secondColumn_third, new ColumnLayoutData(0.5));
 
 		// add first panel as first column with 50% of the width
@@ -142,11 +163,47 @@ public class FarenPanel extends Panel{
 		formPanel_tn_3121_1.add(firstPanel);
 		formPanel_tn_3121_2.add(secPanel);
 		formPanel_tn_3121_3.add(thirdPanel);
-		wrapperPanel.add(formPanel_tn_3121_1, new RowLayoutData(160));
-		wrapperPanel.add(formPanel_tn_3121_2, new RowLayoutData(60));
-		wrapperPanel.add(formPanel_tn_3121_3, new RowLayoutData(60));
+		this.add(formPanel_tn_3121_1, new RowLayoutData(160));
+		this.add(formPanel_tn_3121_2, new RowLayoutData(60));
+		this.add(formPanel_tn_3121_3, new RowLayoutData(60));
 		
-		this.add(wrapperPanel);
+	
+		
+		Button save = new Button("save");
+		
+		save.addListener(new ButtonListenerAdapter(){
+			
+			public void onClick(Button button,EventObject e){
+				
+				  DatabaseServiceAsync service = DatabaseService.Util
+					.getInstance();
+				   
+				   AsyncCallback cb_addFaren = new AsyncCallback() {
+
+					public void onFailure(Throwable arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onSuccess(Object result) {
+						// TODO Auto-generated method stub
+						Boolean ok = (Boolean) result;
+						if (ok.booleanValue()) {
+							
+							MessageBox.alert("保存成功!");
+						}
+						else
+							MessageBox.alert("失败!");
+						
+					}
+					   
+				   };
+			   
+	               service.addFaren(name.getText(), zhuguan.getText(), address.getText(), suozaiaddress.getText(), xingzhi.getText(), id.getText(), id_1.getText(), jigouid.getText(), xzzgbm.getText(), zipcode.getText(), dwwz.getText(), dwsx.getText(), hymc.getText(), xkmc.getText(), cb_addFaren);
+			}
+		});
+		this.add(save);
 	}
+	
 
 }
