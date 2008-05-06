@@ -8,6 +8,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Image;
+import com.gwtext.client.core.EventCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Container;
@@ -51,6 +52,7 @@ public class Login extends Window {
 
 	    txtName = new TextField();
 		txtName.setValue("");
+		
 		
 		txtPsw = new TextField();
 		txtPsw.setPassword(true);
@@ -114,7 +116,7 @@ public class Login extends Window {
 						Timer timer = new Timer() {
 							public void run() {
 								MessageBox.hide();
-								System.out.println("欢迎您访问!");
+								
 								
 							}
 						};
@@ -191,7 +193,45 @@ public class Login extends Window {
 			
 			}
 		});
+        
+		
+		txtName.addKeyPressListener(new EventCallback(){
 
+			public void execute(EventObject e) {
+				// TODO Auto-generated method stub
+				final String username = txtName.getText();
+				final DatabaseServiceAsync validatorService = DatabaseService.Util.getInstance();
+				
+				final AsyncCallback cb_validator = new AsyncCallback() {
+
+					public void onFailure(Throwable arg0) {
+						// TODO Auto-generated method stub
+						
+						
+					}
+
+					public void onSuccess(Object result) {
+						
+						Boolean ok = (Boolean) result;
+
+						if (ok.booleanValue()) {
+							
+							MessageBox.alert("验证成功!");
+					
+						} else {
+							MessageBox.alert("该用户名不存在!");
+						}
+						
+					
+						
+					}
+					
+				};
+				validatorService.validate(username, cb_validator);
+				
+			}
+			
+		});
 	
 		this.add(logo);
 		this.add(toolbar);

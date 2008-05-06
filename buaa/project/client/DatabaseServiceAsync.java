@@ -13,5 +13,11 @@ public interface DatabaseServiceAsync {
 	//public void login(Map formData)throws Exception;
     public void validate(String username, AsyncCallback callback);
   
-
+    public void saveLargeDevice(Map formData, AsyncCallback callback);
+    
+    public void addDevice(String name, String id, AsyncCallback callback);
+  
+    public void addFaren(String name, String zhuguan,String address,String suozaiaddress
+    		,String xingzhi,String id,String id_1,String jigouid,String xzzgbm,String zipcode,String dwwz
+    		,String dwsx,String hymc,String xkmc, AsyncCallback callback);
 }

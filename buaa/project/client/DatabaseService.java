@@ -29,5 +29,11 @@ public interface DatabaseService extends RemoteService {
 	//public void login(Map formData)throws Exception;
     public boolean validate(String username)throws Exception;
   
-
+    public void saveLargeDevice(Map formData)throws Exception;
+    
+    public boolean addDevice(String name, String id)throws Exception;
+  
+    public boolean addFaren(String name, String zhuguan,String address,String suozaiaddress
+    		,String xingzhi,String id,String id_1,String jigouid,String xzzgbm,String zipcode,String dwwz
+    		,String dwsx,String hymc,String xkmc)throws Exception;
 }

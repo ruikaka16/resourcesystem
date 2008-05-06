@@ -28,7 +28,7 @@ import com.gwtext.client.widgets.layout.FitLayout;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
 import com.gwtext.client.widgets.layout.VerticalLayout;
 
-public class LargeDevice extends Window implements AsyncCallback{
+public class LargeDevice extends Window{
 	
    public  LargeDevice(){
 	
@@ -51,108 +51,63 @@ public class LargeDevice extends Window implements AsyncCallback{
 	   frm_largeDevice.setFrame(true);
 	  
 	   
-	   TextField name = new TextField("仪器名称","nameLarge",200);
-	   TextField id = new TextField("型号","idLarge",200);
-	   DateField time = new DateField("出生年月", "timeLarge",200);
+	   final TextField name = new TextField("仪器名称","nameLarge",200);
+	   final TextField id = new TextField("型号","idLarge",200);
+	  // DateField time = new DateField("出生年月", "timeLarge",200);
 
-		final AsyncCallback callback = this;
 	   
 	   Button save = new Button("保存");
 	   save.addListener(new ButtonListenerAdapter(){
 		  
 		   public void onClick(final Button button,EventObject e){
 			   
-			   if (frm_largeDevice.getForm().isValid()) {
+			   DatabaseServiceAsync service = DatabaseService.Util
+				.getInstance();
+			   
+			   AsyncCallback cb_adDevice = new AsyncCallback() {
 
-					DatabaseServiceAsync service = DatabaseService.Util
-							.getInstance();
-					Map formData = getFormDataAsMap(frm_largeDevice.getForm());
-
-					service.saveData(formData, callback);
-
-					MessageBox.show(new MessageBoxConfig() {
-						{
-							setMsg("正在保存, 请等待...");
-							setProgressText("保存中...");
-							setWidth(300);
-							setWait(true);
-							setWaitConfig(new WaitConfig() {
-								{
-									setInterval(200);
-								}
-							});
-							setAnimEl(button.getId());
-
-							Timer timer = new Timer() {
-								public void run() {
-									MessageBox.hide();
-									// System.out.println("Done, Your fake data
-									// was saved!");
-								}
-							};
-							timer.schedule(8000);
-						}
-					});
-				} else {
-
-					MessageBox.alert("输入有误", "请重新输入!");
+				public void onFailure(Throwable arg0) {
+					// TODO Auto-generated method stub
+					
 				}
 
+				public void onSuccess(Object result) {
+					// TODO Auto-generated method stub
+					Boolean ok = (Boolean) result;
+					if (ok.booleanValue()) {
+						
+						MessageBox.alert("保存成功!");
+						close();
+					}
+					else
+						MessageBox.alert("失败!");
+					
+				}
+				   
+			   };
+		   
+               service.addDevice(name.getText(), id.getText(), cb_adDevice);
 			}
 
 		});
-	   time.addListener(new TextFieldListenerAdapter() {
-			public void onEnable(Component component) {
-				datePicker.show();
-			}
-		});
+	//   time.addListener(new TextFieldListenerAdapter() {
+	//		public void onEnable(Component component) {
+	//			datePicker.show();
+	//		}
+	//	});
 	   
 	   
 	   
 	   frm_largeDevice.add(name);
 	   frm_largeDevice.add(id);
-	   frm_largeDevice.add(time);
+	//   frm_largeDevice.add(time);
 	   frm_largeDevice.add(save);
 	   
 	   this.add(frm_largeDevice);
 	   
 
-   }
    
-   public Map getFormDataAsMap(Form form) {
-		// 用户名=rui&密码=rui
-		String formvalues = form.getValues();
-       
-		MessageBox.alert(form.getValues()); 
-		//System.out.println(form.getValues());
-		System.out.println("\n");
-		
-		Map formData = new HashMap();
-
-		String[] nameValuePairs = formvalues.split("&");
-		for (int i = 0; i < nameValuePairs.length; ++i) {
-			String[] oneItem = nameValuePairs[i].split("=");
-
-			formData.put(oneItem[0], oneItem[1]);
-			//System.out.println(formData.get(oneItem[1]));
-		}
-         
-		return formData;
-	}
-
-public void onFailure(Throwable arg0) {
-	// TODO Auto-generated method stub
-	MessageBox.hide();
-	System.out.println(" data save failer!");
-	MessageBox.alert("保存失败");
-}
-
-public void onSuccess(Object arg0) {
-	// TODO Auto-generated method stub
-	MessageBox.hide();
-	System.out.println(" data  saved!");
-	MessageBox.alert("保存成功");
-}
-
-
+   
+  
+   }
 }
