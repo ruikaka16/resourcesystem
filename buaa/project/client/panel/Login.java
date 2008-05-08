@@ -21,9 +21,11 @@ import com.gwtext.client.widgets.ToolbarItem;
 import com.gwtext.client.widgets.WaitConfig;
 import com.gwtext.client.widgets.Window;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
+import com.gwtext.client.widgets.form.Field;
 import com.gwtext.client.widgets.form.Form;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.TextField;
+import com.gwtext.client.widgets.form.event.TextFieldListenerAdapter;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
 
 public class Login extends Window {
@@ -33,12 +35,14 @@ public class Login extends Window {
 	TextField txtPsw;
 	LoginTest l = new LoginTest();
 	
+	
+	
 	public Login() {
 
 
 		
 		this.setTitle("身份验证");
-		this.setWidth(495);
+		this.setWidth(480);
 		this.setIconCls("eastPanel_1-icon");
 	
 		Image logo = new Image();
@@ -59,7 +63,6 @@ public class Login extends Window {
 
 		ToolbarButton bt1 = new ToolbarButton("登    陆");
 		ToolbarButton bt2 = new ToolbarButton("忘记密码");
-		ToolbarButton bt3 = new ToolbarButton("验证");
         
 		Image image = new Image();
 		image.setUrl("image/user.gif");
@@ -83,7 +86,6 @@ public class Login extends Window {
 		toolbar.addSpacer();
 		toolbar.addButton(bt2);
 		toolbar.addSpacer();
-		toolbar.addButton(bt3);
 		
 		txtPsw.setPassword(true);
 
@@ -158,47 +160,10 @@ public class Login extends Window {
 
 		});
 		
-		bt3.addListener(new ButtonListenerAdapter(){
-			
-			public void onClick(final Button button, EventObject e){
-				final String username = txtName.getText();
-				final DatabaseServiceAsync validatorService = DatabaseService.Util.getInstance();
-				
-				final AsyncCallback cb_validator = new AsyncCallback() {
-
-					public void onFailure(Throwable arg0) {
-						// TODO Auto-generated method stub
-						
-						
-					}
-
-					public void onSuccess(Object result) {
-						// TODO Auto-generated method stub
-						Boolean ok = (Boolean) result;
-
-						if (ok.booleanValue()) {
-							
-							MessageBox.alert("验证成功!");
-					
-						} else {
-							MessageBox.alert("该用户名不存在!");
-						}
-						
-					
-						
-					}
-					
-				};
-				validatorService.validate(username, cb_validator);
-			
-			}
-		});
-        
 		
-		txtName.addKeyPressListener(new EventCallback(){
-
-			public void execute(EventObject e) {
-				// TODO Auto-generated method stub
+		
+		txtName.addListener (new TextFieldListenerAdapter () {
+			public void onChange (final Field field, final Object newVal, final Object oldVal) {
 				final String username = txtName.getText();
 				final DatabaseServiceAsync validatorService = DatabaseService.Util.getInstance();
 				
@@ -206,9 +171,8 @@ public class Login extends Window {
 
 					public void onFailure(Throwable arg0) {
 						// TODO Auto-generated method stub
-						
-						
-					}
+
+						}
 
 					public void onSuccess(Object result) {
 						
@@ -221,18 +185,15 @@ public class Login extends Window {
 						} else {
 							MessageBox.alert("该用户名不存在!");
 						}
-						
 					
-						
 					}
 					
 				};
 				validatorService.validate(username, cb_validator);
 				
-			}
 			
-		});
-	
+				}
+			});
 		this.add(logo);
 		this.add(toolbar);
 
