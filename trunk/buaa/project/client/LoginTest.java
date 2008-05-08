@@ -8,11 +8,10 @@ import java.util.Map;
 
 import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
+import com.buaa.project.client.panel.Fileupload;
 import com.buaa.project.client.panel.LargeDevice;
 import com.buaa.project.client.panel.Login;
-import com.buaa.project.client.panel.LoginPanel;
 
-//import com.buaa.project.client.panel.MainMapPanel;
 
 import com.buaa.project.client.panel.PiechartPanel;
 
@@ -66,6 +65,7 @@ import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.event.PanelListener;
 import com.gwtext.client.widgets.event.PanelListenerAdapter;
 import com.gwtext.client.widgets.event.TabPanelListenerAdapter;
+import com.gwtext.client.widgets.form.ComboBox;
 import com.gwtext.client.widgets.form.DateField;
 import com.gwtext.client.widgets.form.Field;
 import com.gwtext.client.widgets.form.Form;
@@ -536,28 +536,26 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 
 			public void onClick(Node Node, EventObject e) {
 
-				FarenPanel window_tn_3121 = new FarenPanel();
-				window_tn_3121.setVisible(true);
-				window_tn_3121.show();
+				FarenPanel faRen = new FarenPanel();
+				faRen.setVisible(true);
+				faRen.show();
 
 				
 				final ExtElement  element = Ext.get("main-panel");
 				
 				element.mask();
 
-		
+
 				
-		window_tn_3121.addListener(new PanelListenerAdapter(){
+		faRen.addListener(new PanelListenerAdapter(){
 			
-			public void onClose(Panel panel){
+		 	public void onClose(Panel panel){
 				
 				element.unmask();
 				
 			}
 		});	
-			
 
-				// MessageBox.alert("jessiena");
 			}
 		});
 //*****************************************************
@@ -568,8 +566,49 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 				LargeDevice largeDevice = new  LargeDevice();
 				largeDevice.setVisible(true);
 				largeDevice.show();	
+				
+				final ExtElement  element = Ext.get("main-panel");
+				
+				element.mask();
+
+		
+				
+				largeDevice.addListener(new PanelListenerAdapter(){
+			
+					public void onClose(Panel panel){
+				
+						element.unmask();
+				
+			}
+		});	
+
 			}
 			
+		});
+//********************************************************
+		treeNode5_1.addListener(new TreeNodeListenerAdapter(){
+			
+			public void onClick(Node node,EventObject e){
+				
+				Fileupload fileUpload = new Fileupload();
+				fileUpload.setVisible(true);
+				fileUpload.show();
+				
+				
+	final ExtElement  element = Ext.get("main-panel");
+				
+				element.mask();
+
+				fileUpload.addListener(new PanelListenerAdapter(){
+			
+					public void onClose(Panel panel){
+				
+						element.unmask();
+				
+			}
+		});	
+
+			}
 		});
 // ********************************tree6*******************************
 		final TreePanel treePanel6 = new TreePanel();
@@ -689,6 +728,116 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		//eastPanel_1.setHeight(160);
 		eastPanel_1.setWidth(200);
 		
+		FormPanel login = new FormPanel();
+		
+		login.setFrame(true);
+		login.setWidth(200);
+		login.setLabelWidth(75);
+		login.setIconCls("loginPanel-icon");
+		
+		final ComboBox cb = new ComboBox();
+		
+		cb.setForceSelection(true);
+		cb.setMinChars(1);
+		cb.setFieldLabel("用户类型");
+		//cb.setStore(store);
+		cb.setDisplayField("state");
+		cb.setMode(ComboBox.LOCAL);
+		cb.setTriggerAction(ComboBox.ALL);
+		cb.setEmptyText("选择类型");
+		cb.setLoadingText("Searching...");
+		cb.setTypeAhead(true);
+		cb.setSelectOnFocus(true);
+		cb.setWidth(100);
+		cb.setHideTrigger(false);
+		
+		login.add(cb);
+
+		final TextField txtLoginname = new TextField("用户名", "txtLoginname", 100);
+		txtLoginname.setAllowBlank(false);
+		login.add(txtLoginname);
+
+		final TextField txtLoginpsw = new TextField("密码", "txtLoginpsw", 100);
+		txtLoginpsw.setPassword(true);
+		login.add(txtLoginpsw);
+		
+
+	
+		final Button btLogin = new Button("登陆");
+		btLogin.setIconCls("btLogin-icon");
+		btLogin.addListener(new ButtonListenerAdapter(){
+			public void onClick(final Button button, EventObject e) {
+			String username = txtLoginname.getText();
+			String password = txtLoginpsw.getText();
+			DatabaseServiceAsync loginService = DatabaseService.Util
+					.getInstance();
+	
+
+			MessageBox.show(new MessageBoxConfig() {
+				{
+					setMsg("正在登陆......");
+					setProgressText("登陆中...");
+					setWidth(300);
+					setWait(true);
+					setWaitConfig(new WaitConfig() {
+						{
+							setInterval(200);
+						}
+					});
+					setAnimEl(button.getId());
+
+					Timer timer = new Timer() {
+						public void run() {
+							MessageBox.hide();
+							
+							
+						}
+					};
+					timer.schedule(100000);
+				}
+			});
+
+			AsyncCallback cb_login = new AsyncCallback() {
+
+				public void onFailure(Throwable arg0) {
+
+				}
+
+				public void onSuccess(Object result) {
+				
+					Boolean ok = (Boolean) result;
+
+					if (ok.booleanValue()) {
+						
+						MessageBox.alert("登陆成功!");
+						
+						westPanel.getEl().unmask();
+				
+						
+					} else {
+						MessageBox.alert("用户名或密码不正确!");
+					}
+
+				}
+
+			};
+			
+		
+			loginService.login(username, password, cb_login);
+			
+		}
+		
+		
+
+	});
+	
+		Button cancel = new Button("取消");
+    
+		login.addButton(btLogin);
+		login.addButton(cancel);
+
+		
+//******************************************************		
 		Panel eastPanel_2 = new HTMLPanel();
 		eastPanel_2.setPaddings(15);
 		eastPanel_2.setBodyBorder(true);
@@ -703,28 +852,16 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		eastPanel_3.setTitle("广告");
 		//eastPanel_3.setHeight(185);
 		eastPanel_3.setWidth(200);
-		
 
-
-		
-	//	MainMapPanel map = new MainMapPanel();
-
-	//	map.addMapControls();
-	//	eastPanel_3.add(map.mapPanel);
-	//	map.updateMap("Beijing", JavaScriptObjectHelper.createObject(), map);
-		
-		
-		
-		//CreatMapPanel crea = CreatMapPanel.this;
 
 		eastPanel.add(eastPanel_1);
 		eastPanel.add(eastPanel_2);
 		eastPanel.add(eastPanel_3);
 		
-		 LoginPanel loginPanel_1 = new LoginPanel();
+
 	  
 		
-		eastPanel_1.add(loginPanel_1);
+		eastPanel_1.add(login);
 	//	eastPanel_1.add(formPanel_1);
 		
 		// ************************tip********************************
@@ -736,8 +873,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		// panel********************************************
 
 		final TabPanel centerPanel = new TabPanel();
-		panel.setBorder(false);
-		panel.setPaddings(15);
+	
 		centerPanel.setActiveTab(0);
 		centerPanel.setEnableTabScroll(true);
 		centerPanel.setDeferredRender(false);
@@ -750,19 +886,19 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		centerPanelTwo.setTitle("Center Panel");
 		centerPanelTwo.setAutoScroll(true);
 		
+		FormPanel file = new FormPanel();
+		file.setFileUpload(true);
+
+		TextField f = new TextField("upload");
+		f.setInputType("file");
 		
-	   //    map1.addMapControls();  
-	       
-	    
-	       
-	   //    centerPanelTwo.add(map1.mapPanel);
-	       
-	  //     map1.updateMap("Beijing", JavaScriptObjectHelper.createObject(), map1);
-	       
-	      
-	
-	      
-          		
+		Button b = new Button("submit");
+		
+		file.add(f);
+		file.add(b);
+
+		centerPanelTwo.add(file);
+
 		
 //**************************************************************************
 		final CheckboxSelectionModel cbSelectionModel = new CheckboxSelectionModel();   
@@ -770,12 +906,12 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		RecordDef recordDef = new RecordDef(new FieldDef[] {
 				new StringFieldDef("title"),
 				new StringFieldDef("company"),
-				new DateFieldDef("time", "n/j h:ia"),
+				new DateFieldDef("time","n/j h:ia")
 
 		});
 
 		Object[][] data = getCompanyData();
-		MemoryProxy proxy = new MemoryProxy(data);
+		MemoryProxy proxy = new  MemoryProxy(data);
 
 		ArrayReader reader = new ArrayReader(recordDef);
 		Store store = new Store(proxy, reader);
@@ -787,7 +923,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 				// setAutoExpandColumn
 				new ColumnConfig("文件标题", "title", 160, true, null, "title"),
 				new ColumnConfig("发布单位", "company", 35,true,null,"company"),
-				new ColumnConfig("发布时间", "time", 65),
+				new ColumnConfig("发布时间", "time", 65,true,null),
 				new ColumnConfig("选项", "select", 30),
 		// new ColumnConfig("% Change", "pctChange", 65),
 		// new ColumnConfig("Last Updated", "lastChanged", 65),
@@ -1160,6 +1296,8 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		MessageBox.alert("保存成功");
 
 	}
+	
+	
 
 	private Object[][] getCompanyData() {
 		return new Object[][] {
