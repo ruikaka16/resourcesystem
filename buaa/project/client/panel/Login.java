@@ -12,6 +12,7 @@ import com.gwtext.client.core.EventCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Container;
+import com.gwtext.client.widgets.HTMLPanel;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.MessageBoxConfig;
 import com.gwtext.client.widgets.Panel;
@@ -67,14 +68,14 @@ public class Login extends Window {
 		Image image = new Image();
 		image.setUrl("image/user.gif");
 		
-		
-		
+			
 		toolbar.addText("用户名");
 		toolbar.addSpacer();
 		toolbar.addItem(new ToolbarItem(new Image("image/user.gif").getElement()));
 		toolbar.addSpacer();
 		toolbar.addField(txtName);
 		toolbar.addSpacer();
+		toolbar.addItem(new ToolbarItem(new Image("image/cross.gif").getElement()));
 		
 		toolbar.addText("密码");
 		toolbar.addSpacer();
@@ -86,6 +87,9 @@ public class Login extends Window {
 		toolbar.addSpacer();
 		toolbar.addButton(bt2);
 		toolbar.addSpacer();
+		
+		final HTMLPanel fd = new HTMLPanel("fdsfds");
+		
 		
 		txtPsw.setPassword(true);
 
@@ -141,7 +145,9 @@ public class Login extends Window {
 							MessageBox.alert("登陆成功!");
 							close();
 							System.out.println(l.westPanel.getId());
-							l.westPanel.getEl().unmask();
+							l.unMask();
+							
+							
 							
 						} else {
 							MessageBox.alert("用户名或密码不正确!");
@@ -164,6 +170,10 @@ public class Login extends Window {
 		
 		txtName.addListener (new TextFieldListenerAdapter () {
 			public void onChange (final Field field, final Object newVal, final Object oldVal) {
+				
+				
+				fd.setHtml("验证中……");
+				
 				final String username = txtName.getText();
 				final DatabaseServiceAsync validatorService = DatabaseService.Util.getInstance();
 				
@@ -180,6 +190,8 @@ public class Login extends Window {
 
 						if (ok.booleanValue()) {
 							
+							toolbar.addItem(new ToolbarItem(new Image("image/add.gif").getElement()));
+							fd.setHtml("验证成功");
 							MessageBox.alert("验证成功!");
 					
 						} else {
@@ -194,9 +206,16 @@ public class Login extends Window {
 			
 				}
 			});
+		
+		
 		this.add(logo);
 		this.add(toolbar);
+		this.add(fd);
 
+	
+		
+	
+		
 	}
 
 }

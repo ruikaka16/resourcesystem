@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+import com.buaa.project.client.panel.DataLoad;
 import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
 import com.buaa.project.client.panel.Fileupload;
@@ -636,7 +637,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		
 		westPanel = new Panel();
 		westPanel.setTitle("导航栏");
-		westPanel.setId("westPanel");
+		westPanel.setId("fdsfa");
 		westPanel.setIconCls("westPanel-icon");
 		westPanel.setCollapsible(true);
 		westPanel.setWidth(200);
@@ -720,15 +721,16 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		
 		borderPanel.add(eastPanel, eastData);
 		
-		Panel eastPanel_1 = new Panel();
+		final Panel eastPanel_1 = new Panel();
 		//eastPanel_1.setPaddings(15);
 		eastPanel_1.setBodyBorder(true);
 		eastPanel_1.setTitle("用户登陆");
+		eastPanel_1.setCollapsible(true);
 		eastPanel_1.setIconCls("eastPanel_1-icon");
 		//eastPanel_1.setHeight(160);
 		eastPanel_1.setWidth(200);
 		
-		FormPanel login = new FormPanel();
+		final FormPanel login = new FormPanel();
 		
 		login.setFrame(true);
 		login.setWidth(200);
@@ -812,7 +814,11 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 						MessageBox.alert("登陆成功!");
 						
 						westPanel.getEl().unmask();
+						
+						txtLoginname.setValue("");
 				
+						eastPanel_1.hide();
+						
 						
 					} else {
 						MessageBox.alert("用户名或密码不正确!");
@@ -840,8 +846,9 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 //******************************************************		
 		Panel eastPanel_2 = new HTMLPanel();
 		eastPanel_2.setPaddings(15);
-		eastPanel_2.setBodyBorder(true);
+		eastPanel_2.setBorder(true);
 		eastPanel_2.setTitle("相关链接");
+		eastPanel_2.setCollapsible(true);
 		eastPanel_2.setHeight(185);
 		eastPanel_2.setWidth(200);
 		
@@ -850,6 +857,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		Panel eastPanel_3 = new Panel();
 		//eastPanel_3.setBodyBorder(true);
 		eastPanel_3.setTitle("广告");
+		eastPanel_3.setCollapsible(true);
 		//eastPanel_3.setHeight(185);
 		eastPanel_3.setWidth(200);
 
@@ -885,23 +893,16 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		
 		centerPanelTwo.setTitle("Center Panel");
 		centerPanelTwo.setAutoScroll(true);
+		centerPanelTwo.setAutoShow(true);
 		
-		FormPanel file = new FormPanel();
-		file.setFileUpload(true);
 
-		TextField f = new TextField("upload");
-		f.setInputType("file");
-		
-		Button b = new Button("submit");
-		
-		file.add(f);
-		file.add(b);
-
-		centerPanelTwo.add(file);
+		DataLoad dataLoad = new DataLoad();
+		centerPanelTwo.add(dataLoad);
 
 		
 //**************************************************************************
 		final CheckboxSelectionModel cbSelectionModel = new CheckboxSelectionModel();   
+		
 		
 		RecordDef recordDef = new RecordDef(new FieldDef[] {
 				new StringFieldDef("title"),
@@ -925,9 +926,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 				new ColumnConfig("发布单位", "company", 35,true,null,"company"),
 				new ColumnConfig("发布时间", "time", 65,true,null),
 				new ColumnConfig("选项", "select", 30),
-		// new ColumnConfig("% Change", "pctChange", 65),
-		// new ColumnConfig("Last Updated", "lastChanged", 65),
-		// new ColumnConfig("Industry", "industry", 60, true)
+	
 		};
 
 		final ColumnModel columnModel = new ColumnModel(columns);
@@ -950,7 +949,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		grid.setView(view);
 
 		
-		grid.addGridCellListener(new GridCellListenerAdapter (){
+/*		grid.addGridCellListener(new GridCellListenerAdapter (){
 			
 			public void onCellClick(GridPanel grid, int rowIndex, int title, EventObject e){
 				
@@ -1000,7 +999,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 				//MessageBox.alert("jessiens");
 			}
 		});
-		
+	*/	
 		borderPanel.add(centerPanel,new BorderLayoutData(RegionPosition.CENTER));
 
 		Button bt = new Button("bt",new ButtonListenerAdapter(){
@@ -1010,10 +1009,6 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 			}
 		});
 		
-		//formPanel_1.add(bt);
-		
-		//centerPanelTwo.add(formPanel_1);
-
 		centerPanel.add(grid);
 		centerPanel.add(centerPanelTwo);
 //****************************************************************
@@ -1078,7 +1073,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 			
 			public void onClick(Button button,EventObject e){
 				
-				westPanel.getEl().unmask();
+				//westPanel.getEl().unmask();
 				
 			//panel.getEl().mask();
 				
@@ -1259,7 +1254,10 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		westPanel.getEl().mask("请您先登陆！");
 
 	}
-
+	public void unMask()
+	{
+		this.westPanel.getEl().unmask();
+	}
 	public Map getFormDataAsMap(Form form) {
 		// 用户名=rui&密码=rui
 		String formvalues = form.getValues();
