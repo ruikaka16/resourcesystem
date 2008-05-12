@@ -1,6 +1,7 @@
 package com.buaa.project.client;
 
 
+import java.util.Date;
 import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
@@ -41,7 +42,9 @@ public interface DatabaseService extends RemoteService {
    
     public boolean loadData(String name,String psw)throws Exception;
     
-    public String getdata()throws Exception;;
+    public String getdata()throws Exception;
+    
+    public boolean addNews(String NI_TITLE, String N_AUTHOR,String N_CONTENT)throws Exception;
     
 
 }

@@ -10,7 +10,7 @@ import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.form.ComboBox;   
 import com.gwtext.client.widgets.form.FormPanel;   
 import com.gwtext.client.widgets.form.event.ComboBoxListenerAdapter; 
-import com.gwtextux.client.widgets.ManagedIFramePanel;
+
 
 public class SearchPanel extends Panel{
 	
