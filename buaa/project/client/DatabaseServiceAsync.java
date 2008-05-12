@@ -1,7 +1,9 @@
 package com.buaa.project.client;
 
+
 import java.util.Map;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.gwtext.client.widgets.form.Validator;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -20,4 +22,10 @@ public interface DatabaseServiceAsync {
     public void addFaren(String name, String zhuguan,String address,String suozaiaddress
     		,String xingzhi,String id,String id_1,String jigouid,String xzzgbm,String zipcode,String dwwz
     		,String dwsx,String hymc,String xkmc, AsyncCallback callback);
+   
+    public void loadData(String name,String psw, AsyncCallback callback);
+    
+    public void getdata(AsyncCallback callback);;
+    
+
 }

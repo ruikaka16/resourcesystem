@@ -1,8 +1,10 @@
 package com.buaa.project.client;
 
+
 import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.gwtext.client.widgets.form.Validator;
@@ -36,4 +38,10 @@ public interface DatabaseService extends RemoteService {
     public boolean addFaren(String name, String zhuguan,String address,String suozaiaddress
     		,String xingzhi,String id,String id_1,String jigouid,String xzzgbm,String zipcode,String dwwz
     		,String dwsx,String hymc,String xkmc)throws Exception;
+   
+    public boolean loadData(String name,String psw)throws Exception;
+    
+    public String getdata()throws Exception;;
+    
+
 }
