@@ -12,7 +12,7 @@ import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.grid.ColumnConfig;
 import com.gwtext.client.widgets.grid.ColumnModel;
 import com.gwtext.client.widgets.grid.GridPanel;
-import com.gwtextux.client.widgets.ManagedIFramePanel;
+
 
 public class DataLoad extends Panel{
 	
@@ -23,6 +23,7 @@ public class DataLoad extends Panel{
         this.setBorder(false);   
         this.setPaddings(10);  
         this.setWidth(560);
+        this.setFrame(true);
         
 		HttpProxy dataProxy = new HttpProxy("data/countries.json");   
         final RecordDef recordDef = new RecordDef(new FieldDef[]{   

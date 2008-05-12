@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import java.sql.Statement;
+import java.util.Date;
 import java.util.Map;
 
 
@@ -144,7 +145,16 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	      return "i wanna go instantly to centerPanel";
 	   }
 
-
+	public boolean addNews(String N_TITLE, String N_AUTHOR, String N_CONTENT) throws Exception {
+		// TODO Auto-generated method stub
+		Class.forName("com.mysql.jdbc.Driver");
+		String url = "jdbc:mysql://localhost:3306/test";
+		Connection conn = DriverManager.getConnection(url, "root", "rui");
+		String cmd = "insert into news(N_TITLE,N_AUTHOR,N_CONTENT) values('" +N_TITLE + "','" +N_AUTHOR+ "','" +N_CONTENT+ "')";
+		Statement stmt = conn.createStatement();
+	     stmt.executeUpdate(cmd);
+		return true;
+	}
 
 
 }

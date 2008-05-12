@@ -11,7 +11,7 @@ import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
 import com.buaa.project.client.panel.Fileupload;
 import com.buaa.project.client.panel.LargeDevice;
-import com.buaa.project.client.panel.LoadDataPanel;
+
 import com.buaa.project.client.panel.Login;
 import com.buaa.project.client.panel.Test;
 
@@ -146,32 +146,14 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		Image image = new Image();
 		image.setUrl("image/title.jpg");
 		image.setWidth("800px");
-		northPanel.add(image);
-		
-
-
-	 
-		
-		
+		northPanel.add(image);	
 		Date date = new Date();
 	    String date1 = date.toString();
 
-
-
 		ToolbarButton bt1 = new ToolbarButton("登    陆");
-	  //  bt1.setSize("100px", "30px");
-	
-		
-
 		toolbar.addButton(bt1);
-
-	
-		
         northPanel.add(toolbar);
 	
-		
-		
-		
 	Panel northPanel1 = new HTMLPanel();
 	northPanel1.setBorder(false);
 	northPanel1.setHeight(25);
@@ -909,7 +891,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		centerPanelThree.setAutoShow(true);
 		
 		Test t = new Test();
-		LoadDataPanel ldp = new LoadDataPanel();
+	//	LoadDataPanel ldp = new LoadDataPanel();
 		//centerPanelThree.add(ldp);
 		centerPanelThree.add(t);
 		
