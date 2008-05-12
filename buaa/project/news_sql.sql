@@ -1,0 +1,9 @@
+
+CREATE TABLE  `test`.`news` (
+  `N_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `N_TITLE` varchar(45) NOT NULL,
+  `N_CONTENT` text NOT NULL,
+  `N_AUTHOR` varchar(45) NOT NULL DEFAULT '',
+  `N_TIME` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`N_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
