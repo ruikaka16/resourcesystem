@@ -12,6 +12,7 @@ import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.grid.ColumnConfig;
 import com.gwtext.client.widgets.grid.ColumnModel;
 import com.gwtext.client.widgets.grid.GridPanel;
+import com.gwtextux.client.widgets.ManagedIFramePanel;
 
 public class DataLoad extends Panel{
 	
@@ -20,8 +21,8 @@ public class DataLoad extends Panel{
 		
 
         this.setBorder(false);   
-        this.setPaddings(15);  
-        this.setWidth(800);
+        this.setPaddings(10);  
+        this.setWidth(560);
         
 		HttpProxy dataProxy = new HttpProxy("data/countries.json");   
         final RecordDef recordDef = new RecordDef(new FieldDef[]{   
@@ -38,8 +39,8 @@ public class DataLoad extends Panel{
         store.load();   
   
         ColumnModel columnModel = new ColumnModel(new ColumnConfig[]{   
-                new ColumnConfig("Abbreviation", "abbr", 100, true),   
-                new ColumnConfig("Country", "name", 75, true),   
+                new ColumnConfig("Abbreviation", "abbr", 100, true,null),   
+                new ColumnConfig("Country", "name", 75, true,null),   
                 new ColumnConfig("Area", "area", 75, true),   
                 new ColumnConfig("Population", "population", 75, true)   
         });   
@@ -47,13 +48,16 @@ public class DataLoad extends Panel{
         GridPanel grid = new GridPanel();   
         grid.setStore(store);   
         grid.setColumnModel(columnModel);   
-        grid.setWidth(545);   
+        grid.setWidth(550);   
         grid.setHeight(430);   
         grid.setTitle("Json Grid");   
         grid.setFrame(true);   
         grid.stripeRows(true);   
         grid.setIconCls("grid-icon");   
         this.add(grid);   
+        
+  
+
 
     }   
   

@@ -5,14 +5,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.sql.Statement;
 import java.util.Map;
-import com.buaa.project.client.panel.Login;
+
 
 import com.buaa.project.client.DatabaseService;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import com.gwtext.client.widgets.form.TextField;
+
 
 public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		DatabaseService {
@@ -122,5 +123,28 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	     stmt.executeUpdate(cmd);
 		return true;
 	}
+
+	public boolean loadData(String name, String  psw) throws Exception {
+		Class.forName("com.mysql.jdbc.Driver");
+		String url = "jdbc:mysql://localhost:3306/test";
+		Connection conn = DriverManager.getConnection(url, "root", "rui");
+		String cmd  = "select '"+ name+"'and '"+psw+"' from test";
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(cmd);
+		int i=0;
+	    while(rs.next())
+	    	i++;
+	    if (i > 0) 
+			return true;
+		 else 
+			return false;
+	}
+
+	public String getdata(){
+	      return "i wanna go instantly to centerPanel";
+	   }
+
+
+
 
 }

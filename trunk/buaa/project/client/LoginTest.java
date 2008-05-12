@@ -11,7 +11,9 @@ import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
 import com.buaa.project.client.panel.Fileupload;
 import com.buaa.project.client.panel.LargeDevice;
+import com.buaa.project.client.panel.LoadDataPanel;
 import com.buaa.project.client.panel.Login;
+import com.buaa.project.client.panel.Test;
 
 
 import com.buaa.project.client.panel.PiechartPanel;
@@ -891,14 +893,25 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 
 		Panel centerPanelTwo = new Panel();
 		
-		centerPanelTwo.setTitle("Center Panel");
+		centerPanelTwo.setTitle("Center Panel 2");
 		centerPanelTwo.setAutoScroll(true);
 		centerPanelTwo.setAutoShow(true);
 		
-
+		
 		DataLoad dataLoad = new DataLoad();
 		centerPanelTwo.add(dataLoad);
 
+//**********************************************************
+	Panel centerPanelThree = new Panel();
+		
+		centerPanelThree.setTitle("Center Panel 3");
+		centerPanelThree.setAutoScroll(true);
+		centerPanelThree.setAutoShow(true);
+		
+		Test t = new Test();
+		LoadDataPanel ldp = new LoadDataPanel();
+		//centerPanelThree.add(ldp);
+		centerPanelThree.add(t);
 		
 //**************************************************************************
 		final CheckboxSelectionModel cbSelectionModel = new CheckboxSelectionModel();   
@@ -1011,6 +1024,8 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		
 		centerPanel.add(grid);
 		centerPanel.add(centerPanelTwo);
+		centerPanel.add(centerPanelThree);
+		
 //****************************************************************
 		treeNode6_1.addListener(new TreeNodeListenerAdapter() {
 
