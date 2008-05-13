@@ -19,7 +19,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		DatabaseService {
 
-	private Object conn;
+
 
 	public void saveData(Map formData) throws Exception {
 
@@ -74,7 +74,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		Class.forName("com.mysql.jdbc.Driver");
 		String url = "jdbc:mysql://localhost:3306/test";
 		Connection conn = DriverManager.getConnection(url, "root", "rui");
-		String sql = "select *  from test where id='" + username + "'";
+		String sql = "select *  from user where id='" + username + "'";
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
 		int i = 0;
@@ -96,8 +96,6 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		String url = "jdbc:mysql://localhost:3306/test";
 		Connection conn = DriverManager.getConnection(url, "root", "rui");
 
-		
-		
 	}
 
 	public boolean addDevice(String name, String id) throws Exception {
