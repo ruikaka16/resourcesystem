@@ -17,6 +17,7 @@ import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.DateField;
 import com.gwtext.client.widgets.form.Field;
 import com.gwtext.client.widgets.form.FieldSet;
+import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.HtmlEditor;
 import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.form.event.TextFieldListenerAdapter;
@@ -35,7 +36,9 @@ public class EditorPanel extends Panel{
 		N_TITLE.setAllowBlank(false);
 		final TextField N_AUTHOR = new TextField("发布单位","N_AUTHOR",200);
 		N_AUTHOR.setAllowBlank(false);
-		final DateField N_TIME = new DateField("发布时间", "N_TIME",200);
+		
+		final DateField N_TIME = new DateField("发布时间","N_TIME",200);
+		N_TIME.setFormat("y.m.d");
 		final DatePicker datePicker = new DatePicker();
 		N_TIME.addListener(new TextFieldListenerAdapter() {
 					public void onEnable(Component component) {
@@ -63,8 +66,9 @@ public class EditorPanel extends Panel{
 			public void onClick(Button button,EventObject e){
 				final String N_CONTENT = Format.stripTags(htmlEditor.getRawValue());
 				//MessageBox.alert(N_CONTENT);
-				
-				 DatabaseServiceAsync service = DatabaseService.Util
+				System.out.println(N_TIME.getRawValue());
+				 
+				DatabaseServiceAsync service = DatabaseService.Util
 					.getInstance();
 				 
 				 AsyncCallback cb_addNews = new AsyncCallback() {
@@ -79,7 +83,10 @@ public class EditorPanel extends Panel{
 						if (ok.booleanValue()) {
 							
 							MessageBox.alert("保存成功!");
-							clear();
+							N_TITLE.setValue("");
+							N_AUTHOR.setValue("");
+							htmlEditor.setValue("");
+							N_TIME.setRawValue("");
 						}
 						else
 							MessageBox.alert("失败!");
@@ -88,13 +95,13 @@ public class EditorPanel extends Panel{
 										
 				 };
 			//	System.out.println(rawData);
-				 service.addNews(N_TITLE.getText(), N_AUTHOR.getText(),N_CONTENT,  cb_addNews);
+				 service.addNews(N_TITLE.getText(), N_AUTHOR.getText(),N_CONTENT, N_TIME.getRawValue(),cb_addNews);
 			}
 		});
 		
 		
 		this.add(fieldSet1);
 		this.add(htmlEditor);
-		this.add(bt);
+		this.addButton(bt);
 	}
 }

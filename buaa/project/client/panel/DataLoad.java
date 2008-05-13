@@ -1,6 +1,6 @@
 package com.buaa.project.client.panel;
 
-import com.google.gwt.user.client.ui.RootPanel;
+
 import com.gwtext.client.data.FieldDef;
 import com.gwtext.client.data.HttpProxy;
 import com.gwtext.client.data.IntegerFieldDef;

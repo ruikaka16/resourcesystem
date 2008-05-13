@@ -54,7 +54,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		String url = "jdbc:mysql://localhost:3306/test";
 		Connection conn = DriverManager.getConnection(url, "root", "rui");
 
-		String sql = "select *  from test where id='" + username
+		String sql = "select *  from user where id='" + username
 				+ "'and psw = '" + password + "'";
 
 		System.out.println(username);
@@ -145,16 +145,15 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	      return "i wanna go instantly to centerPanel";
 	   }
 
-	public boolean addNews(String N_TITLE, String N_AUTHOR, String N_CONTENT) throws Exception {
+	public boolean addNews(String N_TITLE, String N_AUTHOR, String N_CONTENT,String N_TIME) throws Exception {
 		// TODO Auto-generated method stub
 		Class.forName("com.mysql.jdbc.Driver");
 		String url = "jdbc:mysql://localhost:3306/test";
 		Connection conn = DriverManager.getConnection(url, "root", "rui");
-		String cmd = "insert into news(N_TITLE,N_AUTHOR,N_CONTENT) values('" +N_TITLE + "','" +N_AUTHOR+ "','" +N_CONTENT+ "')";
+		String cmd = "insert into news(N_TITLE,N_AUTHOR,N_CONTENT,N_TIME) values('" +N_TITLE + "','" +N_AUTHOR+ "','" +N_CONTENT+ "','" +N_TIME+ "')";
 		Statement stmt = conn.createStatement();
 	     stmt.executeUpdate(cmd);
 		return true;
 	}
-
 
 }
