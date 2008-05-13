@@ -40,7 +40,7 @@ public interface DatabaseService extends RemoteService {
     		,String xingzhi,String id,String id_1,String jigouid,String xzzgbm,String zipcode,String dwwz
     		,String dwsx,String hymc,String xkmc)throws Exception;
    
-    public boolean loadData(String name,String psw)throws Exception;
+    public boolean loadData(Integer id)throws Exception;
     
     public String getdata()throws Exception;
     
