@@ -123,11 +123,11 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		return true;
 	}
 
-	public boolean loadData(String name, String  psw) throws Exception {
+	public boolean loadData(Integer id) throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
 		String url = "jdbc:mysql://localhost:3306/test";
 		Connection conn = DriverManager.getConnection(url, "root", "rui");
-		String cmd  = "select '"+ name+"'and '"+psw+"' from test";
+		String cmd  = "select * from user where id = '"+ id+"'";
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(cmd);
 		int i=0;
@@ -154,4 +154,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		return true;
 	}
 
+
+
+	
 }

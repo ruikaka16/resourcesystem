@@ -11,6 +11,7 @@ import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
 import com.buaa.project.client.panel.Fileupload;
 import com.buaa.project.client.panel.LargeDevice;
+import com.buaa.project.client.panel.LoadDataPanel;
 
 import com.buaa.project.client.panel.Login;
 import com.buaa.project.client.panel.Test;
@@ -890,10 +891,10 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		centerPanelThree.setAutoScroll(true);
 		centerPanelThree.setAutoShow(true);
 		
-		Test t = new Test();
-	//	LoadDataPanel ldp = new LoadDataPanel();
-		//centerPanelThree.add(ldp);
-		centerPanelThree.add(t);
+		//Test t = new Test();
+		LoadDataPanel ldp = new LoadDataPanel();
+		centerPanelThree.add(ldp);
+		centerPanelThree.add(ldp);
 		
 //**************************************************************************
 		final CheckboxSelectionModel cbSelectionModel = new CheckboxSelectionModel();   

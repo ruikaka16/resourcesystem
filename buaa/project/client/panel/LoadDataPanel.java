@@ -9,6 +9,7 @@ import com.buaa.project.client.DatabaseService;
 import com.buaa.project.client.DatabaseServiceAsync;
 import com.buaa.project.client.data.BeanDTO;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.gwtext.client.data.ArrayReader;
 import com.gwtext.client.data.FieldDef;
 import com.gwtext.client.data.RecordDef;
 import com.gwtext.client.data.Store;
@@ -25,14 +26,15 @@ public class LoadDataPanel extends Panel{
 	public LoadDataPanel(){
 		  
 		
-		 this.setBorder(true);   
-		 this.setPaddings(15);  
-		 this.setWidth(300);
+		 this.setBorder(false);   
+		 this.setPaddings(10);  
+		 this.setWidth(545);
 		
 		  final Panel panel  = new Panel();
 		  panel.setBorder(false);   
-		  panel.setPaddings(15);  
-		  panel.setWidth(300);
+		 // panel.setPaddings(15);  
+		  panel.setWidth(555);
+		 
 	 	  
 	      final GridPanel grid = new GridPanel();
 	      
@@ -40,7 +42,7 @@ public class LoadDataPanel extends Panel{
 	      
 	      final RecordDef recordDef = new RecordDef(   
 	                new FieldDef[]{   
-	                        new StringFieldDef("name"),   
+	                        new StringFieldDef("id"),   
 	                        new StringFieldDef("psw")  
                       
 	                }   
@@ -48,7 +50,7 @@ public class LoadDataPanel extends Panel{
 
 	      
 	      final ColumnModel columnModel = new ColumnModel(new ColumnConfig[]{   
-	                new ColumnConfig("name", "name", 100, true),   
+	                new ColumnConfig("id", "id", 100, true),   
 	                new ColumnConfig("psw", "psw", 75, true)
 	                  
 	        });   
@@ -64,13 +66,16 @@ public class LoadDataPanel extends Panel{
 			}
 
 			public void onSuccess(Object response) {
-	         
-				 Store store = grid.getStore();
+				
+				ArrayReader reader = new ArrayReader(recordDef);   
+				
+				// Store store = grid.getStore();
+				Store store = new Store(reader);
 				 store.load();
-				 
+				 grid.setTitle("load test");
 				 grid.setStore(store);   
 			     grid.setColumnModel(columnModel);   
-			     grid.setWidth(545);   
+			     grid.setWidth(500);   
 			     grid.setHeight(430);
 			     grid.setFrame(true);   
 			     grid.stripeRows(true);   
@@ -89,7 +94,7 @@ public class LoadDataPanel extends Panel{
 			}
 	    	  
 	      };
-	      loadService.loadData(dto.name, dto.psw, cb_load);
+	      loadService.loadData(dto.id, cb_load);
 	      this.add(panel);
 	}
 	
