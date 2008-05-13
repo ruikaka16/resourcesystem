@@ -4,6 +4,7 @@ package com.buaa.project.client;
 import java.util.Date;
 import java.util.Map;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.gwtext.client.widgets.form.Validator;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -27,7 +28,7 @@ public interface DatabaseServiceAsync {
     
     public void getdata(AsyncCallback callback);
     
-    public void addNews(String NI_TITLE, String N_AUTHOR,String N_CONTENT, AsyncCallback callback);
+    public void addNews(String NI_TITLE, String N_AUTHOR,String N_CONTENT,String N_TIME, AsyncCallback callback);
     
 
 }

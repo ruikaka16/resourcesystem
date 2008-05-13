@@ -44,7 +44,7 @@ public interface DatabaseService extends RemoteService {
     
     public String getdata()throws Exception;
     
-    public boolean addNews(String NI_TITLE, String N_AUTHOR,String N_CONTENT)throws Exception;
+    public boolean addNews(String NI_TITLE, String N_AUTHOR,String N_CONTENT,String N_TIME)throws Exception;
     
 
 }
