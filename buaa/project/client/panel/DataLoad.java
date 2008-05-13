@@ -17,13 +17,11 @@ import com.gwtext.client.widgets.grid.GridPanel;
 public class DataLoad extends Panel{
 	
 	public DataLoad(){
-       
-		
 
         this.setBorder(false);   
         this.setPaddings(10);  
         this.setWidth(560);
-        this.setFrame(true);
+      
         
 		HttpProxy dataProxy = new HttpProxy("data/countries.json");   
         final RecordDef recordDef = new RecordDef(new FieldDef[]{   
@@ -56,9 +54,6 @@ public class DataLoad extends Panel{
         grid.stripeRows(true);   
         grid.setIconCls("grid-icon");   
         this.add(grid);   
-        
-  
-
 
     }   
   

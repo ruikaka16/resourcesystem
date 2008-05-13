@@ -28,7 +28,7 @@ public class PiechartPanel extends Panel {
 		this.setTitle("统计饼状图");
 		this.setAutoScroll(true);
 		this.setLayout(new VerticalLayout(5));
-		this.setPaddings(15); 
+		this.setPaddings(10); 
 		this.setClosable(true);
 		this.setAutoShow(true);
 		
@@ -56,7 +56,7 @@ public class PiechartPanel extends Panel {
         chart.setCategoryField("response");   
         
         chart.setExpressInstall("js/yui/assets/expressinstall.swf");   
-        chart.setWidth(550);   
+        chart.setWidth(540);   
         chart.setHeight(400);   
         
         
