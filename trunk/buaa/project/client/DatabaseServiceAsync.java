@@ -1,7 +1,10 @@
 package com.buaa.project.client;
 
 
+
 import java.util.Date;
+import java.util.List;
+
 import java.util.Map;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -24,7 +27,7 @@ public interface DatabaseServiceAsync {
     		,String xingzhi,String id,String id_1,String jigouid,String xzzgbm,String zipcode,String dwwz
     		,String dwsx,String hymc,String xkmc, AsyncCallback callback);
    
-    public void loadData(Integer id, AsyncCallback callback);
+    public void loadData(AsyncCallback callback);
     
     public void getdata(AsyncCallback callback);
     
