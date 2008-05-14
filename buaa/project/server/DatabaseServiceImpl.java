@@ -1,5 +1,6 @@
 package com.buaa.project.server;
 
+
 import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import java.util.Map;
 
 
@@ -123,11 +129,11 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		return true;
 	}
 
-	public boolean loadData(Integer id) throws Exception {
+	public boolean loadData() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
 		String url = "jdbc:mysql://localhost:3306/test";
 		Connection conn = DriverManager.getConnection(url, "root", "rui");
-		String cmd  = "select * from user where id = '"+ id+"'";
+		String cmd  = "select * from user ";
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(cmd);
 		int i=0;
@@ -139,8 +145,32 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 			return false;
 	}
 
-	public String getdata(){
-	      return "i wanna go instantly to centerPanel";
+	public List getdata(){
+		try {
+		Class.forName("com.mysql.jdbc.Driver");
+		String url = "jdbc:mysql://localhost:3306/test";
+		Connection conn = DriverManager.getConnection(url, "root", "rui");
+		String cmd  = "select * from user ";
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(cmd);
+	  //  return "fsdfsfsaffafdsa";
+		int i = 0;
+		List userInfo = new ArrayList(); 
+		while(rs.next()){
+			
+			userInfo.add(rs.getString("id"));
+			userInfo.add(rs.getString("psw"));
+			i++;
+		}
+		//System.out.println(userInfo);
+		return userInfo;
+		
+
+	}
+		catch (Exception ex) {
+		      ex.printStackTrace();
+		    }
+		return null;
 	   }
 
 	public boolean addNews(String N_TITLE, String N_AUTHOR, String N_CONTENT,String N_TIME) throws Exception {
@@ -153,6 +183,8 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	     stmt.executeUpdate(cmd);
 		return true;
 	}
+
+	
 
 
 

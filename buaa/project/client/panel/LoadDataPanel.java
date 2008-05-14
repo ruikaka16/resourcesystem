@@ -8,9 +8,11 @@ import java.util.List;
 import com.buaa.project.client.DatabaseService;
 import com.buaa.project.client.DatabaseServiceAsync;
 import com.buaa.project.client.data.BeanDTO;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.gwtext.client.data.ArrayReader;
 import com.gwtext.client.data.FieldDef;
+import com.gwtext.client.data.MemoryProxy;
 import com.gwtext.client.data.RecordDef;
 import com.gwtext.client.data.Store;
 import com.gwtext.client.data.StringFieldDef;
@@ -32,13 +34,11 @@ public class LoadDataPanel extends Panel{
 		
 		  final Panel panel  = new Panel();
 		  panel.setBorder(false);   
-		 // panel.setPaddings(15);  
 		  panel.setWidth(555);
 		 
 	 	  
 	      final GridPanel grid = new GridPanel();
-	      
-	      BeanDTO dto = new BeanDTO();
+	     
 	      
 	      final RecordDef recordDef = new RecordDef(   
 	                new FieldDef[]{   
@@ -60,21 +60,24 @@ public class LoadDataPanel extends Panel{
 	      
 	      AsyncCallback cb_load = new AsyncCallback() {
 
-			public void onFailure(Throwable arg0) {
+			public void onFailure(Throwable caught) {
 				// TODO Auto-generated method stub
-				
+				Window.alert("Fail to getting data"+caught.toString());
 			}
 
 			public void onSuccess(Object response) {
 				
 				ArrayReader reader = new ArrayReader(recordDef);   
 				
-				// Store store = grid.getStore();
-				Store store = new Store(reader);
+				
+				 //Store store = grid.getStore();
+				 Store store = new Store(reader);
 				 store.load();
+				 grid.setStore(store);
+				 
+				 
 				 grid.setTitle("load test");
-				 grid.setStore(store);   
-			     grid.setColumnModel(columnModel);   
+				 grid.setColumnModel(columnModel);   
 			     grid.setWidth(500);   
 			     grid.setHeight(430);
 			     grid.setFrame(true);   
@@ -85,16 +88,20 @@ public class LoadDataPanel extends Panel{
 		         }
 
 		         List data = (List)response;
+		         
 		         for (Iterator it = data.iterator(); it.hasNext();) {
-		                BeanDTO bean = (BeanDTO)it.next();
-		                // recordDef is the record definition
+		                BeanDTO bean = (BeanDTO)it.next();     
+		                String str = (bean).toString();
+		                System.out.println(str);
 		                store.add(recordDef.createRecord(bean.toObjectArray()));
+		                
 		         }
+		         
 		         store.commitChanges();
 			}
 	    	  
 	      };
-	      loadService.loadData(dto.id, cb_load);
+	      loadService.getdata(cb_load);
 	      this.add(panel);
 	}
 	
