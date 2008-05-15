@@ -18,6 +18,7 @@ import java.util.Map;
 
 
 import com.buaa.project.client.DatabaseService;
+import com.buaa.project.client.data.BeanDTO;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -150,19 +151,24 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		Class.forName("com.mysql.jdbc.Driver");
 		String url = "jdbc:mysql://localhost:3306/test";
 		Connection conn = DriverManager.getConnection(url, "root", "rui");
-		String cmd  = "select * from user ";
+		String cmd  = "select * from news ";
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(cmd);
 	  //  return "fsdfsfsaffafdsa";
-		int i = 0;
+		
+		
 		List userInfo = new ArrayList(); 
 		while(rs.next()){
+			BeanDTO bean  = new BeanDTO();
+			bean.setN_ID(rs.getString("N_ID"));
+			bean.setN_TITLE(rs.getString("N_TITLE"));
+			bean.setN_AUTHOR(rs.getString("N_AUTHOR"));
+			bean.setN_TIME(rs.getString("N_TIME"));
+			userInfo.add(bean);
 			
-			userInfo.add(rs.getString("id"));
-			userInfo.add(rs.getString("psw"));
-			i++;
 		}
-		//System.out.println(userInfo);
+	
+		System.out.println(userInfo);
 		return userInfo;
 		
 
