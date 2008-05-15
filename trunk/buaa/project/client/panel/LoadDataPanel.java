@@ -11,11 +11,13 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.data.ArrayReader;
 import com.gwtext.client.data.FieldDef;
-import com.gwtext.client.data.MemoryProxy;
+
+import com.gwtext.client.data.Record;
 import com.gwtext.client.data.RecordDef;
 import com.gwtext.client.data.Store;
 import com.gwtext.client.data.StringFieldDef;
 import com.gwtext.client.widgets.Button;
+import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.Toolbar;
 import com.gwtext.client.widgets.ToolbarButton;
@@ -23,6 +25,7 @@ import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.grid.ColumnConfig;
 import com.gwtext.client.widgets.grid.ColumnModel;
 import com.gwtext.client.widgets.grid.GridPanel;
+import com.gwtext.client.widgets.grid.event.GridCellListenerAdapter;
 
 public class LoadDataPanel extends Panel {
 
@@ -54,9 +57,9 @@ public class LoadDataPanel extends Panel {
 
 		final ColumnModel columnModel = new ColumnModel(new ColumnConfig[] {
 				new ColumnConfig("序号", "N_ID", 50, true),
-				new ColumnConfig("新闻标题", "N_TITLE", 200, true),
-				new ColumnConfig("发布单位", "N_AUTHOR", 150, true),
-				new ColumnConfig("发布时间", "N_TIME", 120, true)
+				new ColumnConfig("新闻标题", "N_TITLE", 330, true),
+				new ColumnConfig("发布单位", "N_AUTHOR", 100, true),
+				new ColumnConfig("发布时间", "N_TIME", 76, true)
 
 		});
 
@@ -92,7 +95,8 @@ public class LoadDataPanel extends Panel {
 				Iterator it = data.iterator();
 				while (it.hasNext()) {
 					
-					BeanDTO bean = (BeanDTO) it.next();
+					final BeanDTO bean = (BeanDTO) it.next();
+					//System.out.println(bean.getN_TITLE()+"****");
 					store.add(recordDef.createRecord(bean.toObjectArray()));
 
 				}
@@ -106,6 +110,48 @@ public class LoadDataPanel extends Panel {
 
 		};
 		loadService.getdata(cb_load);
+		
+		grid.addGridCellListener(new GridCellListenerAdapter (){
+			public void onCellClick(GridPanel grid, int rowIndex, int title, EventObject e){
+				
+				Record[] records = grid.getSelectionModel().getSelections();  
+				String news_title = "";
+				for(int i=0;i<records.length;++i)
+				{
+					Record record = records[i];   
+				
+					news_title  += record.getAsString("N_ID");
+				
+				}
+				//System.out.println(records);
+				//MessageBox.alert(news_title);
+				
+				DatabaseServiceAsync getNewsContentService = DatabaseService.Util.getInstance();
+				AsyncCallback cb_getNewsContent = new AsyncCallback() {
+
+					
+					public void onFailure(Throwable arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onSuccess(Object result) {
+						// TODO Auto-generated method stub
+					
+						System.out.println(result);
+						MessageBox.alert(result.toString());
+						
+						
+						
+					}
+					
+				};
+				
+				getNewsContentService.getNewsContent(news_title,cb_getNewsContent);
+
+			
+			}
+		});
 
 		
 	refreshBt.addListener(new ButtonListenerAdapter(){
