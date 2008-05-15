@@ -168,7 +168,6 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 			
 		}
 	
-		System.out.println(userInfo);
 		return userInfo;
 		
 
@@ -190,9 +189,40 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		return true;
 	}
 
+	public String getNewsContent(String N_ID) throws Exception {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://localhost:3306/test";
+			Connection conn = DriverManager.getConnection(url, "root", "rui");
+		      String cmd =
+		          "select N_CONTENT from news where N_ID = '"+ N_ID +"'";
+		     Statement stmt = conn.createStatement();
+		     ResultSet rs = stmt.executeQuery(cmd);
+		     
+		     while(rs.next()){
+		    	 
+		    	
+		    	String newstitle = rs.getString("N_CONTENT");
+		    	return newstitle;
+		    	
+		     }
+		    
+		      
+		    }
+		catch (Exception ex) {
+		      ex.printStackTrace();
+		    }
+
+		    return null;
+		  }
+
+
+		
+	}
+
 	
 
 
 
 	
-}
+
