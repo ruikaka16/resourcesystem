@@ -1,6 +1,6 @@
 package com.buaa.project.client;
 
-import java.util.Date;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,39 +14,30 @@ import com.buaa.project.client.panel.LargeDevice;
 import com.buaa.project.client.panel.LoadDataPanel;
 
 import com.buaa.project.client.panel.Login;
-import com.buaa.project.client.panel.Test;
 
 
 import com.buaa.project.client.panel.PiechartPanel;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.i18n.client.DateTimeFormat;
+
 
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Widget;
+
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Ext;
 import com.gwtext.client.core.ExtElement;
 import com.gwtext.client.core.Margins;
 
 import com.gwtext.client.core.RegionPosition;
-import com.gwtext.client.data.ArrayReader;
-import com.gwtext.client.data.DateFieldDef;
-import com.gwtext.client.data.FieldDef;
-import com.gwtext.client.data.Record;
 
-import com.gwtext.client.data.MemoryProxy;
+
 import com.gwtext.client.data.Node;
 
-import com.gwtext.client.data.RecordDef;
-import com.gwtext.client.data.Store;
-import com.gwtext.client.data.StringFieldDef;
-import com.gwtext.client.util.Format;
-import com.gwtext.client.util.JavaScriptObjectHelper;
+
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Component;
 import com.gwtext.client.widgets.DatePicker;
@@ -60,9 +51,10 @@ import com.gwtext.client.widgets.Toolbar;
 import com.gwtext.client.widgets.ToolbarButton;
 import com.gwtext.client.widgets.ToolbarTextItem;
 import com.gwtext.client.widgets.Viewport;
+
 import com.gwtext.client.widgets.WaitConfig;
 import com.gwtext.client.widgets.Window;
-import com.gwtext.client.widgets.WindowMgr;
+
 
 import com.gwtext.client.widgets.event.ButtonListener;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
@@ -130,9 +122,11 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		panel.setLayout(new FitLayout());
 		panel.setShadow(true);
 		panel.setId("main-panel");
+		panel.doLayout();
 
 		Panel borderPanel = new Panel();
 		borderPanel.setLayout(new BorderLayout());
+
 		
 		Panel northPanel = new Panel();
 		northPanel.setHeight(56);
@@ -140,35 +134,29 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		borderPanel.add(northPanel, new BorderLayoutData(RegionPosition.NORTH));
 
 	    final Toolbar toolbar = new Toolbar();
-		toolbar.setWidth(224);
+		toolbar.setWidth(1024);
 		toolbar.setHeight(56);
 		toolbar.setStyleName("ext-el-mask-msg");
 		
 		Image image = new Image();
 		image.setUrl("image/title.jpg");
 		image.setWidth("800px");
-		northPanel.add(image);	
-		Date date = new Date();
-	    String date1 = date.toString();
+		//northPanel.add(image);	
+	
+
 
 		ToolbarButton bt1 = new ToolbarButton("登    陆");
 		toolbar.addButton(bt1);
         northPanel.add(toolbar);
 	
-	Panel northPanel1 = new HTMLPanel();
-	northPanel1.setBorder(false);
-	northPanel1.setHeight(25);
+
 	
 	
-	
-	 Toolbar toolbar1 = new Toolbar();
-	 toolbar1.setWidth(1024);
-	 toolbar1.setHeight(32);
+
 	 
 	 //toolbar1.addText(a);
-	 
-	 northPanel.add(toolbar1);
-	 Panel northPanel2 = new Panel();
+
+
 	//northPanel2.setBorder(false);	
 	// northPanel2.add(toolbar);	
 		
@@ -870,7 +858,20 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		centerPanel.setActiveTab(0);
 		centerPanel.setEnableTabScroll(true);
 		centerPanel.setDeferredRender(false);
-		centerPanel.setAutoShow(true);
+		//centerPanel.setAutoShow(true);
+	
+		
+		LoadDataPanel ldp = new LoadDataPanel();
+		ldp.setTitle("新闻预览");
+		ldp.setVisible(true);
+		centerPanel.add(ldp);
+		centerPanel.doLayout();
+		
+		
+		ToolTip tip_news = new ToolTip();
+		tip_news.setHtml("点击浏览文件！");
+		tip_news.applyTo(ldp);
+		
       
 //*********************************************************		
 
@@ -885,117 +886,12 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		centerPanelTwo.add(dataLoad);
 
 //**********************************************************
-	Panel centerPanelThree = new Panel();
-		
-		centerPanelThree.setTitle("Center Panel 3");
-		centerPanelThree.setAutoScroll(true);
-		centerPanelThree.setAutoShow(true);
-		
+
 		//Test t = new Test();
-		LoadDataPanel ldp = new LoadDataPanel();
-		centerPanelThree.add(ldp);
-		centerPanelThree.add(ldp);
-		
-//**************************************************************************
-		final CheckboxSelectionModel cbSelectionModel = new CheckboxSelectionModel();   
-		
-		
-		RecordDef recordDef = new RecordDef(new FieldDef[] {
-				new StringFieldDef("title"),
-				new StringFieldDef("company"),
-				new DateFieldDef("time","n/j h:ia")
-
-		});
-
-		Object[][] data = getCompanyData();
-		MemoryProxy proxy = new  MemoryProxy(data);
-
-		ArrayReader reader = new ArrayReader(recordDef);
-		Store store = new Store(proxy, reader);
-		store.load();
-
-		BaseColumnConfig[] columns = new BaseColumnConfig[]{   
-                new CheckboxColumnConfig(cbSelectionModel),   
-				// column ID is company which is later used in
-				// setAutoExpandColumn
-				new ColumnConfig("文件标题", "title", 160, true, null, "title"),
-				new ColumnConfig("发布单位", "company", 35,true,null,"company"),
-				new ColumnConfig("发布时间", "time", 65,true,null),
-				new ColumnConfig("选项", "select", 30),
 	
-		};
+//**************************************************************************
 
-		final ColumnModel columnModel = new ColumnModel(columns);
 
-		
-		
-		GridPanel grid = new GridPanel();
-		grid.setStore(store);
-		grid.setColumnModel(columnModel);
-
-		grid.setTitle("文件浏览");
-		grid.setHeight(300);
-		grid.setWidth(600);
-		grid.setIconCls("grid-icon");
-	 	grid.setAutoExpandColumn("title");
-	 	grid.setSelectionModel(cbSelectionModel);
-
-		GridView view = new GridView();
-		view.setForceFit(true);
-		grid.setView(view);
-
-		
-/*		grid.addGridCellListener(new GridCellListenerAdapter (){
-			
-			public void onCellClick(GridPanel grid, int rowIndex, int title, EventObject e){
-				
-				
-				Record[] records = cbSelectionModel.getSelections();   
-				
-				String id_title = "";
-				for(int i=0;i<records.length;++i)
-				{
-					Record record = records[i];   
-				
-				  id_title  += record.getAsString("title");
-				
-				}
-				final ExtElement element = Ext.get("main-panel");
-				element.mask();
-				Window window_grid = new Window();
-				window_grid.setHeight(400);
-				window_grid.setWidth(600);
-				window_grid.setTitle(id_title);
-				
-				Panel news = new HTMLPanel();
-				news.setBorder(false);
-				news.setHeight(400);
-				news.setHtml("<p>十一届全国人大第一次会议《政府工作报告》提出，要建设“面向企业的创新支撑平台”，“加强科技基础能力建设”。为深入贯彻落实大会精神和有关要求，按照科技部党组和部领导的指示，2008年3月19日-22日，平台中心徐建国主任、计划司相关负责同志等，赴浙江开展了面向企业的创新支撑平台调研," +
-						"调研组在杭州召开了工作座谈会，并在杭州、绍兴、舟山分别考察了浙江省新药创制科技服务平台、浙江省现代纺织技术及装备创新服务平台、浙江省海洋科技创新服务平台。座谈会上，浙江省科技厅介绍了浙江科技平台建设的总体情况，重点介绍了“六个一批”创新载体建设以及三类重大创新平台建设。实地调研中，" +
-						"三个平台建设单位分别就组织机构、管理制度、专业培训、交流研讨、创新服务、科研攻关、人才队伍等各方面情况进行了详细介绍。总体来说，三个创新平台各具特色、非常典型，在优化科技资源配置、提高科技资源利用效率，推进新型产学研结合、服务企业和行业技术创新等方面发挥了重要作用。浙江省创新平台" +
-						"建设一些好的经验和做法，为国家和其它地方面向企业的创新支撑平台建设提供了重要启示。一是必须坚持需求导向，立足区域和地方的产业集群优势，这是基本前提；二是必须坚持整合共享和必要投入，有效盘活存量和调控增量，这是必要手段；三是必须坚持机制创新，结合实际建立适应企业自主创新的服务机制，" +
-						"<hr>"+
-						"这是核心关键；四是必须坚持开放服务，大力提高创新支撑和服务能力，这是最终目标。调研过程中也了解到当前平台建设的一些问题需要研究解决，如平台共享服务和技术创新服务中的知识产权问题、平台建设中的人才培养和稳定问题以及平台持续运行与长远发展问题等。 此次调研对于地方在面向企业的创新支撑平台建设方面所做的工作有了进一步的了解，对于地方科技管理部门和有关平台建设单位的想法和认识有了深入的体会，这些将为国家层面开展面向企业的创新支撑平台顶层设计和布局建设提供有益的支持和帮助。 ");
-				window_grid.add(news);
-				window_grid.show();
-				
-				window_grid.addListener(new PanelListenerAdapter(){
-					
-					public void onClose(Panel panel){
-						element.unmask();
-						
-					}
-				});
-				
-				//System.out.println(columnModel.getColumnHeader(title));
-				//System.out.println(columnModel.getColumnTooltip(title));
-				System.out.println(id_title);
-				
-				
-				//MessageBox.alert("jessiens");
-			}
-		});
-	*/	
 		borderPanel.add(centerPanel,new BorderLayoutData(RegionPosition.CENTER));
 
 		Button bt = new Button("bt",new ButtonListenerAdapter(){
@@ -1005,10 +901,9 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 			}
 		});
 		
-		centerPanel.add(grid);
+	
 		centerPanel.add(centerPanelTwo);
-		centerPanel.add(centerPanelThree);
-		
+			
 //****************************************************************
 		treeNode6_1.addListener(new TreeNodeListenerAdapter() {
 
@@ -1054,11 +949,7 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 //****************************************************************		
 		treeNode1_3.addListener(new TreeNodeListenerAdapter(){
 			public void onClick(Node node,EventObject e){
-				
-			
-				
-				
-				
+
 				centerPanel.doLayout();
 				
 			
@@ -1244,9 +1135,9 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 		treePanel2.add(btAdd);
 
 		
-
+		centerPanel.doLayout();
 		panel.add(borderPanel);
-
+		
 		Viewport viewPort = new Viewport(panel);
 		
 		westPanel.getEl().mask("请您先登陆！");
@@ -1295,32 +1186,6 @@ public class LoginTest implements EntryPoint,AsyncCallback {
 	
 	
 
-	private Object[][] getCompanyData() {
-		return new Object[][] {
-				new Object[] { "计划司、平台中心赴浙江开展面向企业创新支撑平台调研", "教育部", "9/1 12:00am" },
-				new Object[] { "平台中心召开平台门户建设工作会议", "科技部", "9/1 12:00am" },
-				new Object[] { "国家科技基础条件平台中心网站正式开通", "财政部", "9/1 12:00am" },
-				new Object[] { "国家科技基础条件平台建设专家顾问组2008年工作座", "体育部", "9/1 12:00am" },
-				new Object[] { "关于开展国家科技基础条件平台门户建设的通知", "司法",
-						"9/1 12:00am" },
-				new Object[] { "召开国家科技基础条件平台门户建设标准规范培训会议", "国防科工委", "9/1 12:00am" },
-				new Object[] { "国家自然科技资源共享平台项目年度总结交流会昆明召开", "新闻办", "9/1 12:00am" },
-				new Object[] { "平台中心召开平台门户建设联络员会议", "外交部", "9/1 12:00am" },
-				new Object[] { "召开科技基础条件资源调查动员暨工作部署会议的通知", "公安部", "9/1 12:00am" },
-				new Object[] { "科技部、财政部召开国家重点实验室工作会议 ", "铁道部",
-						"9/1 12:00am" },
-				new Object[] { "召开国家科技基础条件平台门户建设标准规范培训会议", "国防科工委", "9/1 12:00am" },
-				new Object[] { "国家自然科技资源共享平台项目年度总结交流会昆明召开", "新闻办", "9/1 12:00am" },
-				new Object[] { "平台中心召开平台门户建设联络员会议", "外交部", "9/1 12:00am" },
-				new Object[] { "召开科技基础条件资源调查动员暨工作部署会议的通知", "公安部", "9/1 12:00am" },
-				new Object[] { "科技部、财政部召开国家重点实验室工作会议 ", "铁道部",
-								"9/1 12:00am" },
-				new Object[] { "计划司、平台中心赴浙江开展面向企业创新支撑平台调研", "教育部", "9/1 12:00am" },
-				new Object[] { "平台中心召开平台门户建设工作会议", "科技部", "9/1 12:00am" },
-				new Object[] { "国家科技基础条件平台中心网站正式开通", "财政部", "9/1 12:00am" },
-				new Object[] { "国家科技基础条件平台建设专家顾问组2008年工作座", "体育部", "9/1 12:00am" },
-				new Object[] { "关于开展国家科技基础条件平台门户建设的通知", "司法",
-										"9/1 12:00am" } };
-	}
+
 
 }
