@@ -8,6 +8,7 @@ import com.buaa.project.client.DatabaseServiceAsync;
 import com.buaa.project.client.data.BeanDTO;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.data.ArrayReader;
 import com.gwtext.client.data.FieldDef;
@@ -17,6 +18,7 @@ import com.gwtext.client.data.RecordDef;
 import com.gwtext.client.data.Store;
 import com.gwtext.client.data.StringFieldDef;
 import com.gwtext.client.widgets.Button;
+import com.gwtext.client.widgets.HTMLPanel;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.Toolbar;
@@ -25,10 +27,13 @@ import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.grid.ColumnConfig;
 import com.gwtext.client.widgets.grid.ColumnModel;
 import com.gwtext.client.widgets.grid.GridPanel;
+import com.gwtext.client.widgets.grid.GridView;
 import com.gwtext.client.widgets.grid.event.GridCellListenerAdapter;
 
 public class LoadDataPanel extends Panel {
 
+	String news_title;
+	
 	public LoadDataPanel() {
 
 		this.setBorder(false);
@@ -84,7 +89,12 @@ public class LoadDataPanel extends Panel {
 				grid.setHeight(500);
 				grid.setFrame(true);
 				grid.stripeRows(true);
+				   
 				grid.setBottomToolbar(refreshBt);
+				GridView view = new GridView();
+				view.setForceFit(true);
+				grid.setView(view);
+				
 				panel.add(grid);
 
 				if (store == null) {
@@ -115,7 +125,7 @@ public class LoadDataPanel extends Panel {
 			public void onCellClick(GridPanel grid, int rowIndex, int title, EventObject e){
 				
 				Record[] records = grid.getSelectionModel().getSelections();  
-				String news_title = "";
+				news_title = "";
 				for(int i=0;i<records.length;++i)
 				{
 					Record record = records[i];   
@@ -138,8 +148,18 @@ public class LoadDataPanel extends Panel {
 					public void onSuccess(Object result) {
 						// TODO Auto-generated method stub
 					
-						System.out.println(result);
-						MessageBox.alert(result.toString());
+						System.out.println(result.toString());
+						//MessageBox.alert(result.toString());
+						
+						Panel newsPanel = new HTMLPanel();
+						
+						newsPanel.setHtml(result.toString());
+						NewsWindow newWindow = new NewsWindow();
+						newWindow.setTitle(news_title);
+						newWindow.add(newsPanel);
+						newWindow.show();
+						
+						
 						
 						
 						
