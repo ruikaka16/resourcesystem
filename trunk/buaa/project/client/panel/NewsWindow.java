@@ -8,7 +8,6 @@ public class NewsWindow extends Window{
 		
 		this.setHeight(400);
 		this.setWidth(600);
-        this.setFrame(true);
 	    this.setBorder(true);
 	}
 

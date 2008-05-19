@@ -2,6 +2,8 @@ package com.buaa.project.client;
 
 
 
+
+
 import java.util.Date;
 import java.util.List;
 
@@ -33,4 +35,8 @@ public interface DatabaseServiceAsync {
     public void addNews(String NI_TITLE, String N_AUTHOR,String N_CONTENT,String N_TIME, AsyncCallback callback);
     
 
+    public void autoComplete(AsyncCallback callback);
+    
+    public void getFaren(String name, AsyncCallback callback);
+    
 }

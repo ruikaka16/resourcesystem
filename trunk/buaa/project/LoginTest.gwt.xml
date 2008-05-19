@@ -4,5 +4,5 @@
 		<inherits name="com.gwtext.GwtExt"/>
 		<inherits name="com.gwtext.Charts"/>
 
-	<entry-point class="com.buaa.project.client.LoginTest"/>
+	<entry-point class="com.buaa.project.client.ResourceSystem"/>
 <servlet class="com.buaa.project.server.DatabaseServiceImpl" path="/databaseservice"/>null<inherits name="com.gwtextux.GwtExtUx"/></module>

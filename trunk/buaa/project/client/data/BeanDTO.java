@@ -53,5 +53,11 @@ public class BeanDTO implements IsSerializable{
                     N_TIME
             };
    } 
+    public Object[] toObject(){
+    	return new Object[]{
+    			
+    			N_TITLE
+    	};
+    }
 }
 

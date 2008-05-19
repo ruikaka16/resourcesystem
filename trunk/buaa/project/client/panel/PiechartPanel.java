@@ -28,7 +28,6 @@ public class PiechartPanel extends Panel {
 		this.setTitle("统计饼状图");
 		this.setAutoScroll(true);
 		this.setLayout(new VerticalLayout(5));
-		this.setPaddings(10); 
 		this.setClosable(true);
 		this.setAutoShow(true);
 		

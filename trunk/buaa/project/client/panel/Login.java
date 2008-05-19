@@ -3,7 +3,7 @@ package com.buaa.project.client.panel;
 
 import com.buaa.project.client.DatabaseService;
 import com.buaa.project.client.DatabaseServiceAsync;
-import com.buaa.project.client.LoginTest;
+import com.buaa.project.client.ResourceSystem;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -34,7 +34,7 @@ public class Login extends Window {
 	public Toolbar toolbar;
 	TextField txtName;
 	TextField txtPsw;
-	LoginTest l = new LoginTest();
+	ResourceSystem l = new ResourceSystem();
 	
 	
 	
@@ -88,7 +88,7 @@ public class Login extends Window {
 		toolbar.addButton(bt2);
 		toolbar.addSpacer();
 		
-		final HTMLPanel fd = new HTMLPanel("fdsfds");
+		final HTMLPanel fd = new HTMLPanel("");
 		
 		
 		txtPsw.setPassword(true);

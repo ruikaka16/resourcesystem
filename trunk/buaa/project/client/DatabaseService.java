@@ -2,6 +2,8 @@ package com.buaa.project.client;
 
 
 
+
+
 import java.util.Date;
 import java.util.List;
 
@@ -50,4 +52,8 @@ public interface DatabaseService extends RemoteService {
     public boolean addNews(String NI_TITLE, String N_AUTHOR,String N_CONTENT,String N_TIME)throws Exception;
     
 
+    public List autoComplete() throws Exception;
+    
+    public List getFaren(String name)throws Exception;
+    
 }

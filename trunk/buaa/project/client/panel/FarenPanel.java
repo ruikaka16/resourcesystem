@@ -1,41 +1,30 @@
 package com.buaa.project.client.panel;
 
-import com.buaa.project.client.DatabaseService;
-import com.buaa.project.client.DatabaseServiceAsync;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Position;
 import com.gwtext.client.widgets.Button;
-import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
-import com.gwtext.client.widgets.Window;
-import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.form.VType;
 import com.gwtext.client.widgets.layout.AnchorLayoutData;
 import com.gwtext.client.widgets.layout.ColumnLayout;
 import com.gwtext.client.widgets.layout.ColumnLayoutData;
-import com.gwtext.client.widgets.layout.FitLayout;
 import com.gwtext.client.widgets.layout.FormLayout;
-import com.gwtext.client.widgets.layout.HorizontalLayout;
 import com.gwtext.client.widgets.layout.RowLayout;
 import com.gwtext.client.widgets.layout.RowLayoutData;
 
-public class FarenPanel extends Window{
+public class FarenPanel extends Panel{
 	
 	public FarenPanel(){
 		
-	    
-		   this.setBorder(true);
-		   this.setPaddings(15);
+		this.setBorder(true);
+		   this.setPaddings(0);
 		   this.setHeight(600);
 		   this.setWidth(800);
-		   this.setMaximizable(true);
-		   this.setResizable(true);
 		   this.setDraggable(true);
-		   this.setTitle("法人单位概况");
-		  // this.setLayout(new RowLayout());
+		   this.setClosable(true);
+		   this.setTitle("法人单位信息查询");
+
 		   
 		   Panel wr = new Panel();
 		   wr.setLayout(new RowLayout());
@@ -215,65 +204,15 @@ public class FarenPanel extends Window{
 	//	this.add(formPanel_tn_3121_1, new RowLayoutData(160));
 	//	this.add(formPanel_tn_3121_2, new RowLayoutData(60));
 	//	this.add(formPanel_tn_3121_3, new RowLayoutData(60));
+		SearchPanel s = new SearchPanel();
+		wr.add(s,new RowLayoutData(60));
 		wr.add(formPanel_tn_3121_1, new RowLayoutData(160));
 		wr.add(formPanel_tn_3121_2, new RowLayoutData(60));
 		wr.add(formPanel_tn_3121_3, new RowLayoutData(60));
 	
+		wr.addButton(new Button("查询"));
 		this.add(wr);
 		
-		final Panel btPanel = new Panel();
-	//	btPanel.setFrame(true);
-		btPanel.setLayout(new HorizontalLayout(10));
-		Button save = new Button("保存");
-		//btPanel.addButton(save);
-		Button close = new Button("关闭");
-		//btPanel.addButton(close);
-		
-		close.addListener(new ButtonListenerAdapter(){
-			
-			public void onClick(Button button,EventObject e){
-
-				close();
-			}
-		});
-		
-		save.addListener(new ButtonListenerAdapter(){
-			
-			public void onClick(Button button,EventObject e){
-				
-				  DatabaseServiceAsync service = DatabaseService.Util
-					.getInstance();
-				   
-				   AsyncCallback cb_addFaren = new AsyncCallback() {
-
-					public void onFailure(Throwable arg0) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					public void onSuccess(Object result) {
-						// TODO Auto-generated method stub
-						Boolean ok = (Boolean) result;
-						if (ok.booleanValue()) {
-							
-							MessageBox.alert("保存成功!");
-							close();
-						}
-						else
-							MessageBox.alert("失败!");
-						
-					}
-					   
-				   };
-			   
-	               service.addFaren(name.getText(), zhuguan.getText(), address.getText(), suozaiaddress.getText(), xingzhi.getText(), id.getText(), id_1.getText(), jigouid.getText(), xzzgbm.getText(), zipcode.getText(), dwwz.getText(), dwsx.getText(), hymc.getText(), xkmc.getText(), cb_addFaren);
-			}
-		});
-	
-	    wr.addButton(save);
-	    wr.addButton(close);
-		//this.add(btPanel);
 	}
-	
 
 }
