@@ -1,93 +1,116 @@
 package com.buaa.project.client.panel;
 
- 
-import com.google.gwt.user.client.Window;   
- 
-import com.gwtext.client.core.JsObject;
-import com.gwtext.client.data.*;   
-import com.gwtext.client.util.Format;   
-import com.gwtext.client.widgets.Panel;   
-import com.gwtext.client.widgets.form.ComboBox;   
-import com.gwtext.client.widgets.form.FormPanel;   
-import com.gwtext.client.widgets.form.event.ComboBoxListenerAdapter; 
 
 
-public class SearchPanel extends Panel{
+
+import java.util.Iterator;
+import java.util.List;
+
+import com.buaa.project.client.DatabaseService;
+import com.buaa.project.client.DatabaseServiceAsync;
+import com.buaa.project.client.data.BeanDTO;
+import com.buaa.project.client.data.BeanFarenDTO;
+
+import com.google.gwt.user.client.rpc.AsyncCallback;
+
+import com.gwtext.client.core.EventObject;
+import com.gwtext.client.data.FieldDef;
+import com.gwtext.client.data.RecordDef;
+import com.gwtext.client.data.SimpleStore;
+import com.gwtext.client.data.Store;
+import com.gwtext.client.data.StringFieldDef;
+import com.gwtext.client.widgets.Button;
+import com.gwtext.client.widgets.MessageBox;
+import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.event.ButtonListenerAdapter;
+import com.gwtext.client.widgets.form.ComboBox;
+import com.gwtext.client.widgets.form.FormPanel;
+import com.gwtext.client.widgets.form.TextField;
+import com.gwtext.client.widgets.layout.HorizontalLayout;
+
+public class SearchPanel extends Panel {
+
 	
-	public SearchPanel(){
+	ComboBox cb;
+	Store store;
+    public SearchPanel() {
+       // Panel panel = new Panel();
+        this.setBorder(false);
+        this.setTitle("法人单位信息");
+        
+        
+        final Store store = new SimpleStore("N_TITLE", new Object[]{});  
+        store.load();   
+  
+        final ComboBox cb = new ComboBox("单位名称");   
+        cb.setMinChars(1);
+        
+        cb.setFieldLabel("法人单位名称");   
+        cb.setStore(store);   
+        cb.setDisplayField("N_TITLE");   
+        cb.setMode(ComboBox.LOCAL);   
+        cb.setEmptyText("请输入单位名称");   
+        cb.setLoadingText("搜索中");   
+
+        cb.setTypeAhead(true);   
+        cb.setSelectOnFocus(true);   
+        cb.setWidth(200);   
+        //do not show drop fown icon   
+        cb.setHideTrigger(true);  
+        
+        
+        final RecordDef recordDef = new RecordDef(new FieldDef[]{new StringFieldDef("N_TITLE")});
+
+  
+        FormPanel form1 = new FormPanel();  
+        form1.setLabelWidth(80);   
+        form1.setBorder(false); 
+        form1.setFrame(true);
+        form1.add(cb);   
+
+        
+
+        this.add(form1);   
+
+
 		
+		DatabaseServiceAsync autoCompleteService = DatabaseService.Util.getInstance();
+		AsyncCallback cb_autoComplete = new AsyncCallback() {
+
+			public void onFailure(Throwable arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onSuccess(Object result) {
+				
+				List data = (List) result;
+				Iterator it = data.iterator();
 		
-		  
-	       this.setBorder(false);   
-	       this.setPaddings(15);   
-	  
-	        //Use a ScriptTagProxy because you are getting data from a different domain using   
-	        //a Json web service. If getting data from your own domain, then should use HttpProxy   
-	        DataProxy dataProxy = new ScriptTagProxy("http://extjs.com/forum/topics-remote.php");   
-	  
-	        RecordDef recordDef = new RecordDef(new FieldDef[]{   
-	                new StringFieldDef("title", "topic_title"),   
-	                new StringFieldDef("topicId", "topic_id"),   
-	                new StringFieldDef("author", "author"),   
-	                new DateFieldDef("lastPost", "post_time", "timestamp"),   
-	                new StringFieldDef("excerpt", "post_text")   
-	        });   
-	  
-	        JsonReader reader = new JsonReader(recordDef);   
-	        reader.setRoot("topics");   
-	        reader.setTotalProperty("totalCount");   
-	        reader.setId("post_id");   
-	  
-	        final Store store = new Store(dataProxy, reader);   
-	        store.load();   
-	  
-	        final String resultTpl = "<div class=\"search-item\"><h3><span>{lastPost:date(\"M j, Y\")}"  
-	                                +  "<br/>by {author}</span>{title}</h3>{excerpt}</div>";   
-	  
-	        ComboBox cb = new ComboBox();   
-	        cb.setStore(store);   
-	        cb.setDisplayField("title");   
-	        cb.setTypeAhead(false);   
-	        cb.setLoadingText("搜索中...");   
-	        cb.setWidth(440);   
-	        cb.setPageSize(10);   
-	        cb.setHideTrigger(true);   
-	        cb.setTpl(resultTpl);   
-	        cb.setMode(ComboBox.REMOTE);   
-	        cb.setTitle("搜索");   
-	        cb.setHideLabel(true);   
-	        cb.setItemSelector("div.search-item");   
-	  
-	        cb.addListener(new ComboBoxListenerAdapter() {   
-	            public void onSelect(ComboBox comboBox, Record record, int index) {   
-	                String[] args = new String[]{record.getAsString("topicId"), record.getId()};   
-	                String url = Format.format("http://localhost:8888/com.buaa.project.LoginTest/LoginTest.html",   
-	                                            args);   
-	                Window.open(url, "forum", "");   
-	            }   
-	        });   
-	  
-	        Panel searchPanel = new Panel();   
-	        searchPanel.setWidth(490);   
-	        searchPanel.setHeight(150);   
-	        searchPanel.setPaddings(20);   
-	        searchPanel.setTitle("搜索……");   
-	        searchPanel.setFrame(true);   
-	  
-	        FormPanel form = new FormPanel();   
-	        form.setBorder(false);   
-	        form.add(cb);   
-	        searchPanel.add(form);   
-	  
-	        Panel instructionPanel = new Panel();   
-	        instructionPanel.setBorder(false);   
-	        instructionPanel.setPaddings(4, 0, 0, 0);   
-	        instructionPanel.setHtml("最少输入四个关键字！");   
-	        searchPanel.add(instructionPanel);   
-	        this.add(searchPanel);   
-	        
-	       
+				while (it.hasNext()) {
+					
+					final BeanDTO bean = (BeanDTO) it.next();
+					//System.out.println(bean.getName()+"****");
+					store.add(recordDef.createRecord(bean.toObject()));
+					
+
+				}
+				store.commitChanges();
+
+			
+			}
+			
+		};
 		
-	}
+		autoCompleteService.autoComplete(cb_autoComplete);
+	
+		
+    }
+   
 
 }
+
+ 
+
+	
+	 

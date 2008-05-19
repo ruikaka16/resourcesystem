@@ -19,6 +19,7 @@ import java.util.Map;
 
 import com.buaa.project.client.DatabaseService;
 import com.buaa.project.client.data.BeanDTO;
+import com.buaa.project.client.data.BeanFarenDTO;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -203,6 +204,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		    	 
 		    	
 		    	String newstitle = rs.getString("N_CONTENT");
+		    	System.out.println(newstitle); 
 		    	return newstitle;
 		    	
 		     }
@@ -216,7 +218,70 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		    return null;
 		  }
 
+	public List autoComplete() throws Exception {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://localhost:3306/test";
+			Connection conn = DriverManager.getConnection(url, "root", "rui");
+		      String cmd =
+		          "select N_TITLE from news ";
+		     Statement stmt = conn.createStatement();
+		     ResultSet rs = stmt.executeQuery(cmd);
+		     List faren = new ArrayList(); 
+		     while(rs.next()){	
+		    	 BeanDTO b = new BeanDTO();
+		    	 b.setN_TITLE(rs.getString("N_TITLE"));
+		    	 faren.add(b);
+		    	 
 
+		     } 
+		    
+		     return faren;
+
+		    }
+		catch (Exception ex) {
+		      ex.printStackTrace();
+		    }
+		    return null;
+		  }
+
+	public List getFaren(String name) throws Exception {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://localhost:3306/test";
+			Connection conn = DriverManager.getConnection(url, "root", "rui");
+		      String cmd =
+		          "select * from news where N_TITLE = '"+ name +"' ";
+		     Statement stmt = conn.createStatement();
+		     ResultSet rs = stmt.executeQuery(cmd);
+		     List faren = new ArrayList(); 
+		     while(rs.next()){	
+		    	 BeanFarenDTO b = new BeanFarenDTO();
+		    	 b.setName(rs.getString("name"));
+		    	 b.setAddress(rs.getString("address"));
+		    	 b.setDwsz(rs.getString("dwwz"));
+		    	 b.setDwsz(rs.getString("dwsx"));
+		    	 b.setHymc(rs.getString("hymc"));
+		    	 b.setId(rs.getString("id"));
+		    	 b.setId_1(rs.getString("id_1"));
+		    	 b.setJigouid(rs.getString("jigouid"));
+		    	 b.setXingzhi(rs.getString("xingzhi"));
+		    	 b.setXkmc(rs.getString("xkmc"));
+		    	 b.setXzzgbm(rs.getString("xzzgbm"));
+		    	 b.setZhuguan(rs.getString("zhuguan"));
+		    	 b.setZipcode(rs.getString("zipcode"));
+		    	 b.setSuoziaddress(rs.getString("suozaiaddress"));
+		    	 faren.add(b);
+		     } 
+		    
+		     return faren;
+
+		    }
+		catch (Exception ex) {
+		      ex.printStackTrace();
+		    }
+		    return null;
+		  }
 		
 	}
 

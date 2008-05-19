@@ -39,6 +39,7 @@ public class LoadDataPanel extends Panel {
 		this.setBorder(false);
 		this.setPaddings(0);
 		this.setWidth(577);
+		this.setIconCls("grid-icon");
 
 		final Panel panel = new Panel();
 		panel.setBorder(false);
@@ -68,9 +69,9 @@ public class LoadDataPanel extends Panel {
 
 		});
 
-		DatabaseServiceAsync loadService = DatabaseService.Util.getInstance();
+		final DatabaseServiceAsync loadService = DatabaseService.Util.getInstance();
 
-		AsyncCallback cb_load = new AsyncCallback() {
+		final AsyncCallback cb_load = new AsyncCallback() {
 
 			public void onFailure(Throwable caught) {
 				// TODO Auto-generated method stub
@@ -96,6 +97,7 @@ public class LoadDataPanel extends Panel {
 				grid.setView(view);
 				
 				panel.add(grid);
+				panel.doLayout();
 
 				if (store == null) {
 					return;
@@ -133,9 +135,7 @@ public class LoadDataPanel extends Panel {
 					news_title  += record.getAsString("N_ID");
 				
 				}
-				//System.out.println(records);
-				//MessageBox.alert(news_title);
-				
+	
 				DatabaseServiceAsync getNewsContentService = DatabaseService.Util.getInstance();
 				AsyncCallback cb_getNewsContent = new AsyncCallback() {
 
@@ -149,19 +149,15 @@ public class LoadDataPanel extends Panel {
 						// TODO Auto-generated method stub
 					
 						System.out.println(result.toString());
-						//MessageBox.alert(result.toString());
 						
 						Panel newsPanel = new HTMLPanel();
 						
 						newsPanel.setHtml(result.toString());
 						NewsWindow newWindow = new NewsWindow();
+						newWindow.setFrame(true);
 						newWindow.setTitle(news_title);
 						newWindow.add(newsPanel);
 						newWindow.show();
-						
-						
-						
-						
 						
 					}
 					
@@ -178,9 +174,9 @@ public class LoadDataPanel extends Panel {
 			
 			public void onClick(Button button, EventObject e){
 				
-				DatabaseServiceAsync loadRefreshService = DatabaseService.Util.getInstance();
+				DatabaseServiceAsync loadService = DatabaseService.Util.getInstance();
 
-				AsyncCallback cb_refresh = new AsyncCallback() {
+				AsyncCallback cb_load = new AsyncCallback() {
 
 					public void onFailure(Throwable arg0) {
 						// TODO Auto-generated method stub
@@ -189,19 +185,47 @@ public class LoadDataPanel extends Panel {
 
 					public void onSuccess(Object response) {
 					
-						List data = (List) response;
+						ArrayReader reader = new ArrayReader(recordDef);
+						// Store store = grid.getStore();
+						Store store = new Store(reader);
+						store.load();
+						grid.setStore(store);
+						//grid.setTitle("新闻列表");
+						grid.setColumnModel(columnModel);
+						grid.setWidth(577);
+						grid.setHeight(500);
+						grid.setFrame(true);
+						grid.stripeRows(true);
+						   
+						grid.setBottomToolbar(refreshBt);
+						GridView view = new GridView();
+						view.setForceFit(true);
+						grid.setView(view);
 						
+						panel.add(grid);
+						panel.doLayout();
+
+						if (store == null) {
+							return;
+						}
+
+						List data = (List) response;
 						Iterator it = data.iterator();
 						while (it.hasNext()) {
 							
-							BeanDTO bean = (BeanDTO) it.next();
-						//	store.add(recordDef.createRecord(bean.toObjectArray()));
+							final BeanDTO bean = (BeanDTO) it.next();
+							//System.out.println(bean.getN_TITLE()+"****");
+							store.add(recordDef.createRecord(bean.toObjectArray()));
 
 						}
-						
+
+						store.commitChanges();
+
 					}
-					
+
 				};
+				loadService.getdata(cb_load);
+				
 			}
 		});
 		
