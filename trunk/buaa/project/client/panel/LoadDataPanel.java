@@ -38,12 +38,18 @@ public class LoadDataPanel extends Panel {
 
 		this.setBorder(false);
 		this.setPaddings(0);
-		this.setWidth(577);
+		this.setAutoHeight(true);
+		this.setAutoShow(true);
+		this.setWidth(558);
 		this.setIconCls("grid-icon");
 
+		final GridPanel grid = new GridPanel();
+		
 		final Panel panel = new Panel();
 		panel.setBorder(false);
-		panel.setWidth(577);
+		//panel.setAutoWidth(true);
+		//panel.setAutoHeight(true);
+		panel.setWidth(558);
 
 		final Toolbar refreshTb = new Toolbar();
 		refreshTb.addFill();
@@ -51,7 +57,7 @@ public class LoadDataPanel extends Panel {
 
 	
 
-		final GridPanel grid = new GridPanel();
+		
 		final GridPanel grid1 = new GridPanel();
 		final RecordDef recordDef = new RecordDef(new FieldDef[] {
 				new StringFieldDef("N_ID"), new StringFieldDef("N_TITLE"),
@@ -83,8 +89,10 @@ public class LoadDataPanel extends Panel {
 				grid.setStore(store);
 				//grid.setTitle("新闻列表");
 				grid.setColumnModel(columnModel);
-				grid.setWidth(577);
-				grid.setHeight(500);
+				grid.setAutoExpandColumn("N_ID");
+				//grid.setAutoWidth(true);
+				grid.setWidth(558);
+				grid.setHeight(515);
 				grid.setFrame(true);
 				grid.stripeRows(true);
 				   
@@ -189,7 +197,7 @@ public class LoadDataPanel extends Panel {
 				        store.commitChanges();
 						//grid.setTitle("新闻列表");
 						grid.setColumnModel(columnModel);
-						grid.setWidth(577);
+						grid.setWidth(575);
 						grid.setHeight(500);
 						grid.setFrame(true);
 						grid.stripeRows(true);

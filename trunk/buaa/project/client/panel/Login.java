@@ -68,7 +68,7 @@ public class Login extends Window {
 		toolbar.addSpacer();
 		toolbar.addField(txtName);
 		toolbar.addSpacer();
-		toolbar.addItem(new ToolbarItem(new Image("image/cross.gif").getElement()));
+	//	toolbar.addItem(new ToolbarItem(new Image("image/cross.gif").getElement()));
 		
 		toolbar.addText("密码");
 		toolbar.addSpacer();
@@ -183,7 +183,7 @@ public class Login extends Window {
 
 						if (ok.booleanValue()) {
 							
-							toolbar.addItem(new ToolbarItem(new Image("image/add.gif").getElement()));
+							//toolbar.addItem(new ToolbarItem(new Image("image/add.gif").getElement()));
 							fd.setHtml("验证成功");
 							MessageBox.alert("验证成功!");
 					
