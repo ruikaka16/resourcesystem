@@ -130,24 +130,24 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 
 		
 		Panel northPanel = new Panel();
-		northPanel.setHeight(55);
+		northPanel.setHeight(53);
 		northPanel.setLayout(new HorizontalLayout(0));
 		borderPanel.add(northPanel, new BorderLayoutData(RegionPosition.NORTH));
 
 	    final Toolbar toolbar = new Toolbar();
-		toolbar.setWidth(1024);
-		toolbar.setHeight(56);
+		toolbar.setWidth(64);
+		toolbar.setHeight(54);
 		toolbar.setStyleName("ext-el-mask-msg");
 		
 		Image image = new Image();
 		image.setUrl("image/11.jpg");
-		//image.setWidth("800px");
+		image.setWidth("960px");
 		northPanel.add(image);	
 	
 
 
-	//	ToolbarButton bt1 = new ToolbarButton("登    陆");
-	//	toolbar.addButton(bt1);
+		ToolbarButton bt1 = new ToolbarButton("登    陆");
+		toolbar.addButton(bt1);
         northPanel.add(toolbar);
 	
 
@@ -835,14 +835,14 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		eastPanel_3.setWidth(200);
 
 
-	//	eastPanel.add(eastPanel_1);
+		eastPanel.add(eastPanel_1);
 	//	eastPanel.add(eastPanel_2);
 	//	eastPanel.add(eastPanel_3);
 		
 
 	  
 		
-	//	eastPanel_1.add(login);
+		eastPanel_1.add(login);
 	//	eastPanel_1.add(formPanel_1);
 		
 		// ************************tip********************************
@@ -966,9 +966,9 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		});
 //******************************************************
 
-//	bt1.addListener(new ButtonListenerAdapter(){
+     bt1.addListener(new ButtonListenerAdapter(){
 //			
-//			public void onClick(Button button,EventObject e){
+			public void onClick(Button button,EventObject e){
 				
 				//westPanel.getEl().unmask();
 				
@@ -979,15 +979,11 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 			//	toolbar.addText("欢迎"+name.getText()+"访问");
 		
 				
-//				Login loginWin = new Login();
+				Login loginWin = new Login();
 				
-//				loginWin.show();	
-				
-				
-
-		//	loginService.login(username, password, callback)
-//			}
-//		});
+				loginWin.show();	
+			}
+		});
 //*******************************************************	
 		HorizontalPanel horizontalPanel2 = new HorizontalPanel();
 		horizontalPanel2.setSpacing(15);
