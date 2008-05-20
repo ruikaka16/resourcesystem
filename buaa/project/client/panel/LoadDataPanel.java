@@ -52,6 +52,7 @@ public class LoadDataPanel extends Panel {
 	
 
 		final GridPanel grid = new GridPanel();
+		final GridPanel grid1 = new GridPanel();
 		final RecordDef recordDef = new RecordDef(new FieldDef[] {
 				new StringFieldDef("N_ID"), new StringFieldDef("N_TITLE"),
 				new StringFieldDef("N_AUTHOR"), new StringFieldDef("N_TIME")
@@ -178,11 +179,14 @@ public class LoadDataPanel extends Panel {
 
 					public void onSuccess(Object response) {
 					
+					
 						ArrayReader reader = new ArrayReader(recordDef);
 						// Store store = grid.getStore();
 						Store store = new Store(reader);
 						store.load();
 						grid.setStore(store);
+						store.removeAll();
+				        store.commitChanges();
 						//grid.setTitle("新闻列表");
 						grid.setColumnModel(columnModel);
 						grid.setWidth(577);
@@ -211,7 +215,7 @@ public class LoadDataPanel extends Panel {
 							store.add(recordDef.createRecord(bean.toObjectArray()));
 
 						}
-
+						
 						store.commitChanges();
 
 					}
