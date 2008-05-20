@@ -39,7 +39,7 @@ public class SearchPanel extends Panel {
         this.setTitle("法人单位信息");
         
         
-        final Store store = new SimpleStore("N_TITLE", new Object[]{});  
+        final Store store = new SimpleStore("name", new Object[]{});  
         store.load();   
   
         final ComboBox cb = new ComboBox("单位名称");   
@@ -47,7 +47,7 @@ public class SearchPanel extends Panel {
         
         cb.setFieldLabel("法人单位名称");   
         cb.setStore(store);   
-        cb.setDisplayField("N_TITLE");   
+        cb.setDisplayField("name");   
         cb.setMode(ComboBox.LOCAL);   
         cb.setEmptyText("请输入单位名称");   
         cb.setLoadingText("搜索中");   
@@ -59,7 +59,7 @@ public class SearchPanel extends Panel {
         cb.setHideTrigger(true);  
         
         
-        final RecordDef recordDef = new RecordDef(new FieldDef[]{new StringFieldDef("N_TITLE")});
+        final RecordDef recordDef = new RecordDef(new FieldDef[]{new StringFieldDef("name")});
 
   
         FormPanel form1 = new FormPanel();  
@@ -67,13 +67,7 @@ public class SearchPanel extends Panel {
         form1.setBorder(false); 
         form1.setFrame(true);
         form1.add(cb);   
-
-        
-
         this.add(form1);   
-
-
-		
 		DatabaseServiceAsync autoCompleteService = DatabaseService.Util.getInstance();
 		AsyncCallback cb_autoComplete = new AsyncCallback() {
 
@@ -89,24 +83,17 @@ public class SearchPanel extends Panel {
 		
 				while (it.hasNext()) {
 					
-					final BeanDTO bean = (BeanDTO) it.next();
+					final BeanFarenDTO bean = (BeanFarenDTO) it.next();
 					//System.out.println(bean.getName()+"****");
-					store.add(recordDef.createRecord(bean.toObject()));
-					
-
+					store.add(recordDef.createRecord(bean.toObjectArray()));
 				}
 				store.commitChanges();
-
-			
 			}
 			
 		};
 		
-		autoCompleteService.autoComplete(cb_autoComplete);
-	
-		
+		autoCompleteService.autoComplete(cb_autoComplete);	
     }
-   
 
 }
 
