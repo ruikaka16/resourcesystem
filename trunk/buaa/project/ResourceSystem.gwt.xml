@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><module>
+	<inherits name="com.google.gwt.user.User"/>
+
+		<inherits name="com.gwtext.GwtExt"/>
+		<inherits name="com.gwtext.Charts"/>
+
+	<entry-point class="com.buaa.project.client.ResourceSystem"/>
+<servlet class="com.buaa.project.server.DatabaseServiceImpl" path="/databaseservice"/>null<inherits name="com.gwtextux.GwtExtUx"/></module>

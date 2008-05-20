@@ -119,7 +119,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 
 		panel = new Panel();
 		panel.setBorder(false);
-		panel.setPaddings(15);
+		panel.setPaddings(10);
 		panel.setLayout(new FitLayout());
 		panel.setShadow(true);
 		panel.setId("main-panel");
@@ -130,7 +130,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 
 		
 		Panel northPanel = new Panel();
-		northPanel.setHeight(56);
+		northPanel.setHeight(55);
 		northPanel.setLayout(new HorizontalLayout(0));
 		borderPanel.add(northPanel, new BorderLayoutData(RegionPosition.NORTH));
 
@@ -140,14 +140,14 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		toolbar.setStyleName("ext-el-mask-msg");
 		
 		Image image = new Image();
-		image.setUrl("image/title.jpg");
-		image.setWidth("800px");
-		//northPanel.add(image);	
+		image.setUrl("image/11.jpg");
+		//image.setWidth("800px");
+		northPanel.add(image);	
 	
 
 
-		ToolbarButton bt1 = new ToolbarButton("登    陆");
-		toolbar.addButton(bt1);
+	//	ToolbarButton bt1 = new ToolbarButton("登    陆");
+	//	toolbar.addButton(bt1);
         northPanel.add(toolbar);
 	
 
@@ -679,21 +679,20 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		
 		borderPanel.add(westPanel, westData);
 //****************************************************************
-		Panel eastPanel = new Panel();
-		//eastPanel.setTitle("导航栏");
-		eastPanel.setIconCls("eastPanel-icon");
-		eastPanel.setCollapsible(true);
-		eastPanel.setBorder(false);
-		eastPanel.setWidth(200);
+		Panel eastPanel = new Panel();   
+        eastPanel.setTitle("其他");   
+        eastPanel.setCollapsible(true);   
+        eastPanel.setWidth(225);   
+        eastPanel.setLayout(new FitLayout());   
+  
+        BorderLayoutData eastData = new BorderLayoutData(RegionPosition.EAST);   
+        eastData.setSplit(true);   
+        eastData.setMinSize(175);   
+        eastData.setMaxSize(400);   
+        eastData.setMargins(new Margins(0, 0, 5, 0));   
+  
+        borderPanel.add(eastPanel, eastData);   
 
-		
-		BorderLayoutData eastData = new BorderLayoutData(RegionPosition.EAST);
-		eastData.setSplit(true);
-		eastData.setMinSize(175);
-		eastData.setMaxSize(400);
-		eastData.setMargins(new Margins(0, 1, 0, 0));
-		
-		borderPanel.add(eastPanel, eastData);
 		
 		final Panel eastPanel_1 = new Panel();
 		//eastPanel_1.setPaddings(15);
@@ -836,14 +835,14 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		eastPanel_3.setWidth(200);
 
 
-		eastPanel.add(eastPanel_1);
-		eastPanel.add(eastPanel_2);
-		eastPanel.add(eastPanel_3);
+	//	eastPanel.add(eastPanel_1);
+	//	eastPanel.add(eastPanel_2);
+	//	eastPanel.add(eastPanel_3);
 		
 
 	  
 		
-		eastPanel_1.add(login);
+	//	eastPanel_1.add(login);
 	//	eastPanel_1.add(formPanel_1);
 		
 		// ************************tip********************************
@@ -895,7 +894,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		centerPanelThree .setAutoScroll(true);
 		centerPanelThree .setAutoShow(true);
 		SearchPanel s= new SearchPanel();
-		centerPanelThree.add(s);
+	//	centerPanelThree.add(s);
 		
 	
 //**************************************************************************
@@ -912,7 +911,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		
 	
 		//centerPanel.add(centerPanelTwo);
-		centerPanel.add(centerPanelThree);
+		//centerPanel.add(centerPanelThree);
 			
 //****************************************************************
 		treeNode6_1.addListener(new TreeNodeListenerAdapter() {
@@ -967,9 +966,9 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		});
 //******************************************************
 
-	bt1.addListener(new ButtonListenerAdapter(){
-			
-			public void onClick(Button button,EventObject e){
+//	bt1.addListener(new ButtonListenerAdapter(){
+//			
+//			public void onClick(Button button,EventObject e){
 				
 				//westPanel.getEl().unmask();
 				
@@ -980,15 +979,15 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 			//	toolbar.addText("欢迎"+name.getText()+"访问");
 		
 				
-				Login loginWin = new Login();
+//				Login loginWin = new Login();
 				
-				loginWin.show();	
+//				loginWin.show();	
 				
 				
 
 		//	loginService.login(username, password, callback)
-			}
-		});
+//			}
+//		});
 //*******************************************************	
 		HorizontalPanel horizontalPanel2 = new HorizontalPanel();
 		horizontalPanel2.setSpacing(15);
