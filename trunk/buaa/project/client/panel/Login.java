@@ -3,7 +3,7 @@ package com.buaa.project.client.panel;
 
 import com.buaa.project.client.DatabaseService;
 import com.buaa.project.client.DatabaseServiceAsync;
-import com.buaa.project.client.ResourceSystem;
+import com.buaa.project.client.Resource;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -34,7 +34,7 @@ public class Login extends Window {
 	public Toolbar toolbar;
 	TextField txtName;
 	TextField txtPsw;
-	ResourceSystem l = new ResourceSystem();
+	Resource l = new Resource();
 	
 	
 	

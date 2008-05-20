@@ -224,13 +224,13 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 			String url = "jdbc:mysql://localhost:3306/test";
 			Connection conn = DriverManager.getConnection(url, "root", "rui");
 		      String cmd =
-		          "select N_TITLE from news ";
+		          "select name from faren ";
 		     Statement stmt = conn.createStatement();
 		     ResultSet rs = stmt.executeQuery(cmd);
 		     List faren = new ArrayList(); 
 		     while(rs.next()){	
-		    	 BeanDTO b = new BeanDTO();
-		    	 b.setN_TITLE(rs.getString("N_TITLE"));
+		    	 BeanFarenDTO b = new BeanFarenDTO();
+		    	 b.setName(rs.getString("name"));
 		    	 faren.add(b);
 		    	 
 
@@ -251,7 +251,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 			String url = "jdbc:mysql://localhost:3306/test";
 			Connection conn = DriverManager.getConnection(url, "root", "rui");
 		      String cmd =
-		          "select * from news where N_TITLE = '"+ name +"' ";
+		          "select * from faren where name = '"+ name +"' ";
 		     Statement stmt = conn.createStatement();
 		     ResultSet rs = stmt.executeQuery(cmd);
 		     List faren = new ArrayList(); 

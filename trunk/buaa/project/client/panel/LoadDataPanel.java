@@ -46,15 +46,12 @@ public class LoadDataPanel extends Panel {
 		panel.setWidth(577);
 
 		final Toolbar refreshTb = new Toolbar();
-	
 		refreshTb.addFill();
-
 		final ToolbarButton refreshBt = new ToolbarButton("刷新");
 
 	
 
 		final GridPanel grid = new GridPanel();
-
 		final RecordDef recordDef = new RecordDef(new FieldDef[] {
 				new StringFieldDef("N_ID"), new StringFieldDef("N_TITLE"),
 				new StringFieldDef("N_AUTHOR"), new StringFieldDef("N_TIME")
@@ -70,7 +67,6 @@ public class LoadDataPanel extends Panel {
 		});
 
 		final DatabaseServiceAsync loadService = DatabaseService.Util.getInstance();
-
 		final AsyncCallback cb_load = new AsyncCallback() {
 
 			public void onFailure(Throwable caught) {
@@ -115,9 +111,6 @@ public class LoadDataPanel extends Panel {
 
 				store.commitChanges();
 
-				// grid.setStore(store);
-
-				// panel.add(grid);
 			}
 
 		};
