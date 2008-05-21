@@ -8,6 +8,8 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Image;
 import com.gwtext.client.core.EventObject;
+import com.gwtext.client.core.Ext;
+import com.gwtext.client.core.ExtElement;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.HTMLPanel;
 import com.gwtext.client.widgets.MessageBox;
@@ -33,7 +35,7 @@ public class Login extends Window {
 	
 	public Login() {
 
-
+	
 		
 		this.setTitle("身份验证");
 		this.setWidth(480);
@@ -60,6 +62,7 @@ public class Login extends Window {
         
 		Image image = new Image();
 		image.setUrl("image/user.gif");
+	
 		
 			
 		toolbar.addText("用户名");
@@ -137,10 +140,8 @@ public class Login extends Window {
 							
 							MessageBox.alert("登陆成功!");
 							close();
-							System.out.println(l.westPanel.getId());
-							l.unMask();
-							
-							
+							final ExtElement  element = Ext.get("west");
+							element.unmask();
 							
 						} else {
 							MessageBox.alert("用户名或密码不正确!");

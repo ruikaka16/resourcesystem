@@ -131,6 +131,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		
 		Panel northPanel = new Panel();
 		northPanel.setHeight(53);
+		northPanel.setId("northPanel");
 		northPanel.setLayout(new HorizontalLayout(0));
 		borderPanel.add(northPanel, new BorderLayoutData(RegionPosition.NORTH));
 
@@ -611,11 +612,12 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		
 		westPanel = new Panel();
 		westPanel.setTitle("导航栏");
-		westPanel.setId("fdsfa");
+		westPanel.setId("west");
 		westPanel.setIconCls("westPanel-icon");
 		westPanel.setCollapsible(true);
 		westPanel.setWidth(200);
 		westPanel.setLayout(accordion);
+		//System.out.println(westPanel.getId()+"********");
 		
 
 		
@@ -982,6 +984,19 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 				Login loginWin = new Login();
 				
 				loginWin.show();	
+				
+				final ExtElement  element = Ext.get("main-panel");
+				
+				element.mask();
+				
+				loginWin.addListener(new PanelListenerAdapter(){
+					
+				 	public void onClose(Panel panel){
+						
+						element.unmask();
+						
+					}
+				});	
 			}
 		});
 //*******************************************************	
