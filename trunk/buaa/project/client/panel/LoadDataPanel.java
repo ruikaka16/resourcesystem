@@ -10,6 +10,8 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import com.gwtext.client.core.EventObject;
+import com.gwtext.client.core.Ext;
+import com.gwtext.client.core.ExtElement;
 import com.gwtext.client.data.ArrayReader;
 import com.gwtext.client.data.FieldDef;
 
@@ -24,6 +26,7 @@ import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.Toolbar;
 import com.gwtext.client.widgets.ToolbarButton;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
+import com.gwtext.client.widgets.event.PanelListenerAdapter;
 import com.gwtext.client.widgets.grid.ColumnConfig;
 import com.gwtext.client.widgets.grid.ColumnModel;
 import com.gwtext.client.widgets.grid.GridPanel;
@@ -156,11 +159,21 @@ public class LoadDataPanel extends Panel {
 						
 						newsPanel.setHtml(result.toString());
 						NewsWindow newWindow = new NewsWindow();
-						newWindow.setFrame(true);
 						newWindow.setTitle(news_title);
 						newWindow.add(newsPanel);
-						newWindow.show();
+						newWindow.show();			
+						final ExtElement  element = Ext.get("main-panel");
 						
+						element.mask();
+						
+						newWindow.addListener(new PanelListenerAdapter(){
+							
+						 	public void onClose(Panel panel){
+								
+								element.unmask();
+								
+							}
+						});	
 					}
 					
 				};

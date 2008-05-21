@@ -495,3 +495,8 @@ a:visited {
 .btLogin-icon{
 	background-image: url( image/connect.gif) !important;
 }
+
+#northPanel .thumb img {   
+    height: 53px;   
+    width: 960px;   
+} 
