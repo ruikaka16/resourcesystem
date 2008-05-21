@@ -11,7 +11,6 @@ import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Ext;
 import com.gwtext.client.core.ExtElement;
 import com.gwtext.client.widgets.Button;
-import com.gwtext.client.widgets.HTMLPanel;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.MessageBoxConfig;
 import com.gwtext.client.widgets.Toolbar;
@@ -30,35 +29,29 @@ public class Login extends Window {
 	TextField txtName;
 	TextField txtPsw;
 	ResourceSystem l = new ResourceSystem();
-	
-	
-	
+		
 	public Login() {
-
-	
 		
 		this.setTitle("身份验证");
-		this.setWidth(480);
+		this.setWidth(475);
 		this.setIconCls("eastPanel_1-icon");
-	
+		
 		Image logo = new Image();
-		logo.setUrl("image/logo1.jpg");
+		logo.setUrl("image/logo2.jpg");
 		logo.setVisible(true);
 	
 
 		toolbar = new Toolbar();
-		toolbar.setWidth(480);
+		toolbar.setWidth(475);
 		
-
 	    txtName = new TextField();
 		txtName.setValue("");
-		
 		
 		txtPsw = new TextField();
 		txtPsw.setPassword(true);
 
 		ToolbarButton bt1 = new ToolbarButton("登    陆");
-		ToolbarButton bt2 = new ToolbarButton("忘记密码");
+
         
 		Image image = new Image();
 		image.setUrl("image/user.gif");
@@ -71,7 +64,7 @@ public class Login extends Window {
 		toolbar.addSpacer();
 		toolbar.addField(txtName);
 		toolbar.addSpacer();
-	//	toolbar.addItem(new ToolbarItem(new Image("image/cross.gif").getElement()));
+	
 		
 		toolbar.addText("密码");
 		toolbar.addSpacer();
@@ -81,15 +74,14 @@ public class Login extends Window {
 		toolbar.addSpacer();
 		toolbar.addButton(bt1);
 		toolbar.addSpacer();
-		toolbar.addButton(bt2);
-		toolbar.addSpacer();
+	
 		
-		final HTMLPanel fd = new HTMLPanel("");
-		
+
 		
 		txtPsw.setPassword(true);
 
 		bt1.addListener(new ButtonListenerAdapter() {
+
 
 			public void onClick(final Button button, EventObject e) {
 
@@ -116,6 +108,7 @@ public class Login extends Window {
 						setAnimEl(button.getId());
 
 						Timer timer = new Timer() {
+				
 							public void run() {
 								MessageBox.hide();
 								
@@ -163,10 +156,9 @@ public class Login extends Window {
 		
 		
 		txtName.addListener (new TextFieldListenerAdapter () {
+		
 			public void onChange (final Field field, final Object newVal, final Object oldVal) {
-				
-				
-				fd.setHtml("验证中……");
+
 				
 				final String username = txtName.getText();
 				final DatabaseServiceAsync validatorService = DatabaseService.Util.getInstance();
@@ -185,11 +177,11 @@ public class Login extends Window {
 						if (ok.booleanValue()) {
 							
 							//toolbar.addItem(new ToolbarItem(new Image("image/add.gif").getElement()));
-							fd.setHtml("验证成功");
-							MessageBox.alert("验证成功!");
+						
+							MessageBox.alert("用户名验证成功!");
 					
 						} else {
-							MessageBox.alert("该用户名不存在!");
+							MessageBox.alert("该用户名不存在，请重新输入!");
 						}
 					
 					}
@@ -204,7 +196,6 @@ public class Login extends Window {
 		
 		this.add(logo);
 		this.add(toolbar);
-		this.add(fd);
 
 	
 		
