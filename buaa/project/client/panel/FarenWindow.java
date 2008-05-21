@@ -110,12 +110,8 @@ public class FarenWindow extends Window{
 		final TextField xingzhi = new TextField("法人性质", "xingzhi");
 		
 		name.setAllowBlank(false);
-		name.setRegex("^[a-zA-Z]*$");
-		name.setRegexText("只允许输入字母");
 		
 		zhuguan.setAllowBlank(false);
-		zhuguan.setRegex("^[a-zA-Z]*$");
-		zhuguan.setRegexText("只允许输入字母");
 		
 		address.setAllowBlank(false);
 		suozaiaddress.setAllowBlank(false);

@@ -116,13 +116,6 @@ public class FarenPanel extends Panel{
 		final TextField suozaiaddress = new TextField("所在单位地址", "suozaiaddress");
 		final TextField xingzhi = new TextField("法人性质", "xingzhi");
 		
-		name.setAllowBlank(false);
-		name.setRegex("^[a-zA-Z]*$");
-		name.setRegexText("只允许输入字母");
-		
-		zhuguan.setAllowBlank(false);
-		zhuguan.setRegex("^[a-zA-Z]*$");
-		zhuguan.setRegexText("只允许输入字母");
 		
 		address.setAllowBlank(false);
 		suozaiaddress.setAllowBlank(false);
@@ -138,9 +131,7 @@ public class FarenPanel extends Panel{
 		firstPanel.add(firstColumn_first, new ColumnLayoutData(0.5));
 		
 		final TextField id = new TextField("序号", "id");
-		id.setAllowBlank(false); 
-		id.setRegex("^\\d*$");
-		id.setRegexText("只能输入数字类型！");
+
 		
 		firstColumn_sec.add(id,new AnchorLayoutData("80%"));
 		
@@ -149,10 +140,7 @@ public class FarenPanel extends Panel{
 		
 		final TextField id_1 = new TextField("序号", "id");
 		
-		id_1.setAllowBlank(false); 
-		id_1.setRegex("^\\d*$");
-		id_1.setRegexText("只能输入数字类型！");
-		
+
 		firstColumn_third.add(id_1,new AnchorLayoutData("80%"));
 		thirdPanel.add(firstColumn_third, new ColumnLayoutData(0.5));
 
@@ -175,17 +163,8 @@ public class FarenPanel extends Panel{
 		final TextField dwwz = new TextField("单位网址", "dwwz");
 		final TextField dwsx = new TextField("单位属性", "dwsx");
 		
-		jigouid.setAllowBlank(false);
-		jigouid.setRegex("^[a-zA-Z]*$");
-		jigouid.setRegexText("只允许输入字母");
-		
+
 		xzzgbm.setAllowBlank(false); 
-		
-		zipcode.setAllowBlank(false); 
-		zipcode.setMaxLength(5);
-		zipcode.setMinLength(5);
-		zipcode.setRegex("^\\d*$");
-		zipcode.setRegexText("只能输入数字类型！");
 		
 		dwwz.setAllowBlank(false); 
 		dwwz.setVtype(VType.URL);
@@ -280,11 +259,7 @@ public class FarenPanel extends Panel{
 			};
 			
 			autoCompleteService.autoComplete(cb_autoComplete);
-		
-		
-	//	this.add(formPanel_tn_3121_1, new RowLayoutData(160));
-	//	this.add(formPanel_tn_3121_2, new RowLayoutData(60));
-	//	this.add(formPanel_tn_3121_3, new RowLayoutData(60));
+	
 		
 		wr.add(searchPanel,new RowLayoutData(60));
 		wr.add(formPanel_tn_3121_1, new RowLayoutData(160));

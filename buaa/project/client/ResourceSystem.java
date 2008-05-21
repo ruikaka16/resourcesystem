@@ -141,7 +141,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		toolbar.setStyleName("ext-el-mask-msg");
 		
 		Image image = new Image();
-		image.setUrl("image/11.jpg");
+		image.setUrl("image/12.jpg");
 		image.setWidth("960px");
 		northPanel.add(image);	
 	
@@ -837,14 +837,14 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		eastPanel_3.setWidth(200);
 
 
-		eastPanel.add(eastPanel_1);
+	//	eastPanel.add(eastPanel_1);
 	//	eastPanel.add(eastPanel_2);
 	//	eastPanel.add(eastPanel_3);
 		
 
 	  
 		
-		eastPanel_1.add(login);
+	//	eastPanel_1.add(login);
 	//	eastPanel_1.add(formPanel_1);
 		
 		// ************************tip********************************
@@ -936,6 +936,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 				
 				EditorPanel editPanel = new EditorPanel();
 			
+				editPanel.setIconCls("navPanel3-icon");
 				editPanel.setVisible(true);
 			    centerPanel.activate(0);
 				centerPanel.add(editPanel);
