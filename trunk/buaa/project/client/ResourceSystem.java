@@ -123,6 +123,8 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		panel.setLayout(new FitLayout());
 		panel.setShadow(true);
 		panel.setId("main-panel");
+		//panel.setStyle("color:black;background-color:red");
+		//panel.addClass("ext-el-mask-msg");
 		panel.doLayout();
 
 		Panel borderPanel = new Panel();
@@ -132,6 +134,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		Panel northPanel = new Panel();
 		northPanel.setHeight(53);
 		northPanel.setId("northPanel");
+		northPanel.setStyleName("");
 		northPanel.setLayout(new HorizontalLayout(0));
 		borderPanel.add(northPanel, new BorderLayoutData(RegionPosition.NORTH));
 
