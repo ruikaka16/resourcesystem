@@ -204,7 +204,7 @@ public class LoadDataPanel extends Panel {
 						ArrayReader reader = new ArrayReader(recordDef);
 						// Store store = grid.getStore();
 						Store store = new Store(reader);
-						store.load();
+						store.reload();
 						grid.setStore(store);
 						store.removeAll();
 				        store.commitChanges();

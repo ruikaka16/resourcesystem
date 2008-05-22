@@ -22,6 +22,7 @@ import com.gwtext.client.widgets.form.ComboBox;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.form.VType;
+import com.gwtext.client.widgets.form.event.ComboBoxListenerAdapter;
 import com.gwtext.client.widgets.layout.AnchorLayoutData;
 import com.gwtext.client.widgets.layout.ColumnLayout;
 import com.gwtext.client.widgets.layout.ColumnLayoutData;
@@ -259,6 +260,13 @@ public class FarenPanel extends Panel{
 			};
 			
 			autoCompleteService.autoComplete(cb_autoComplete);
+			
+			cb.addListener(new ComboBoxListenerAdapter() {
+			    public void onExpand(ComboBox comboBox) {
+			        store.reload();
+			    }
+			});
+
 	
 		
 		wr.add(searchPanel,new RowLayoutData(60));
