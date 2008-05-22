@@ -61,7 +61,7 @@ public class LoadDataPanel extends Panel {
 	
 
 		
-		final GridPanel grid1 = new GridPanel();
+		
 		final RecordDef recordDef = new RecordDef(new FieldDef[] {
 				new StringFieldDef("N_ID"), new StringFieldDef("N_TITLE"),
 				new StringFieldDef("N_AUTHOR"), new StringFieldDef("N_TIME")
@@ -200,30 +200,43 @@ public class LoadDataPanel extends Panel {
 
 					public void onSuccess(Object response) {
 					
-					
-						ArrayReader reader = new ArrayReader(recordDef);
-						// Store store = grid.getStore();
-						Store store = new Store(reader);
+						//removeAll();
+						 Store store = grid.getStore();
+					     store.removeAll();
+					     store.commitChanges();
+					     
+					//	ArrayReader reader = new ArrayReader(recordDef);
+											
 						store.reload();
-						grid.setStore(store);
-						store.removeAll();
-				        store.commitChanges();
+						
+						
+						
+					//	store.removeAll();
+				   //     store.commitChanges();
 						//grid.setTitle("新闻列表");
-						grid.setColumnModel(columnModel);
-						grid.setWidth(575);
-						grid.setHeight(500);
-						grid.setFrame(true);
-						grid.stripeRows(true);
+				  //     grid.removeAll();
+				        
+				        
+				  //      store.load();
+				      final GridPanel grid1 = new GridPanel();
+				        
+				        grid1.setStore(store);
+				        grid1.setColumnModel(columnModel);
+						grid1.setWidth(575);
+						grid1.setHeight(500);
+						grid1.setFrame(true);
+						grid1.stripeRows(true);
 						   
-						grid.setBottomToolbar(refreshBt);
+						grid1.setBottomToolbar(refreshBt);
 						GridView view = new GridView();
 						view.setForceFit(true);
-						grid.setView(view);
+						grid1.setView(view);
 						
-						panel.add(grid);
+						panel.add(grid1);
 						panel.doLayout();
+						
 
-						if (store == null) {
+				        if (store == null) {
 							return;
 						}
 
@@ -232,12 +245,12 @@ public class LoadDataPanel extends Panel {
 						while (it.hasNext()) {
 							
 							final BeanDTO bean = (BeanDTO) it.next();
-							//System.out.println(bean.getN_TITLE()+"****");
+							System.out.println(bean.getN_TITLE()+"****");
 							store.add(recordDef.createRecord(bean.toObjectArray()));
 
 						}
-						
-						store.commitChanges();
+					
+
 
 					}
 
