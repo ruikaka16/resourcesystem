@@ -899,7 +899,8 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		centerPanelThree .setAutoScroll(true);
 		centerPanelThree .setAutoShow(true);
 		SearchPanel s= new SearchPanel();
-	//	centerPanelThree.add(s);
+		centerPanelThree.add(s);
+		centerPanel.add(centerPanelThree);
 		
 	
 //**************************************************************************

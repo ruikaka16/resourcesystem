@@ -210,8 +210,7 @@ public class FarenPanel extends Panel{
 	        store.load();   
 	  
 	        final ComboBox cb = new ComboBox("单位名称");   
-	        cb.setMinChars(1);
-	        
+	        cb.setMinChars(1); 
 	        cb.setFieldLabel("法人单位名称");   
 	        cb.setStore(store);   
 	        cb.setDisplayField("name");   
@@ -261,11 +260,11 @@ public class FarenPanel extends Panel{
 			
 			autoCompleteService.autoComplete(cb_autoComplete);
 			
-			cb.addListener(new ComboBoxListenerAdapter() {
-			    public void onExpand(ComboBox comboBox) {
-			        store.reload();
-			    }
-			});
+	//		cb.addListener(new ComboBoxListenerAdapter() {
+	//		    public void onExpand(ComboBox comboBox) {
+	//		        store.reload();
+	//		    }
+	//		});
 
 	
 		
@@ -280,7 +279,7 @@ public class FarenPanel extends Panel{
 		bt.addListener(new ButtonListenerAdapter(){
 			
 			public void onClick(Button button,EventObject e){
-				MessageBox.alert(cb.getText());
+				//MessageBox.alert(cb.getText());
 				DatabaseServiceAsync loadFaren  =DatabaseService.Util.getInstance();
 				
 				AsyncCallback cb_getFarenInfo = new AsyncCallback() {
