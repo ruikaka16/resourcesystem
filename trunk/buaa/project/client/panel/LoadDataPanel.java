@@ -6,6 +6,7 @@ import java.util.List;
 import com.buaa.project.client.DatabaseService;
 import com.buaa.project.client.DatabaseServiceAsync;
 import com.buaa.project.client.data.BeanDTO;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -22,9 +23,11 @@ import com.gwtext.client.data.StringFieldDef;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.HTMLPanel;
 import com.gwtext.client.widgets.MessageBox;
+import com.gwtext.client.widgets.MessageBoxConfig;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.Toolbar;
 import com.gwtext.client.widgets.ToolbarButton;
+import com.gwtext.client.widgets.WaitConfig;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.event.PanelListenerAdapter;
 import com.gwtext.client.widgets.grid.ColumnConfig;
@@ -85,6 +88,8 @@ public class LoadDataPanel extends Panel {
 			}
 
 			public void onSuccess(Object response) {
+				
+				
 				ArrayReader reader = new ArrayReader(recordDef);
 				// Store store = grid.getStore();
 				Store store = new Store(reader);
@@ -106,6 +111,9 @@ public class LoadDataPanel extends Panel {
 				
 				panel.add(grid);
 				panel.doLayout();
+				final ExtElement element = Ext.get("main-panel");
+				element.unmask();
+				
 
 				if (store == null) {
 					return;

@@ -113,6 +113,9 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 
 	public Panel panel;
 	public Panel westPanel;
+	public ToolbarButton bt1;
+	public ToolbarButton bt2;
+	public Toolbar toolbar;
 	
 	public void onModuleLoad() {
 
@@ -138,7 +141,8 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		northPanel.setLayout(new HorizontalLayout(0));
 		borderPanel.add(northPanel, new BorderLayoutData(RegionPosition.NORTH));
 
-	    final Toolbar toolbar = new Toolbar();
+	    toolbar = new Toolbar();
+	    toolbar.setId("login-tooblar");
 		toolbar.setWidth(64);
 		toolbar.setHeight(54);
 		toolbar.setStyleName("ext-el-mask-msg");
@@ -150,8 +154,13 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 	
 
 
-		ToolbarButton bt1 = new ToolbarButton("登    陆");
+		bt1 =new ToolbarButton("登陆");
+		//bt2 =new ToolbarButton("注销");
+		//bt2.setVisible(false);
+		bt1.setId("login");
+		//bt2.setId("logout");
 		toolbar.addButton(bt1);
+		//toolbar.addButton(bt2);
         northPanel.add(toolbar);
 	
 
@@ -631,6 +640,8 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		navPanel1.setIconCls("navPanel1-icon");
 		navPanel1.setId("navPanel1");
 		navPanel1.add(treePanel1);
+		navPanel1.setMaskDisabled(true);
+		navPanel1.isMaskDisabled();
 		westPanel.add(navPanel1);
 		
 
@@ -1164,7 +1175,9 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		
 		Viewport viewPort = new Viewport(panel);
 		
+		//navPanel1.getEl().mask("jessiena");
 		westPanel.getEl().mask("请您先登陆！");
+		panel.getEl().mask("数据加载中，请稍后……");
 
 	}
 	public void unMask()
