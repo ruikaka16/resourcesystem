@@ -9,7 +9,6 @@ import java.util.List;
 
 import java.util.Map;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.gwtext.client.widgets.form.Validator;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -29,7 +28,7 @@ public interface DatabaseServiceAsync {
     		,String xingzhi,String id,String id_1,String jigouid,String xzzgbm,String zipcode,String dwwz
     		,String dwsx,String hymc,String xkmc, AsyncCallback callback);
    
-    public void getNewsContent(String N_ID, AsyncCallback callback);
+    public void getNewsContent(String N_TITLE, AsyncCallback callback);
     
     public void getdata(AsyncCallback callback);
     
