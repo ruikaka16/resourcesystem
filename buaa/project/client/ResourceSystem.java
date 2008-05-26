@@ -10,7 +10,6 @@ import com.buaa.project.client.panel.DataLoad;
 import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
 import com.buaa.project.client.panel.Fileupload;
-import com.buaa.project.client.panel.LargeDevice;
 import com.buaa.project.client.panel.LoadDataPanel;
 import com.buaa.project.client.panel.SearchPanel;
 
@@ -19,6 +18,7 @@ import com.buaa.project.client.panel.Login;
 
 import com.buaa.project.client.panel.PiechartPanel;
 import com.buaa.project.client.window.FarenWindow;
+import com.buaa.project.client.window.LargeDeviceWindow;
 import com.buaa.project.client.window.PlantWindow;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -563,7 +563,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 			
 			public void onClick(Node node,EventObject e){
 				
-				LargeDevice largeDevice = new  LargeDevice();
+				LargeDeviceWindow largeDevice = new  LargeDeviceWindow();
 				largeDevice.setVisible(true);
 				largeDevice.show();	
 				

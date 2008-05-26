@@ -66,13 +66,13 @@ public class LoadDataPanel extends Panel {
 		
 		
 		final RecordDef recordDef = new RecordDef(new FieldDef[] {
-				new StringFieldDef("N_ID"), new StringFieldDef("N_TITLE"),
+			    new StringFieldDef("N_TITLE"),
 				new StringFieldDef("N_AUTHOR"), new StringFieldDef("N_TIME")
 
 		});
 
 		final ColumnModel columnModel = new ColumnModel(new ColumnConfig[] {
-				new ColumnConfig("序号", "N_ID", 50, true),
+				
 				new ColumnConfig("新闻标题", "N_TITLE", 330, true),
 				new ColumnConfig("发布单位", "N_AUTHOR", 100, true),
 				new ColumnConfig("发布时间", "N_TIME", 76, true)
@@ -97,7 +97,7 @@ public class LoadDataPanel extends Panel {
 				grid.setStore(store);
 				//grid.setTitle("新闻列表");
 				grid.setColumnModel(columnModel);
-				grid.setAutoExpandColumn("N_ID");
+				//grid.setAutoExpandColumn("N_ID");
 				//grid.setAutoWidth(true);
 				grid.setWidth(558);
 				grid.setHeight(515);
@@ -145,7 +145,7 @@ public class LoadDataPanel extends Panel {
 				{
 					Record record = records[i];   
 				
-					news_title  += record.getAsString("N_ID");
+					news_title  += record.getAsString("N_TITLE");
 				
 				}
 	
@@ -161,13 +161,14 @@ public class LoadDataPanel extends Panel {
 					public void onSuccess(Object result) {
 						// TODO Auto-generated method stub
 					
-						System.out.println(result.toString());
+						//System.out.println(result);
 						
 						Panel newsPanel = new HTMLPanel();
-						
+						newsPanel.setHeight(400);
 						newsPanel.setHtml(result.toString());
 						NewsWindow newWindow = new NewsWindow();
 						newWindow.setTitle(news_title);
+						
 						newWindow.add(newsPanel);
 						newWindow.show();			
 						final ExtElement  element = Ext.get("main-panel");

@@ -51,6 +51,7 @@ public class PlantWindow extends Window{
 		ComboBox cb_1 = new ComboBox("主要特征特性");
 		final Store store = new SimpleStore(new String[]{"type", "feature"}, getFeature());
 		store.load();  
+		cb_1.setAllowBlank(false);
 		cb_1.setStore(store);
 		cb_1.setSelectOnFocus(true);
 		cb_1.setMinChars(1);
@@ -66,6 +67,7 @@ public class PlantWindow extends Window{
 		ComboBox cb_2 = new ComboBox("资源类型");
 		final Store store2 = new SimpleStore(new String[]{"id", "type", "nick"}, getType());
 		store2.load();  
+		cb_2.setAllowBlank(false);
 		cb_2.setStore(store2);
 		cb_2.setSelectOnFocus(true);
 		cb_2.setMinChars(1);
@@ -81,6 +83,7 @@ public class PlantWindow extends Window{
 		ComboBox cb_3 = new ComboBox("保存资源类型");
 		final Store store3 = new SimpleStore(new String[]{"type", "saveType"}, getSaveType());
 		store3.load();  
+		cb_3.setAllowBlank(false);
 		cb_3.setStore(store3);
 		cb_3.setSelectOnFocus(true);
 		cb_3.setMinChars(1);
@@ -96,6 +99,7 @@ public class PlantWindow extends Window{
 		ComboBox cb_4 = new ComboBox("实物状态");
 		final Store store4 = new SimpleStore(new String[]{"id", "type"}, getStatus());
 		store4.load();  
+		cb_4.setAllowBlank(false);
 		cb_4.setStore(store4);
 		cb_4.setSelectOnFocus(true);
 		cb_4.setMinChars(1);
@@ -111,6 +115,7 @@ public class PlantWindow extends Window{
 		ComboBox cb_5 = new ComboBox("共享方式");
 		final Store store5 = new SimpleStore(new String[]{"type", "share"}, getShareType());
 		store5.load();  
+		cb_5.setAllowBlank(false);
 		cb_5.setStore(store5);
 		cb_5.setSelectOnFocus(true);
 		cb_5.setMinChars(1);
@@ -133,17 +138,19 @@ public class PlantWindow extends Window{
 				 new Object[]{"AU", "澳大利亚"},
 				 new Object[]{"BR", "巴西"},
 				 new Object[]{"CA", "加拿大"},
+				 new Object[]{"CH", "瑞士"},
 				 new Object[]{"CN","中国"},
 				 new Object[]{"DE", "德国"},
-				 new Object[]{"FR", "法国"},   
-				 new Object[]{"IN", "印度"},
-				 new Object[]{"USA", "美国"}, 
-				 new Object[]{"JP", "日本"},
-				 new Object[]{"IE", "意大利"},
-				 new Object[]{"GH", "加纳"},
-				 new Object[]{"IE", "爱尔兰"},
 				 new Object[]{"FI", "芬兰"},
-				 new Object[]{"CH", "瑞士"},
+				 new Object[]{"FR", "法国"}, 
+				 new Object[]{"GH", "加纳"},
+				 new Object[]{"IN", "印度"},
+				 new Object[]{"IE", "爱尔兰"},
+				 new Object[]{"IE", "意大利"},
+				 new Object[]{"JP", "日本"},
+				 new Object[]{"USA", "美国"}, 
+				
+		 
 	        };   
 	  
 	        final Store countriesStore = new SimpleStore(new String[]{"cid", "country"}, countries);   
@@ -151,23 +158,50 @@ public class PlantWindow extends Window{
 	  
 	        //cities store   
 	        Object[][] cities = new Object[][]{   
-	        		new Object[]{new Integer(1), "CN", "北京"},  
-	        		new Object[]{new Integer(2), "CN", "上海"},  
-	        		new Object[]{new Integer(3), "CN", "河北省"},  
-	        		new Object[]{new Integer(4), "CN", "山西省"},  
-	        		new Object[]{new Integer(5), "CN", "四川省"},  
-	        		new Object[]{new Integer(6), "CN", "陕西省"},  
-	        		new Object[]{new Integer(7), "CN", "西藏自治区"},  
-	        		new Object[]{new Integer(8), "USA", "New York"},   
-	                new Object[]{new Integer(9), "USA", "Cleveland"},   
-	                new Object[]{new Integer(10), "USA", "Austin"},   
-	                new Object[]{new Integer(11), "USA", "Los Angeles"},   
-	                new Object[]{new Integer(12), "DE", "Bonn"},   
-	                new Object[]{new Integer(14), "FR", "Paris"},   
-	                new Object[]{new Integer(15), "FR", "Nice"},   
-	                new Object[]{new Integer(16), "GB", "London"},   
-	                new Object[]{new Integer(17), "GB", "Glasgow"},   
-	                new Object[]{new Integer(18), "GB", "Liverpool"}   
+	        		new Object[]{new Integer(1), "CN", "北京市"},  
+	        		new Object[]{new Integer(2), "CN", "天津市"},  
+	        		new Object[]{new Integer(3), "CN", "重庆市"},  
+	        		new Object[]{new Integer(4), "CN", "上海市"},  
+	        		new Object[]{new Integer(5), "CN", "河北省"},  
+	        		new Object[]{new Integer(6), "CN", "山西省"},
+	        		new Object[]{new Integer(7), "CN", "辽宁省"},  
+	        		new Object[]{new Integer(8), "CN", "吉林省"},  
+	        		new Object[]{new Integer(9), "CN", "黑龙江省"},  
+	        		new Object[]{new Integer(10), "CN", "江苏省"},  
+	        		new Object[]{new Integer(11), "CN", "浙江省"},  
+	        		new Object[]{new Integer(12), "CN", "安徽省"},  
+	        		new Object[]{new Integer(13), "CN", "福建省"},  
+	        		new Object[]{new Integer(14), "CN", "江西省"},  
+	        		new Object[]{new Integer(15), "CN", "山东省"},  
+	        		new Object[]{new Integer(16), "CN", "河南省"},  
+	        		new Object[]{new Integer(17), "CN", "湖北省"},  
+	        		new Object[]{new Integer(18), "CN", "湖南省"},  
+	        		new Object[]{new Integer(19), "CN", "广东省"},
+	        		new Object[]{new Integer(20), "CN", "海南省"},  
+	        		new Object[]{new Integer(21), "CN", "四川省"},  
+	        		new Object[]{new Integer(22), "CN", "贵州省"},  
+	        		new Object[]{new Integer(23), "CN", "云南省"},  
+	        		new Object[]{new Integer(24), "CN", "陕西省"},  
+	        		new Object[]{new Integer(25), "CN", "甘肃省"},  
+	        		new Object[]{new Integer(26), "CN", "青海省"},  
+	        		new Object[]{new Integer(27), "CN", "台湾省"},  
+	        		new Object[]{new Integer(28), "CN", "内蒙古自治区"},
+	        		new Object[]{new Integer(29), "CN", "广西壮族自治区"},  
+	        		new Object[]{new Integer(30), "CN", "宁夏回族自治区"},  
+	        		new Object[]{new Integer(31), "CN", "新疆维吾尔自治区"},  
+	        		new Object[]{new Integer(32), "CN", "西藏自治区"},  
+	        		new Object[]{new Integer(33), "CN", "香港特别行政区"},
+	        		new Object[]{new Integer(34), "CN", "澳门特别行政区"},
+	        		new Object[]{new Integer(35), "USA", "纽约"},   
+	                new Object[]{new Integer(36), "USA", "克利夫兰"},   
+	                new Object[]{new Integer(37), "USA", "奥斯丁"},   
+	                new Object[]{new Integer(38), "USA", "洛杉矶"},   
+	                new Object[]{new Integer(39), "DE", "法兰克福"},   
+	                new Object[]{new Integer(40), "FR", "巴黎"},   
+	                new Object[]{new Integer(41), "FR", "里昂"},   
+	                new Object[]{new Integer(42), "GB", "伦敦"},   
+	                new Object[]{new Integer(43), "GB", "曼彻斯特"},   
+	                new Object[]{new Integer(44), "GB", "利物浦"}   
 	        };   
 	  
 	        final Store citiesStore = new SimpleStore(new String[]{"id", "cid", "city"}, cities);   
@@ -175,6 +209,7 @@ public class PlantWindow extends Window{
 		
 		final ComboBox countryCB = new ComboBox();   
         countryCB.setFieldLabel("产国");   
+        countryCB.setAllowBlank(false);
         countryCB.setStore(countriesStore);   
         countryCB.setDisplayField("country");   
         countryCB.setMode(ComboBox.LOCAL);   
@@ -189,7 +224,8 @@ public class PlantWindow extends Window{
 
   
         final ComboBox cityCB = new ComboBox();   
-        cityCB.setFieldLabel("原产省");   
+        cityCB.setFieldLabel("原产省"); 
+        cityCB.setAllowBlank(false);
         cityCB.setStore(citiesStore);   
         cityCB.setDisplayField("city");   
         cityCB.setValueField("id");   
@@ -212,7 +248,8 @@ public class PlantWindow extends Window{
 		TextField ke_name = new TextField("科名","ke_name");
 		TextField zhong_name = new TextField("种名","zhong_name");
 		TextField location = new TextField("产地","location");
-		//TextField country = new TextField("产国","country");
+
+		ke_name.setAllowBlank(false);
 		
 		firstColumn.add(id,new AnchorLayoutData("80%"));
 		firstColumn.add(name_chn,new AnchorLayoutData("80%"));
@@ -230,9 +267,13 @@ public class PlantWindow extends Window{
 		TextField name_forn=new TextField("外文名称","name_forn");
 		TextField name_belong = new TextField("属名","name_belong");
 		TextField id_location =new TextField("归属编码","id_location");
-		TextField province = new TextField("原产省","province");
 		TextField original = new TextField("来源地","original");
 		
+		save_id.setAllowBlank(false);
+		name_belong.setAllowBlank(false);
+		id_location.setAllowBlank(false);
+		name_forn.setRegex("^[a-zA-Z]*$");
+		name_forn.setRegexText("只允许输入字母");
 		
 		secondColumn.add(save_id,new AnchorLayoutData("80%"));
 		secondColumn.add(name_forn,new AnchorLayoutData("80%"));

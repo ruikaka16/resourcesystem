@@ -161,7 +161,6 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		List userInfo = new ArrayList(); 
 		while(rs.next()){
 			BeanDTO bean  = new BeanDTO();
-			bean.setN_ID(rs.getString("N_ID"));
 			bean.setN_TITLE(rs.getString("N_TITLE"));
 			bean.setN_AUTHOR(rs.getString("N_AUTHOR"));
 			bean.setN_TIME(rs.getString("N_TIME"));
@@ -190,13 +189,13 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		return true;
 	}
 
-	public String getNewsContent(String N_ID) throws Exception {
+	public String getNewsContent(String N_TITLE) throws Exception {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/test";
 			Connection conn = DriverManager.getConnection(url, "root", "rui");
 		      String cmd =
-		          "select N_CONTENT from news where N_ID = '"+ N_ID +"'";
+		          "select N_CONTENT from news where N_TITLE = '"+ N_TITLE +"'";
 		     Statement stmt = conn.createStatement();
 		     ResultSet rs = stmt.executeQuery(cmd);
 		     
