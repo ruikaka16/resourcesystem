@@ -136,8 +136,8 @@ public class Login extends Window {
 							final ExtElement  element1 = Ext.get("west");
 							element1.unmask();
 							
-							final ExtElement element2 = Ext.get("navPanel1");
-							element2.mask("jessiena");
+						//	final ExtElement element2 = Ext.get("navPanel1");
+						//	element2.mask("jessiena");
 							
 							final ExtElement element3 = Ext.get("login");
 							element3.remove();
