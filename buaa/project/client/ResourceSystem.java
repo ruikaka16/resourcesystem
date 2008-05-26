@@ -9,7 +9,6 @@ import java.util.Map;
 import com.buaa.project.client.panel.DataLoad;
 import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
-import com.buaa.project.client.panel.FarenWindow;
 import com.buaa.project.client.panel.Fileupload;
 import com.buaa.project.client.panel.LargeDevice;
 import com.buaa.project.client.panel.LoadDataPanel;
@@ -19,6 +18,8 @@ import com.buaa.project.client.panel.Login;
 
 
 import com.buaa.project.client.panel.PiechartPanel;
+import com.buaa.project.client.window.FarenWindow;
+import com.buaa.project.client.window.PlantWindow;
 
 import com.google.gwt.core.client.EntryPoint;
 
@@ -471,9 +472,20 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 
 		final TreeNode treeNode5_2_1_1 = new TreeNode("生物种质资源");
 		treeNode5_2_1_1.setText("生物种质资源");
-		treeNode5_2_1_1.setIconCls("treeNode5_2_1_1-icon");
+		treeNode5_2_1_1.setIconCls("treeNode5_2_2-icon");
 		treeNode5_2_1.appendChild(treeNode5_2_1_1);
 
+		final TreeNode treeNode5_2_1_1_1 = new TreeNode("植物种质资源");
+		treeNode5_2_1_1_1.setText("植物种质资源");
+		treeNode5_2_1_1_1.setIconCls("treeNode5_2_1_1-icon");
+		treeNode5_2_1_1.appendChild(treeNode5_2_1_1_1);
+		
+		final TreeNode treeNode5_2_1_1_2 = new TreeNode("动物种质资源");
+		treeNode5_2_1_1_2.setText("动物种质资源");
+		treeNode5_2_1_1_2.setIconCls("treeNode5_2_1_1-icon");
+		treeNode5_2_1_1.appendChild(treeNode5_2_1_1_2);
+		
+		
 		final TreeNode treeNode5_2_2 = new TreeNode("重点资源");
 		treeNode5_2_2.setText("重点资源");
 		treeNode5_2_2.setIconCls("treeNode5_2_2-icon");
@@ -588,6 +600,31 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 				element.mask();
 
 				fileUpload.addListener(new PanelListenerAdapter(){
+			
+					public void onClose(Panel panel){
+				
+						element.unmask();
+				
+			}
+		});	
+
+			}
+		});
+//***********************************************************
+		treeNode5_2_1_1_1.addListener(new TreeNodeListenerAdapter(){
+			
+			public void onClick(Node node,EventObject e){
+				
+				PlantWindow plantWindow = new PlantWindow();
+				plantWindow.setVisible(true);
+				plantWindow.show();
+				
+				
+	final ExtElement  element = Ext.get("main-panel");
+				
+				element.mask();
+
+				plantWindow.addListener(new PanelListenerAdapter(){
 			
 					public void onClose(Panel panel){
 				
@@ -731,7 +768,6 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		cb.setForceSelection(true);
 		cb.setMinChars(1);
 		cb.setFieldLabel("用户类型");
-		//cb.setStore(store);
 		cb.setDisplayField("state");
 		cb.setMode(ComboBox.LOCAL);
 		cb.setTriggerAction(ComboBox.ALL);
