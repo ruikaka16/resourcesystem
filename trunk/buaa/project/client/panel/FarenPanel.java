@@ -19,6 +19,7 @@ import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.ComboBox;
+import com.gwtext.client.widgets.form.FieldSet;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.form.VType;
@@ -37,52 +38,62 @@ public class FarenPanel extends Panel{
 	public FarenPanel(){
 		
 		this.setBorder(true);
-		   this.setPaddings(0);
+		   this.setPaddings(5);
 		   this.setHeight(600);
 		   this.setWidth(800);
-		   this.setDraggable(true);
 		   this.setClosable(true);
-		   this.setTitle("法人单位信息查询");
+		   this.setFrame(true);
+		  
 
 		   
 		   Panel wr = new Panel();
 		   wr.setLayout(new RowLayout());
 		   
+		   
+		   
 		//this.setTitle("法人单位概况");
 		
 		// wrapperPanel.setBodyStyle("border-style:dotted;border-color:blue;");
-
-		FormPanel formPanel_tn_3121_1 = new FormPanel();
+		FieldSet searchPanel = new FieldSet("法人单位检索");
+		searchPanel.setPaddings(5);
+		searchPanel.setCollapsible(true);
+		searchPanel.setFrame(true);
+		
+		   
+		FieldSet formPanel_tn_3121_1 = new FieldSet("法人单位信息查询");
 		formPanel_tn_3121_1.setPaddings(5);
 		formPanel_tn_3121_1.setFrame(true);
-		formPanel_tn_3121_1.setLabelAlign(Position.LEFT);
-		formPanel_tn_3121_1.setHeight(300);
+		formPanel_tn_3121_1.setCollapsible(true);
+		//formPanel_tn_3121_1.setHeight(300);
 		// formPanel_tn_3121.setLayout(new RowLayout());
-		FormPanel formPanel_tn_3121_2 = new FormPanel();
+		FieldSet formPanel_tn_3121_2 = new FieldSet("从事和服务的国民经济行业");
 		formPanel_tn_3121_2.setPaddings(5);
 		formPanel_tn_3121_2.setFrame(true);
-		formPanel_tn_3121_2.setLabelAlign(Position.LEFT);
 		formPanel_tn_3121_2.setAutoHeight(true);
+		formPanel_tn_3121_2.setCollapsible(true);
 		formPanel_tn_3121_2.setTitle("从事和服务的国民经济行业");
 
-		FormPanel formPanel_tn_3121_3 = new FormPanel();
+		FieldSet formPanel_tn_3121_3 = new FieldSet("主要科学领域");
 		formPanel_tn_3121_3.setPaddings(5);
 		formPanel_tn_3121_3.setFrame(true);
-		formPanel_tn_3121_3.setLabelAlign(Position.LEFT);
 		formPanel_tn_3121_3.setAutoHeight(true);
-		formPanel_tn_3121_3.setTitle("主要科学领域");
+		formPanel_tn_3121_3.setCollapsible(true);
+
 
 		Panel firstPanel = new Panel();
 		firstPanel.setLayout(new ColumnLayout());
 		firstPanel.setBorder(false);
+		firstPanel.setFrame(true);
 
 		Panel secPanel = new Panel();
 		secPanel.setLayout(new ColumnLayout());
 		secPanel.setBorder(false);
+		secPanel.setFrame(true);
 
 		Panel thirdPanel = new Panel();
 		thirdPanel.setLayout(new ColumnLayout());
 		thirdPanel.setBorder(false);
+		thirdPanel.setFrame(true);
 
 		Panel firstColumn = new Panel();
 		firstColumn.setLayout(new FormLayout());
@@ -117,10 +128,6 @@ public class FarenPanel extends Panel{
 		final TextField suozaiaddress = new TextField("所在单位地址", "suozaiaddress");
 		final TextField xingzhi = new TextField("法人性质", "xingzhi");
 		
-		
-		address.setAllowBlank(false);
-		suozaiaddress.setAllowBlank(false);
-		xingzhi.setAllowBlank(false);
 		
 		firstColumn_first.add(name,new AnchorLayoutData("80%"));
 		firstColumn_first.add(zhuguan,new AnchorLayoutData("80%"));
@@ -164,13 +171,6 @@ public class FarenPanel extends Panel{
 		final TextField dwwz = new TextField("单位网址", "dwwz");
 		final TextField dwsx = new TextField("单位属性", "dwsx");
 		
-
-		xzzgbm.setAllowBlank(false); 
-		
-		dwwz.setAllowBlank(false); 
-		dwwz.setVtype(VType.URL);
-		
-		dwsx.setAllowBlank(false); 
 		
 		secondColumn_first.add(jigouid,new AnchorLayoutData("80%"));
 		secondColumn_first.add(xzzgbm,new AnchorLayoutData("80%"));
@@ -183,12 +183,11 @@ public class FarenPanel extends Panel{
 		final TextField hymc = new TextField("行业名称", "hymc");	
 		secondColumn_sec.add(hymc,new AnchorLayoutData("80%"));
 		
-		hymc.setAllowBlank(false); 
 		
 		secPanel.add(secondColumn_sec, new ColumnLayoutData(0.5));
 		final TextField xkmc = new TextField("学科名称", "xkmc");	
 		
-		xkmc.setAllowBlank(false);
+	
 		secondColumn_third.add(xkmc,new AnchorLayoutData("80%"));
 		thirdPanel.add(secondColumn_third, new ColumnLayoutData(0.5));
 
@@ -201,9 +200,7 @@ public class FarenPanel extends Panel{
 	
 		
 	     
-		Panel searchPanel = new Panel();
-		searchPanel.setBorder(false);
-		searchPanel.setTitle("法人单位信息");
+	
 	        
 	        
 	        final Store store = new SimpleStore("name", new Object[]{});  
@@ -260,18 +257,12 @@ public class FarenPanel extends Panel{
 			
 			autoCompleteService.autoComplete(cb_autoComplete);
 			
-	//		cb.addListener(new ComboBoxListenerAdapter() {
-	//		    public void onExpand(ComboBox comboBox) {
-	//		        store.reload();
-	//		    }
-	//		});
-
 	
 		
-		wr.add(searchPanel,new RowLayoutData(60));
-		wr.add(formPanel_tn_3121_1, new RowLayoutData(160));
-		wr.add(formPanel_tn_3121_2, new RowLayoutData(60));
-		wr.add(formPanel_tn_3121_3, new RowLayoutData(60));
+			this.add(searchPanel,new RowLayoutData(60));
+			this.add(formPanel_tn_3121_1, new RowLayoutData(160));
+			this.add(formPanel_tn_3121_2, new RowLayoutData(60));
+			this.add(formPanel_tn_3121_3, new RowLayoutData(60));
 	
 
 		
@@ -324,9 +315,7 @@ public class FarenPanel extends Panel{
 		
 		
 		
-		wr.addButton(bt);
-		
-		this.add(wr);
+		this.addButton(bt);
 		
 	}
 

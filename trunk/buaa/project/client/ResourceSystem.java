@@ -4,8 +4,6 @@ package com.buaa.project.client;
 
 import java.util.HashMap;
 import java.util.Map;
-
-
 import com.buaa.project.client.panel.ColumnPanel;
 import com.buaa.project.client.panel.DataLoad;
 import com.buaa.project.client.panel.EditorPanel;
@@ -927,10 +925,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		centerPanel.add(ldp);
 		centerPanel.doLayout();
 		
-		
-		ToolTip tip_news = new ToolTip();
-		tip_news.setHtml("点击浏览文件！");
-		tip_news.applyTo(ldp);
+
 		
       
 //*********************************************************		
@@ -954,7 +949,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		centerPanelThree .setAutoShow(true);
 		SearchPanel s= new SearchPanel();
 		centerPanelThree.add(s);
-		centerPanel.add(centerPanelThree);
+		//centerPanel.add(centerPanelThree);
 		
 	
 //**************************************************************************
