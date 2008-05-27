@@ -13,6 +13,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Ext;
 import com.gwtext.client.core.ExtElement;
+import com.gwtext.client.core.Template;
 import com.gwtext.client.data.ArrayReader;
 import com.gwtext.client.data.FieldDef;
 
@@ -169,6 +170,8 @@ public class LoadDataPanel extends Panel {
 						NewsWindow newWindow = new NewsWindow();
 						newWindow.setTitle(news_title);
 						
+						
+						Template template = new Template(result.toString());
 						newWindow.add(newsPanel);
 						newWindow.show();			
 						final ExtElement  element = Ext.get("main-panel");

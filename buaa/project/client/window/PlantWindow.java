@@ -366,38 +366,7 @@ private static String[][] getShareType() {
 	
 }
 
-public static Object[][] getCountries() {   
-    return new Object[][]{   
-            new Object[]{"AU", "澳大利亚", "Canberra", "Australia", new Integer(18090000),   
-                                new Integer(7713360)},   
-            new Object[]{"BR", "巴西", "Brasilia", "South America", new Integer(170000000),   
-                                new Integer(8547404)},   
-            new Object[]{"CA", "加拿大", "Ottawa", "North America", new Integer(31000000),   
-                                new Integer(9976140)},   
-            new Object[]{"CN", "中国", "Beijing", "Asia", new Integer(1222017000),   
-                                new Integer(9596960)},   
-            new Object[]{"DE", "德国", "Berlin", "Europe", new Integer(80942000),   
-                                new Integer(356910)},   
-            new Object[]{"FR", "法国", "Paris", "Europe", new Integer(57571000),   
-                                new Integer(551500)},   
-            new Object[]{"IN", "印度", "New Delhi", "Asia", new Integer(913747000),   
-                            new Integer(3287590)},   
-            new Object[]{"USA", "美国", "Washington, DC", "North America",   
-                                new Integer(260513000), new Integer(9372610)},   
-            new Object[]{"JP", "日本", "Tokyo", "Asia", new Integer(125422000),   
-                                new Integer(377800)},   
-            new Object[]{"IE", "意大利", "Rome", "Eorope", new Integer(57867000),   
-                                new Integer(301270)},   
-            new Object[]{"GH", "加纳", "Accra", "Africa", new Integer(16944000),   
-                                new Integer(238540)},   
-            new Object[]{"IE", "爱尔兰", "Reykjavik", "Europe", new Integer(270000),   
-                                new Integer(103000)},   
-            new Object[]{"FI", "芬兰", "Helsinki", "Europe", new Integer(5033000),   
-                                new Integer(338130)},   
-            new Object[]{"CH", "瑞士", "Berne", "Europe", new Integer(6910000),   
-                                new Integer(41290)}   
-    };   
-}   
+
 
 
 }

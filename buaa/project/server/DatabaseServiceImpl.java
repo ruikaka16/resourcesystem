@@ -152,7 +152,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		Class.forName("com.mysql.jdbc.Driver");
 		String url = "jdbc:mysql://localhost:3306/test";
 		Connection conn = DriverManager.getConnection(url, "root", "rui");
-		String cmd  = "select * from news ";
+		String cmd  = "select * from news order by N_ID desc";
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(cmd);
 	  //  return "fsdfsfsaffafdsa";
