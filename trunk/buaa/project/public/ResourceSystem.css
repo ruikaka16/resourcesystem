@@ -484,6 +484,10 @@ a:visited {
 	background-image: url( image/chart_pie.gif ) !important;
 }
 
+.columnChart-icon{
+	background-image: url( image/chart_bar.gif ) !important;
+}
+
 .grid-icon{
 	background-image: url( image/book_open.gif ) !important;
 }

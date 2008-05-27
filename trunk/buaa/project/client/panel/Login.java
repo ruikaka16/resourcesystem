@@ -110,9 +110,7 @@ public class Login extends Window {
 						Timer timer = new Timer() {
 				
 							public void run() {
-								MessageBox.hide();
-								
-								
+								MessageBox.hide();	
 							}
 						};
 						timer.schedule(100000);

@@ -5,6 +5,7 @@ import com.gwtext.client.data.Reader;
 import com.gwtext.client.data.SimpleStore;
 import com.gwtext.client.data.Store;
 import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.ToolTip;
 import com.gwtext.client.widgets.Window;
 import com.gwtext.client.widgets.form.ComboBox;
 import com.gwtext.client.widgets.form.FieldSet;
@@ -30,6 +31,12 @@ public class PlantWindow extends Window{
 	   this.setDraggable(true);
 	   this.setTitle("植物种质资源");
 	   this.setFrame(true);
+	   
+	   String bodyStyle = "text-align:center;padding:5px 0;" +   
+       "border:1px dotted #99bbe8;background:#dfe8f6;" +   
+       "color:#15428b;cursor:default;margin:10px;" +   
+       "font:bold 11px tahoma,arial,sans-serif;";   
+
 	   
 	   FieldSet plantPanel = new FieldSet("植物种质基本信息");
 	   plantPanel.setCollapsible(true);
@@ -250,6 +257,13 @@ public class PlantWindow extends Window{
 		TextField location = new TextField("产地","location");
 
 		ke_name.setAllowBlank(false);
+	    ToolTip tip_ke_name = new ToolTip();   
+	    tip_ke_name.setHtml("该项为必添项！");   
+	    tip_ke_name.setDismissDelay(15000);   
+	    tip_ke_name.setWidth(150);   
+	    tip_ke_name.setTrackMouse(true);   
+	    tip_ke_name.applyTo(ke_name);
+	    tip_ke_name.setBodyStyle(bodyStyle);
 		
 		firstColumn.add(id,new AnchorLayoutData("80%"));
 		firstColumn.add(name_chn,new AnchorLayoutData("80%"));

@@ -64,9 +64,9 @@ public class EditorPanel extends Panel{
 		bt.addListener(new ButtonListenerAdapter(){
 			
 			public void onClick(Button button,EventObject e){
-				final String N_CONTENT = Format.stripTags(htmlEditor.getRawValue());
+				final String N_CONTENT =htmlEditor.getRawValue();
 				//MessageBox.alert(N_CONTENT);
-				System.out.println(N_TIME.getRawValue());
+				System.out.println(N_CONTENT);
 				 
 				DatabaseServiceAsync service = DatabaseService.Util
 					.getInstance();
