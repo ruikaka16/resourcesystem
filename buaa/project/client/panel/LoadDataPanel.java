@@ -26,6 +26,7 @@ import com.gwtext.client.widgets.HTMLPanel;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.MessageBoxConfig;
 import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.ToolTip;
 import com.gwtext.client.widgets.Toolbar;
 import com.gwtext.client.widgets.ToolbarButton;
 import com.gwtext.client.widgets.WaitConfig;
@@ -36,6 +37,7 @@ import com.gwtext.client.widgets.grid.ColumnModel;
 import com.gwtext.client.widgets.grid.GridPanel;
 import com.gwtext.client.widgets.grid.GridView;
 import com.gwtext.client.widgets.grid.event.GridCellListenerAdapter;
+import com.gwtext.client.widgets.grid.event.GridMouseListener;
 
 public class LoadDataPanel extends Panel {
 
@@ -62,7 +64,10 @@ public class LoadDataPanel extends Panel {
 		refreshTb.addFill();
 		final ToolbarButton refreshBt = new ToolbarButton("刷新");
 
-	
+		  final String bodyStyle = "text-align:center;padding:5px 0;" +   
+	       "border:1px dotted #99bbe8;background:#dfe8f6;" +   
+	       "color:#15428b;cursor:default;margin:10px;" +   
+	       "font:bold 11px tahoma,arial,sans-serif;";   
 
 		
 		
@@ -136,6 +141,8 @@ public class LoadDataPanel extends Panel {
 
 		};
 		loadService.getdata(cb_load);
+
+		
 		
 		grid.addGridCellListener(new GridCellListenerAdapter (){
 			public void onCellClick(GridPanel grid, int rowIndex, int title, EventObject e){
@@ -149,6 +156,8 @@ public class LoadDataPanel extends Panel {
 					news_title  += record.getAsString("N_TITLE");
 				
 				}
+				
+			
 	
 				DatabaseServiceAsync getNewsContentService = DatabaseService.Util.getInstance();
 				AsyncCallback cb_getNewsContent = new AsyncCallback() {

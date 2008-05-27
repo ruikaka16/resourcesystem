@@ -41,14 +41,7 @@ public class FarenWindow extends Window{
 		   this.setDraggable(true);
 		   this.setTitle("法人单位概况");
 		   this.setFrame(true);
-		  // this.setLayout(new RowLayout());
-		   
-		  Panel wr = new Panel();
-		  wr.setLayout(new RowLayout());
-		   
-		//this.setTitle("法人单位概况");
-		
-		//wr.setBodyStyle("border-style:dotted;border-color:blue;");
+
 
 		FieldSet formPanel_tn_3121_1 = new FieldSet("法人单位基本信息");
 		formPanel_tn_3121_1.setCollapsible(true);
@@ -287,11 +280,9 @@ public class FarenWindow extends Window{
 	               service.addFaren(name.getText(), zhuguan.getText(), address.getText(), suozaiaddress.getText(), xingzhi.getText(), id.getText(), id_1.getText(), jigouid.getText(), xzzgbm.getText(), zipcode.getText(), dwwz.getText(), cb_dwsx.getText(), hymc.getText(), xkmc.getText(), cb_addFaren);
 			}
 		});
-	
-	    wr.addButton(save);
-	    wr.addButton(close);
-		//this.add(btPanel);
-	}
+		this.addButton(save);
+		this.addButton(close);
+		}
 
 	
 		 private static String[][] getStates() {   
