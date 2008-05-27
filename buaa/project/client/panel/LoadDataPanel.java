@@ -192,9 +192,13 @@ public class LoadDataPanel extends Panel {
 				
 				getNewsContentService.getNewsContent(news_title,cb_getNewsContent);
 
-			
+		 	
 			}
 		});
+		
+
+	
+	
 
 		
 	refreshBt.addListener(new ButtonListenerAdapter(){
@@ -211,25 +215,16 @@ public class LoadDataPanel extends Panel {
 					}
 
 					public void onSuccess(Object response) {
-					
-						//removeAll();
+
 						 Store store = grid.getStore();
 					     store.removeAll();
 					     store.commitChanges();
-					     
-					//	ArrayReader reader = new ArrayReader(recordDef);
+			
 											
 						store.reload();
 						
 						
-						
-					//	store.removeAll();
-				   //     store.commitChanges();
-						//grid.setTitle("新闻列表");
-				  //     grid.removeAll();
-				        
-				        
-				  //      store.load();
+		
 				      final GridPanel grid1 = new GridPanel();
 				        
 				        grid1.setStore(store);
@@ -271,7 +266,7 @@ public class LoadDataPanel extends Panel {
 				
 			}
 		});
-		
+	
 		refreshTb.addButton(refreshBt);
 		this.add(panel);
 	}

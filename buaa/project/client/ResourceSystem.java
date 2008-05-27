@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+import com.buaa.project.client.panel.ColumnPanel;
 import com.buaa.project.client.panel.DataLoad;
 import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
@@ -654,6 +655,10 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		treeNode6_1.setIconCls("treeNode6_1-icon");
 		tr6.appendChild(treeNode6_1);
 
+		final TreeNode treeNode6_2 = new TreeNode("柱状浏览");
+		treeNode6_2.setText("柱状浏览");
+		treeNode6_2.setIconCls("columnChart-icon");
+		tr6.appendChild(treeNode6_2);
 		// *************************************************************
 		final AccordionLayout accordion = new AccordionLayout(true);
     
@@ -732,12 +737,14 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		
 		borderPanel.add(westPanel, westData);
 //****************************************************************
-		Panel eastPanel = new Panel();   
+		Panel eastPanel = new HTMLPanel();   
         eastPanel.setTitle("其他");   
+       // eastPanel.setBodyStyle("background-color:#15428b"); 
         eastPanel.setCollapsible(true);   
         eastPanel.setWidth(225);   
-        eastPanel.setLayout(new FitLayout());   
-  
+        eastPanel.setLayout(new FitLayout());  
+        eastPanel.setHtml("<p><b>相关连接</b></p>");
+  //<a href = "sina.com"></a>
         BorderLayoutData eastData = new BorderLayoutData(RegionPosition.EAST);   
         eastData.setSplit(true);   
         eastData.setMinSize(175);   
@@ -982,6 +989,21 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 			}
 		});
 //***********************************************************
+		treeNode6_2.addListener(new TreeNodeListenerAdapter() {
+
+			public void onClick(Node node, EventObject e) {
+				
+				
+				ColumnPanel columnPanel = new ColumnPanel();
+				columnPanel.setVisible(true);
+				columnPanel.setClosable(true);
+			    centerPanel.activate(0);
+				centerPanel.add(columnPanel);
+				centerPanel.doLayout();
+				
+			}
+		});
+//×××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
 		treeNode1_1.addListener(new TreeNodeListenerAdapter() {
 			public void onClick(Node Node, EventObject e) {
 				
