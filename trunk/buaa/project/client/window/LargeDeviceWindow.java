@@ -5,12 +5,15 @@ import com.buaa.project.client.DatabaseServiceAsync;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Position;
+import com.gwtext.client.data.SimpleStore;
+import com.gwtext.client.data.Store;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.DatePicker;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.Window;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
+import com.gwtext.client.widgets.form.ComboBox;
 import com.gwtext.client.widgets.form.FieldSet;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.TextField;
@@ -61,13 +64,34 @@ public class LargeDeviceWindow extends Window{
 	   TextField id_sort = new TextField("设备分类编号","id_sort");
 	   TextField name_chn = new TextField("中文名称","name_chn");
 	   TextField name_forn = new TextField("英文名称","name_forn");
+	   TextField type = new TextField("型号规格","type");
+	   TextField merchn = new TextField("生产制造厂商","merchn");
 	   
 	   firstColumn.add(id_device,new AnchorLayoutData("80%"));
 	   firstColumn.add(id_sort,new AnchorLayoutData("80%"));
 	   firstColumn.add(name_forn,new AnchorLayoutData("80%"));
+	   firstColumn.add(merchn,new AnchorLayoutData("80%"));
+	   
+	   ComboBox getMethord = new ComboBox("获取方式");
+		final Store store = new SimpleStore(new String[]{"type", "methord"}, getMethord());
+		store.load();  
+		getMethord.setAllowBlank(false);
+		getMethord.setStore(store);
+		getMethord.setSelectOnFocus(true);
+		getMethord.setMinChars(1);
+		getMethord.setDisplayField("methord"); 
+		getMethord.setMode(ComboBox.LOCAL);
+		getMethord.setTriggerAction(ComboBox.ALL);
+		getMethord.setEmptyText("选择获取方式");
+		getMethord.setTypeAhead(true);
+		getMethord.setSelectOnFocus(true);
+		getMethord.setWidth(100);
+		getMethord.setHideTrigger(false);
 	   
 	   secondColumn.add(id_company,new AnchorLayoutData("80%"));
 	   secondColumn.add(name_chn,new AnchorLayoutData("80%"));
+	   secondColumn.add(type,new AnchorLayoutData("80%"));
+	   secondColumn.add(getMethord,new AnchorLayoutData("80%"));
 	   
 	   firstPanel.add(firstColumn,new ColumnLayoutData(0.5));
 	   firstPanel.add(secondColumn,new ColumnLayoutData(0.5));
@@ -183,4 +207,14 @@ public class LargeDeviceWindow extends Window{
    
   
    }
+
+private static String[][] getMethord() {
+	// TODO Auto-generated method stub
+	return new String[][]{
+			new String[]{"A","购置"},
+			new String[]{"B","研制"},
+			new String[]{"C","赠送"},
+			new String[]{"D","其他"}
+	};
+}
 }
