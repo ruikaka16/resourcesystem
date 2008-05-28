@@ -737,11 +737,12 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 //****************************************************************
 		Panel eastPanel = new HTMLPanel();   
         eastPanel.setTitle("其他");   
-       // eastPanel.setBodyStyle("background-color:#15428b"); 
+        //eastPanel.setBodyStyle("background-color:#15428b"); 
         eastPanel.setCollapsible(true);   
+        eastPanel.setBorder(true);
         eastPanel.setWidth(225);   
         eastPanel.setLayout(new FitLayout());  
-        eastPanel.setHtml("<p><b>相关连接</b></p>");
+        eastPanel.setHtml("<p><a href=\"MainModule.html\">相关连接</a></p>");
   //<a href = "sina.com"></a>
         BorderLayoutData eastData = new BorderLayoutData(RegionPosition.EAST);   
         eastData.setSplit(true);   
