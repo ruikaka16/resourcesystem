@@ -164,6 +164,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 			bean.setN_TITLE(rs.getString("N_TITLE"));
 			bean.setN_AUTHOR(rs.getString("N_AUTHOR"));
 			bean.setN_TIME(rs.getString("N_TIME"));
+			bean.setN_ID(rs.getString("N_ID"));
 			userInfo.add(bean);
 			
 		}
