@@ -258,10 +258,10 @@ public class PlantWindow extends Window{
 
 		ke_name.setAllowBlank(false);
 	    ToolTip tip_ke_name = new ToolTip();   
-	    tip_ke_name.setHtml("该项为必添项！");   
+	    tip_ke_name.setHtml("该项为必添项！该项为必添项该项为必添项该项为必添项该项为必添项该项为必添项该项为必添项该项为必添项该项为必添项该项为必添项");   
 	    tip_ke_name.setDismissDelay(15000);   
-	    tip_ke_name.setWidth(150); 
-	    tip_ke_name.setHeight(300);
+	    tip_ke_name.setWidth(200); 
+	    tip_ke_name.setHeight(200);
 	    tip_ke_name.setTrackMouse(true);   
 	    tip_ke_name.applyTo(ke_name);
 	    tip_ke_name.setBodyStyle(bodyStyle);

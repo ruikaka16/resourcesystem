@@ -141,6 +141,16 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		northPanel.setLayout(new HorizontalLayout(0));
 		borderPanel.add(northPanel, new BorderLayoutData(RegionPosition.NORTH));
 
+		
+		Panel southPanel = new Panel();
+		southPanel.setHeight(42);
+		southPanel.setBorder(false);
+		southPanel.setFrame(true);
+		southPanel.setHtml("<P align=center>版权所有：国家科技基础条件平台中心</p>\n"
+				+
+				"<p align=center>地址：北京市复兴路乙15号 | 邮编：100862 | 地理位置图 | 咨询电话：010-58881463 | 联系我们</P>");
+		borderPanel.add(southPanel,new BorderLayoutData(RegionPosition.SOUTH));
+		
 	    toolbar = new Toolbar();
 	    toolbar.setId("login-tooblar");
 		toolbar.setWidth(64);
@@ -659,6 +669,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		tr6.appendChild(treeNode6_2);
 		// *************************************************************
 		final AccordionLayout accordion = new AccordionLayout(true);
+		final AccordionLayout accordion1 = new AccordionLayout(true);
     
 		
 		
@@ -740,10 +751,11 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
         //eastPanel.setBodyStyle("background-color:#15428b"); 
         eastPanel.setCollapsible(true);   
         eastPanel.setBorder(true);
-        eastPanel.setWidth(225);   
-        eastPanel.setLayout(new FitLayout());  
+        eastPanel.setWidth(220);   
+        eastPanel.setLayout(accordion1);  
         eastPanel.setHtml("<p><a href=\"MainModule.html\">相关连接</a></p>");
   //<a href = "sina.com"></a>
+       
         BorderLayoutData eastData = new BorderLayoutData(RegionPosition.EAST);   
         eastData.setSplit(true);   
         eastData.setMinSize(175);   
@@ -753,155 +765,39 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
         borderPanel.add(eastPanel, eastData);   
 
 		
-		final Panel eastPanel_1 = new Panel();
-		//eastPanel_1.setPaddings(15);
-		eastPanel_1.setBodyBorder(true);
-		eastPanel_1.setTitle("用户登陆");
-		eastPanel_1.setCollapsible(true);
-		eastPanel_1.setIconCls("eastPanel_1-icon");
-		//eastPanel_1.setHeight(160);
-		eastPanel_1.setWidth(200);
 		
-		final FormPanel login = new FormPanel();
-		
-		login.setFrame(true);
-		login.setWidth(200);
-		login.setLabelWidth(75);
-		login.setIconCls("loginPanel-icon");
-		
-		final ComboBox cb = new ComboBox();
-		
-		cb.setForceSelection(true);
-		cb.setMinChars(1);
-		cb.setFieldLabel("用户类型");
-		cb.setDisplayField("state");
-		cb.setMode(ComboBox.LOCAL);
-		cb.setTriggerAction(ComboBox.ALL);
-		cb.setEmptyText("选择类型");
-		cb.setLoadingText("Searching...");
-		cb.setTypeAhead(true);
-		cb.setSelectOnFocus(true);
-		cb.setWidth(100);
-		cb.setHideTrigger(false);
-		
-		login.add(cb);
-
-		final TextField txtLoginname = new TextField("用户名", "txtLoginname", 100);
-		txtLoginname.setAllowBlank(false);
-		login.add(txtLoginname);
-
-		final TextField txtLoginpsw = new TextField("密码", "txtLoginpsw", 100);
-		txtLoginpsw.setPassword(true);
-		login.add(txtLoginpsw);
-		
-
 	
-		final Button btLogin = new Button("登陆");
-		btLogin.setIconCls("btLogin-icon");
-		btLogin.addListener(new ButtonListenerAdapter(){
-			public void onClick(final Button button, EventObject e) {
-			String username = txtLoginname.getText();
-			String password = txtLoginpsw.getText();
-			DatabaseServiceAsync loginService = DatabaseService.Util
-					.getInstance();
-	
-
-			MessageBox.show(new MessageBoxConfig() {
-				{
-					setMsg("正在登陆......");
-					setProgressText("登陆中...");
-					setWidth(300);
-					setWait(true);
-					setWaitConfig(new WaitConfig() {
-						{
-							setInterval(200);
-						}
-					});
-					setAnimEl(button.getId());
-
-					Timer timer = new Timer() {
-						public void run() {
-							MessageBox.hide();
-							
-							
-						}
-					};
-					timer.schedule(100000);
-				}
-			});
-
-			AsyncCallback cb_login = new AsyncCallback() {
-
-				public void onFailure(Throwable arg0) {
-
-				}
-
-				public void onSuccess(Object result) {
-				
-					Boolean ok = (Boolean) result;
-
-					if (ok.booleanValue()) {
-						
-						MessageBox.alert("登陆成功!");
-						
-						westPanel.getEl().unmask();
-						
-						txtLoginname.setValue("");
-				
-						eastPanel_1.hide();
-						
-						
-					} else {
-						MessageBox.alert("用户名或密码不正确!");
-					}
-
-				}
-
-			};
-			
 		
-			loginService.login(username, password, cb_login);
-			
-		}
-		
-		
-
-	});
-	
-		Button cancel = new Button("取消");
-    
-		login.addButton(btLogin);
-		login.addButton(cancel);
 
 		
 //******************************************************		
-		Panel eastPanel_2 = new HTMLPanel();
-		eastPanel_2.setPaddings(15);
-		eastPanel_2.setBorder(true);
-		eastPanel_2.setTitle("相关链接");
-		eastPanel_2.setCollapsible(true);
-		eastPanel_2.setHeight(185);
-		eastPanel_2.setWidth(200);
-		
-		
-		
-		Panel eastPanel_3 = new Panel();
-		//eastPanel_3.setBodyBorder(true);
-		eastPanel_3.setTitle("广告");
-		eastPanel_3.setCollapsible(true);
-		//eastPanel_3.setHeight(185);
-		eastPanel_3.setWidth(200);
 
-
-	//	eastPanel.add(eastPanel_1);
-	//	eastPanel.add(eastPanel_2);
-	//	eastPanel.add(eastPanel_3);
+		Panel navPanel_east1 = new Panel();
+		
+		navPanel_east1.setTitle("部级联席会成员单位");
+		navPanel_east1.setBorder(false);
+	//	navPanel_east1.setIconCls("navPanel1-icon");
+	//	navPanel_east1.setId("navPanel1");
+		eastPanel.add(navPanel_east1);
+		
+		DataLoad d = new DataLoad();
+		navPanel_east1.add(d);
 		
 
-	  
+		Panel navPanel_east2 = new Panel();
+
+		navPanel_east2.setTitle("专题栏目");
+		navPanel_east2.setBorder(false);
+	//	navPanel_east2.setIconCls("navPanel2-icon");
+		eastPanel.add(navPanel_east2);
+
+		Panel navPanel_east3 = new Panel();
+		navPanel_east3.addButton(new Button("hello"));
+		navPanel_east3.setTitle("相关链接");
+		navPanel_east3.setBorder(false);
+		navPanel_east3.setHtml("<p align=center><FONT size=1><a href=\"http://www.sina.com.cn\">863计划</a></FONT></p>");
+		eastPanel.add(navPanel_east3);
 		
-	//	eastPanel_1.add(login);
-	//	eastPanel_1.add(formPanel_1);
 		
 		// ************************tip********************************
 		ToolTip tip1 = new ToolTip();
