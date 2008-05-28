@@ -80,7 +80,7 @@ public class LoadDataPanel extends Panel {
 
 		final Panel panel = new Panel();
 		panel.setBorder(false);
-		panel.setWidth(558);
+		panel.setWidth(563);
 
 		final Toolbar refreshTb = new Toolbar();
 		refreshTb.addFill();
@@ -99,7 +99,7 @@ public class LoadDataPanel extends Panel {
 
 		final ColumnModel columnModel = new ColumnModel(new ColumnConfig[] {
 
-		new ColumnConfig("新闻标题", "N_TITLE", 330, true),
+		new ColumnConfig("新闻标题", "N_TITLE", 340, true),
 				new ColumnConfig("发布单位", "N_AUTHOR", 100, true),
 				new ColumnConfig("发布时间", "N_TIME", 76, true)
 
@@ -128,8 +128,8 @@ public class LoadDataPanel extends Panel {
 				grid.setColumnModel(columnModel);
 				grid.setAutoExpandColumn("N_TITLE");
 				// grid.setAutoWidth(true);
-				grid.setWidth(558);
-				grid.setHeight(515);
+				grid.setWidth(563);
+				grid.setHeight(473);
 				grid.setFrame(true);
 				grid.stripeRows(true);
 				// grid.getView().refresh();
@@ -138,7 +138,7 @@ public class LoadDataPanel extends Panel {
 
 				final PagingToolbar pagingToolbar = new PagingToolbar(store);
 
-				pagingToolbar.setPageSize(21);
+				pagingToolbar.setPageSize(19);
 				pagingToolbar.setDisplayInfo(true);
 				pagingToolbar.setDisplayMsg("显示新闻条数 {0} - {1} of {2}");
 				pagingToolbar.setEmptyMsg("没有数据显示");
@@ -156,13 +156,13 @@ public class LoadDataPanel extends Panel {
 					}
 				});
 
-				ToolTip toolTip = new ToolTip("请输入页码");
+				ToolTip toolTip = new ToolTip("请输每页要显示的新闻条数");
 				toolTip.applyTo(pageSizeField);
 
 				pagingToolbar.addField(pageSizeField);
 				pagingToolbar.addButton(refreshBt);
 				grid.setBottomToolbar(pagingToolbar);
-				store.load(0, 21);
+				store.load(0,19);
 
 				GridView view = new GridView();
 				view.setForceFit(true);
@@ -210,10 +210,6 @@ public class LoadDataPanel extends Panel {
 
 					news_title += record.getAsString("N_TITLE");
 
-					tip1.setHtml("可以预览并且下载已经提交的文件");
-					tip1.setTrackMouse(true);
-					tip1.applyTo(grid.getComponent(0));
-
 				}
 
 				DatabaseServiceAsync getNewsContentService = DatabaseService.Util
@@ -232,6 +228,7 @@ public class LoadDataPanel extends Panel {
 
 						Panel newsPanel = new HTMLPanel();
 						newsPanel.setHeight(400);
+						newsPanel.setAutoScroll(true);
 						newsPanel.setHtml(result.toString());
 						NewsWindow newWindow = new NewsWindow();
 						newWindow.setTitle(news_title);

@@ -19,16 +19,14 @@ public class DataLoad extends Panel{
 	public DataLoad(){
 
         this.setBorder(false);   
-        this.setPaddings(10);  
-        this.setWidth(560);
+        this.setWidth(220);
       
         
 		HttpProxy dataProxy = new HttpProxy("data/countries.json");   
         final RecordDef recordDef = new RecordDef(new FieldDef[]{   
-                new StringFieldDef("abbr", "abbr"),   
                 new StringFieldDef("name", "name"),   
-                new IntegerFieldDef("area", "area"),   
-                new IntegerFieldDef("population", "population"),   
+                new StringFieldDef("website", "website")  
+  
         });   
         JsonReader reader = new JsonReader(recordDef);   
         reader.setRoot("data");   
@@ -38,18 +36,17 @@ public class DataLoad extends Panel{
         store.load();   
   
         ColumnModel columnModel = new ColumnModel(new ColumnConfig[]{   
-                new ColumnConfig("Abbreviation", "abbr", 100, true,null),   
-                new ColumnConfig("Country", "name", 75, true,null),   
-                new ColumnConfig("Area", "area", 75, true),   
-                new ColumnConfig("Population", "population", 75, true)   
+                new ColumnConfig("单位名称", "name", 70, true,null),   
+                new ColumnConfig("单位网址", "website", 150, true,null) 
+              
         });   
   
         GridPanel grid = new GridPanel();   
         grid.setStore(store);   
         grid.setColumnModel(columnModel);   
-        grid.setWidth(550);   
+        grid.setWidth(220);   
         grid.setHeight(430);   
-        grid.setTitle("Json Grid");   
+       // grid.setTitle("Json Grid");   
         grid.setFrame(true);   
         grid.stripeRows(true);   
         grid.setIconCls("grid-icon");   

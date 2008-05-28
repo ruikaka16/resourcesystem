@@ -9,6 +9,8 @@ public class NewsWindow extends Window{
 		this.setHeight(400);
 		this.setWidth(600);
 	    this.setBorder(true);
+	    this.setAutoScroll(true);
+	    this.setIconCls("grid-icon");
 	    
 	}
 
