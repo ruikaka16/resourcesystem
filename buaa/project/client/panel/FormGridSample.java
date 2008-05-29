@@ -24,6 +24,59 @@ import com.gwtext.client.widgets.layout.FitLayout;
 public class FormGridSample extends Panel{
 
 	
+    public static final NumberFormat nf = NumberFormat.getFormat("#,##0.00", "$");   
+    public static final NumberFormat nfc = NumberFormat.getFormat("#,##0.00");   
+    public static final DateTimeFormat dateFormatter = DateTimeFormat.getFormat("M/d/y");   
+  
+    private static BaseColumnConfig[] columns = new BaseColumnConfig[]{   
+  
+            new ColumnConfig("Company", "company", 160, true, null, "company"),   
+  
+            new ColumnConfig("Price", "price", 35, true, new Renderer() {   
+                public String render(Object value, CellMetadata cellMetadata, Record record,   
+                                            int rowIndex, int colNum, Store store) {   
+                    return nf.format(((Number) value).doubleValue());   
+                }   
+            }),   
+  
+            new ColumnConfig("Change", "change", 45, true, new Renderer() {   
+                public String render(Object value, CellMetadata cellMetadata, Record record,   
+                                            int rowIndex, int colNum, Store store) {   
+                    float val = ((Float) value).floatValue();   
+                    String valString = nfc.format(val);   
+                    if (val < 0) {   
+                        return "<span style='color:red;'>" + valString + "</span>";   
+                    } else {   
+                        return valString;   
+                    }   
+                }   
+            }, "change"),   
+  
+            new ColumnConfig("% Change", "pctChange", 65, true, null, "pctChange"),   
+  
+            new ColumnConfig("Last Updated", "lastChanged", 65, true, new Renderer() {   
+                public String render(Object value, CellMetadata cellMetadata, Record record,   
+                                            int rowIndex, int colNum, Store store) {   
+                    Date date = (Date) value;   
+                    return dateFormatter.format(date);   
+                }   
+            }),   
+            new ColumnConfig("Industry", "industry", 60, true)   
+    };   
+  
+  
+    private static RecordDef recordDef = new RecordDef(   
+            new FieldDef[]{   
+                    new StringFieldDef("company"),   
+                    new FloatFieldDef("price"),   
+                    new FloatFieldDef("change"),   
+                    new FloatFieldDef("pctChange"),   
+                    new DateFieldDef("lastChanged", "n/j h:ia"),   
+                    new StringFieldDef("symbol"),   
+                    new StringFieldDef("industry")   
+            }   
+    );   
+	
 	public FormGridSample(){
 		
 		  
@@ -42,7 +95,7 @@ public class FormGridSample extends Panel{
         Panel columnOne = new Panel();   
         columnOne.setLayout(new FitLayout());   
   
-        GridPanel gridPanel = new SampleGrid();   
+        GridPanel gridPanel = new GridPanel();   
         gridPanel.setHeight(300);   
         gridPanel.setTitle("Company Data");   
   
@@ -82,63 +135,12 @@ public class FormGridSample extends Panel{
   
         
 		}
-
-	}
+	
 	
 	 class SampleGrid extends GridPanel {   
-		  
-	    public static final NumberFormat nf = NumberFormat.getFormat("#,##0.00", "$");   
-	    public static final NumberFormat nfc = NumberFormat.getFormat("#,##0.00");   
-	    public static final DateTimeFormat dateFormatter = DateTimeFormat.getFormat("M/d/y");   
+		   
+		
 	  
-	    private static BaseColumnConfig[] columns = new BaseColumnConfig[]{   
-	  
-	            new ColumnConfig("Company", "company", 160, true, null, "company"),   
-	  
-	            new ColumnConfig("Price", "price", 35, true, new Renderer() {   
-	                public String render(Object value, CellMetadata cellMetadata, Record record,   
-	                                            int rowIndex, int colNum, Store store) {   
-	                    return nf.format(((Number) value).doubleValue());   
-	                }   
-	            }),   
-	  
-	            new ColumnConfig("Change", "change", 45, true, new Renderer() {   
-	                public String render(Object value, CellMetadata cellMetadata, Record record,   
-	                                            int rowIndex, int colNum, Store store) {   
-	                    float val = ((Float) value).floatValue();   
-	                    String valString = nfc.format(val);   
-	                    if (val < 0) {   
-	                        return "<span style='color:red;'>" + valString + "</span>";   
-	                    } else {   
-	                        return valString;   
-	                    }   
-	                }   
-	            }, "change"),   
-	  
-	            new ColumnConfig("% Change", "pctChange", 65, true, null, "pctChange"),   
-	  
-	            new ColumnConfig("Last Updated", "lastChanged", 65, true, new Renderer() {   
-	                public String render(Object value, CellMetadata cellMetadata, Record record,   
-	                                            int rowIndex, int colNum, Store store) {   
-	                    Date date = (Date) value;   
-	                    return dateFormatter.format(date);   
-	                }   
-	            }),   
-	            new ColumnConfig("Industry", "industry", 60, true)   
-	    };   
-	  
-	  
-	    private static RecordDef recordDef = new RecordDef(   
-	            new FieldDef[]{   
-	                    new StringFieldDef("company"),   
-	                    new FloatFieldDef("price"),   
-	                    new FloatFieldDef("change"),   
-	                    new FloatFieldDef("pctChange"),   
-	                    new DateFieldDef("lastChanged", "n/j h:ia"),   
-	                    new StringFieldDef("symbol"),   
-	                    new StringFieldDef("industry")   
-	            }   
-	    );   
 	  
 	    public SampleGrid() {   
 	  
@@ -186,3 +188,7 @@ public class FormGridSample extends Panel{
 	}
 
 }
+
+	}
+	
+	
