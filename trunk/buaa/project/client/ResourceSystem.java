@@ -11,6 +11,7 @@ import com.buaa.project.client.panel.DataLoad;
 import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
 import com.buaa.project.client.panel.Fileupload;
+import com.buaa.project.client.panel.FormGridSample;
 import com.buaa.project.client.panel.LoadDataPanel;
 import com.buaa.project.client.panel.SearchPanel;
 import com.gwtextux.client.widgets.image.ImageListenerAdapter; 
@@ -124,6 +125,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		+ "border:1px dotted #99bbe8;background:#dfe8f6;"
 		+ "color:#15428b;cursor:default;margin:10px;"
 		+ "font:bold 11px tahoma,arial,sans-serif;";
+	ToolTip tip;
 	
 	public void onModuleLoad() {
 
@@ -187,12 +189,8 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		northPanel.add(image);
 
 		bt1 =new ToolbarButton("登陆");
-		//bt2 =new ToolbarButton("注销");
-		//bt2.setVisible(false);
 		bt1.setId("login");
-		//bt2.setId("logout");
 		toolbar.addButton(bt1);
-		//toolbar.addButton(bt2);
         northPanel.add(toolbar);
 	
 
@@ -244,14 +242,22 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		// treePanel1.add(bt);
 
 		TreeNode tr1 = new TreeNode("文件管理");
+		TreeNode tr8 = new TreeNode("kaka");
 		tr1.setIconCls("treeNode1-icon");
 		tr1.setExpanded(true);
 		treePanel1.setRootNode(tr1);
+		//treePanel1.setRootNode(tr8);
 		
-		final TreeNode treeNode1_1 = new TreeNode("文件发布");
-		treeNode1_1.setText("文件发布");
+		final TreeNode treeNode1_1 = new TreeNode("新闻发布");
+		treeNode1_1.setText("新闻发布");
 		treeNode1_1.setIconCls("treeNode1_2-icon");
 		tr1.appendChild(treeNode1_1);
+		tip = new ToolTip();
+		tip.setHtml("进行新闻发布！");
+		tip.setBodyStyle(bodyStyle);
+		
+		
+		
 		
 	
 		
@@ -264,6 +270,8 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		treeNode1_3.setText("文件下载");
 		treeNode1_3.setIconCls("treeNode1_2-icon");
 		tr1.appendChild(treeNode1_3);
+		
+	
 
 		treeNode1_2.addListener(new TreeNodeListenerAdapter() {
 
@@ -776,7 +784,8 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
         //eastPanel.setBodyStyle("background-color:#15428b"); 
         eastPanel.setCollapsible(true);   
         eastPanel.setBorder(true);
-        eastPanel.setWidth(220);   
+        eastPanel.setWidth(220); 
+        eastPanel.setIconCls("plugin-icon");
         eastPanel.setLayout(accordion1);  
         eastPanel.setHtml("<p><a href=\"MainModule.html\">相关连接</a></p>");
   //<a href = "sina.com"></a>
@@ -801,6 +810,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		
 		navPanel_east1.setTitle("部级联席会成员单位");
 		navPanel_east1.setBorder(false);
+		navPanel_east1.setIconCls("html-icon");
 	//	navPanel_east1.setIconCls("navPanel1-icon");
 	//	navPanel_east1.setId("navPanel1");
 		eastPanel.add(navPanel_east1);
@@ -813,7 +823,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 
 		navPanel_east2.setTitle("专题栏目");
 		navPanel_east2.setBorder(false);
-	//	navPanel_east2.setIconCls("navPanel2-icon");
+	    navPanel_east2.setIconCls("list-icon");
 		eastPanel.add(navPanel_east2);
 		
 		
@@ -821,6 +831,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		Panel navPanel_east3 = new Panel();
 		navPanel_east3.setTitle("Google搜索页面");
 		navPanel_east3.setBorder(false);
+		navPanel_east3.setIconCls("google-icon");
 		//navPanel_east3.setHtml("<p align=center><FONT size=1><a href=\"http://www.sina.com.cn\">863计划</a></FONT></p>");
 		eastPanel.add(navPanel_east3);
 		
@@ -833,6 +844,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 	     googlePanel.setIconCls("tab-icon");   
 	     googlePanel.add(google); 
 	     googlePanel.setHeight(408);
+	     googlePanel.setAutoWidth(true);
 	  
 
 	     
@@ -891,9 +903,9 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		centerPanelThree .setTitle("Search Test");
 		centerPanelThree .setAutoScroll(true);
 		centerPanelThree .setAutoShow(true);
-		SearchPanel s= new SearchPanel();
-		centerPanelThree.add(s);
-		//centerPanel.add(centerPanelThree);
+		FormGridSample f = new FormGridSample();
+		centerPanelThree.add(f);
+		centerPanel.add(centerPanelThree);
 		
 	
 //**************************************************************************
