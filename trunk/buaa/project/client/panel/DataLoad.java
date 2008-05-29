@@ -122,6 +122,7 @@ public class DataLoad extends Panel{
   
         
         this.add(grid);   
+        grid.setLoadMask("数据加载中，请稍后……");
         
         
         

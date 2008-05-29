@@ -4,47 +4,31 @@ package com.buaa.project.client;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import com.buaa.project.client.panel.ColumnPanel;
-import com.gwtextux.client.widgets.image.Image;
-import com.gwtextux.client.widgets.image.ImageListener;
 import com.buaa.project.client.panel.DataLoad;
 import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
 import com.buaa.project.client.panel.Fileupload;
 import com.buaa.project.client.panel.FormGridSample;
 import com.buaa.project.client.panel.LoadDataPanel;
-import com.buaa.project.client.panel.SearchPanel;
-import com.gwtextux.client.widgets.image.ImageListenerAdapter; 
 import com.buaa.project.client.panel.Login;
-
-
 import com.buaa.project.client.panel.PiechartPanel;
 import com.buaa.project.client.window.FarenWindow;
 import com.buaa.project.client.window.LargeDeviceWindow;
 import com.buaa.project.client.window.PlantWindow;
-
 import com.google.gwt.core.client.EntryPoint;
-
-
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
-
-
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Ext;
 import com.gwtext.client.core.ExtElement;
 import com.gwtext.client.core.Margins;
-import com.gwtext.client.core.Position;
-
 import com.gwtext.client.core.RegionPosition;
-
-
 import com.gwtext.client.data.Node;
-
-
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Component;
 import com.gwtext.client.widgets.DatePicker;
@@ -56,60 +40,27 @@ import com.gwtext.client.widgets.TabPanel;
 import com.gwtext.client.widgets.ToolTip;
 import com.gwtext.client.widgets.Toolbar;
 import com.gwtext.client.widgets.ToolbarButton;
-import com.gwtext.client.widgets.ToolbarTextItem;
 import com.gwtext.client.widgets.Viewport;
-
 import com.gwtext.client.widgets.WaitConfig;
 import com.gwtext.client.widgets.Window;
-
-
-import com.gwtext.client.widgets.event.ButtonListener;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
-import com.gwtext.client.widgets.event.PanelListener;
 import com.gwtext.client.widgets.event.PanelListenerAdapter;
-import com.gwtext.client.widgets.event.TabPanelListenerAdapter;
-import com.gwtext.client.widgets.form.ComboBox;
 import com.gwtext.client.widgets.form.DateField;
-import com.gwtext.client.widgets.form.Field;
 import com.gwtext.client.widgets.form.Form;
 import com.gwtext.client.widgets.form.FormPanel;
-
 import com.gwtext.client.widgets.form.TextField;
-import com.gwtext.client.widgets.form.TimeField;
 import com.gwtext.client.widgets.form.VType;
 import com.gwtext.client.widgets.form.event.TextFieldListenerAdapter;
-import com.gwtext.client.widgets.grid.BaseColumnConfig;
-
-import com.gwtext.client.widgets.grid.CheckboxColumnConfig;
-import com.gwtext.client.widgets.grid.CheckboxSelectionModel;
-import com.gwtext.client.widgets.grid.ColumnConfig;
-import com.gwtext.client.widgets.grid.ColumnModel;
-
-import com.gwtext.client.widgets.grid.GridPanel;
-import com.gwtext.client.widgets.grid.GridView;
-
-import com.gwtext.client.widgets.grid.RowNumberingColumnConfig;
-import com.gwtext.client.widgets.grid.event.ColumnModelListener;
-import com.gwtext.client.widgets.grid.event.ColumnModelListenerAdapter;
-import com.gwtext.client.widgets.grid.event.GridCellListenerAdapter;
-
 import com.gwtext.client.widgets.layout.AccordionLayout;
-
 import com.gwtext.client.widgets.layout.BorderLayout;
 import com.gwtext.client.widgets.layout.BorderLayoutData;
-import com.gwtext.client.widgets.layout.ColumnLayout;
-import com.gwtext.client.widgets.layout.RowLayout;
-import com.gwtext.client.widgets.layout.RowLayoutData;
-import com.gwtext.client.widgets.layout.VerticalLayout;
-
 import com.gwtext.client.widgets.layout.FitLayout;
-
 import com.gwtext.client.widgets.layout.HorizontalLayout;
-
 import com.gwtext.client.widgets.tree.TreeNode;
 import com.gwtext.client.widgets.tree.TreePanel;
-import com.gwtext.client.widgets.tree.event.TreeNodeListener;
 import com.gwtext.client.widgets.tree.event.TreeNodeListenerAdapter;
+import com.gwtextux.client.widgets.image.Image;
+import com.gwtextux.client.widgets.image.ImageListenerAdapter;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.

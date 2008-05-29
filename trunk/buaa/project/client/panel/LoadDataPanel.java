@@ -81,6 +81,7 @@ public class LoadDataPanel extends Panel {
 		this.setIconCls("grid-icon");
 
 		final GridPanel grid = new GridPanel();
+		
 
 		final Panel panel = new Panel();
 		panel.setBorder(false);
@@ -102,9 +103,9 @@ public class LoadDataPanel extends Panel {
 		});
 
 			
-		ColumnConfig N_TITLE = new ColumnConfig("新闻标题", "N_TITLE", 100, true);
-		ColumnConfig N_AUTHOR = new ColumnConfig("发布单位", "N_AUTHOR", 100, true);
-		ColumnConfig N_TIME = new ColumnConfig("发布时间", "N_TIME", 76, true);
+		ColumnConfig N_TITLE = new ColumnConfig("新闻标题", "N_TITLE", 220, true);
+		ColumnConfig N_AUTHOR = new ColumnConfig("发布单位", "N_AUTHOR", 80, true);
+		ColumnConfig N_TIME = new ColumnConfig("发布时间", "N_TIME", 56, true);
 		
 		
 		final ColumnModel columnModel  = new ColumnModel(new ColumnConfig[]{
@@ -133,29 +134,28 @@ public class LoadDataPanel extends Panel {
 				ArrayReader reader = new ArrayReader(recordDef);
 
 				Store store = new Store(proxy, reader, true);
-
+				
 				grid.setStore(store);
-				System.out.println("first=" + store.getCount());
+				
+				
 				grid.setColumnModel(columnModel);
 				
-				//grid.setAutoExpandColumn("N_TITLE");
-				// grid.setAutoWidth(true);
-				//grid.setWidth(563);
-				grid.setHeight(473);
+			    grid.setHeight(473);
 				grid.setFrame(true);
 				grid.stripeRows(true);
-				grid.setAutoScroll(true);
+				grid.setAutoExpandMax(50);
+				grid.setEnableColumnHide(true);
+				grid.setWidth(563);
+				grid.setLoadMask(true);
 				
+			
+					
 				 ToolTip tip = new ToolTip();
 			        tip.setHtml("点击浏览该新闻");
 			        tip.setWidth(120);
 			        tip.setBodyStyle(bodyStyle);
 			        tip.setTrackMouse(true);
-			        tip.applyTo(grid);
-			        
-				// grid.getView().refresh();
 
-				// grid.setBottomToolbar(refreshBt);
 
 				final PagingToolbar pagingToolbar = new PagingToolbar(store);
 
@@ -190,7 +190,9 @@ public class LoadDataPanel extends Panel {
 				grid.setView(view);
 
 				panel.add(grid);
-				panel.doLayout();
+				
+			    panel.doLayout();
+			    
 				final ExtElement element = Ext.get("main-panel");
 				element.unmask();
 
