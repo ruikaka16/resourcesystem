@@ -53,7 +53,7 @@ public class EditorPanel extends Panel{
 		
 		final HtmlEditor htmlEditor = new HtmlEditor();
 		htmlEditor.setTitle("文件发布");
-		htmlEditor.setWidth(552);
+		htmlEditor.setWidth(550);
 		htmlEditor.setHeight(350);
 		htmlEditor.getFieldLabel();
 		

@@ -76,14 +76,15 @@ public class LoadDataPanel extends Panel {
 		this.setPaddings(0);
 		// this.setAutoHeight(true);
 		this.setAutoShow(true);
-		this.setWidth(558);
+		
+		//this.setWidth(558);
 		this.setIconCls("grid-icon");
 
 		final GridPanel grid = new GridPanel();
 
 		final Panel panel = new Panel();
 		panel.setBorder(false);
-		panel.setWidth(563);
+		//panel.setWidth(563);
 
 		final Toolbar refreshTb = new Toolbar();
 		refreshTb.addFill();
@@ -100,14 +101,21 @@ public class LoadDataPanel extends Panel {
 
 		});
 
-		final ColumnModel columnModel = new ColumnModel(new ColumnConfig[] {
-
-		new ColumnConfig("新闻标题", "N_TITLE", 340, true),
-				new ColumnConfig("发布单位", "N_AUTHOR", 100, true),
-				new ColumnConfig("发布时间", "N_TIME", 76, true)
-
+			
+		ColumnConfig N_TITLE = new ColumnConfig("新闻标题", "N_TITLE", 100, true);
+		ColumnConfig N_AUTHOR = new ColumnConfig("发布单位", "N_AUTHOR", 100, true);
+		ColumnConfig N_TIME = new ColumnConfig("发布时间", "N_TIME", 76, true);
+		
+		
+		final ColumnModel columnModel  = new ColumnModel(new ColumnConfig[]{
+				 N_TITLE,
+				 N_AUTHOR,
+				 N_TIME
+			
 		});
-
+		 
+		
+		
 		final DatabaseServiceAsync loadService = DatabaseService.Util
 				.getInstance();
 		final AsyncCallback cb_load = new AsyncCallback() {
@@ -129,12 +137,22 @@ public class LoadDataPanel extends Panel {
 				grid.setStore(store);
 				System.out.println("first=" + store.getCount());
 				grid.setColumnModel(columnModel);
-				grid.setAutoExpandColumn("N_TITLE");
+				
+				//grid.setAutoExpandColumn("N_TITLE");
 				// grid.setAutoWidth(true);
-				grid.setWidth(563);
+				//grid.setWidth(563);
 				grid.setHeight(473);
 				grid.setFrame(true);
 				grid.stripeRows(true);
+				grid.setAutoScroll(true);
+				
+				 ToolTip tip = new ToolTip();
+			        tip.setHtml("点击浏览该新闻");
+			        tip.setWidth(120);
+			        tip.setBodyStyle(bodyStyle);
+			        tip.setTrackMouse(true);
+			        tip.applyTo(grid);
+			        
 				// grid.getView().refresh();
 
 				// grid.setBottomToolbar(refreshBt);

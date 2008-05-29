@@ -35,6 +35,7 @@ public class DataLoad extends Panel{
 
         this.setBorder(false);   
         this.setWidth(220);
+        
       
         
 		HttpProxy dataProxy = new HttpProxy("data/countries.json");   
@@ -60,7 +61,7 @@ public class DataLoad extends Panel{
         grid.setStore(store);   
         grid.setColumnModel(columnModel);   
         grid.setWidth(220);   
-        grid.setHeight(430);   
+        grid.setAutoHeight(true);   
        // grid.setTitle("Json Grid");   
         grid.setFrame(true);   
         grid.stripeRows(true);   
@@ -69,6 +70,7 @@ public class DataLoad extends Panel{
     //  tip.setHtml("点击浏览该网页");
         ToolTip tip = new ToolTip();
         tip.setHtml("点击浏览该网页");
+        tip.setWidth(120);
         tip.setBodyStyle(bodyStyle);
         tip.setTrackMouse(true);
         tip.applyTo(grid);

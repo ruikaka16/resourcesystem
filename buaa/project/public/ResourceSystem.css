@@ -504,3 +504,18 @@ a:visited {
     height: 53px;   
     width: 960px;   
 } 
+
+.html-icon{
+	background-image: url( image/html.gif) !important;
+}
+.google-icon{
+	background-image: url( image/connect.gif) !important;
+}
+
+
+.plugin-icon{
+	background-image: url( image/plugin.gif) !important;
+}
+.list-icon{
+	background-image: url( image/list-items.gif) !important;
+}
