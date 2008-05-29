@@ -5,13 +5,15 @@ package com.buaa.project.client;
 import java.util.HashMap;
 import java.util.Map;
 import com.buaa.project.client.panel.ColumnPanel;
+import com.gwtextux.client.widgets.image.Image;
+import com.gwtextux.client.widgets.image.ImageListener;
 import com.buaa.project.client.panel.DataLoad;
 import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
 import com.buaa.project.client.panel.Fileupload;
 import com.buaa.project.client.panel.LoadDataPanel;
 import com.buaa.project.client.panel.SearchPanel;
-
+import com.gwtextux.client.widgets.image.ImageListenerAdapter; 
 import com.buaa.project.client.panel.Login;
 
 
@@ -25,14 +27,16 @@ import com.google.gwt.core.client.EntryPoint;
 
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
-import com.google.gwt.user.client.ui.Image;
+
 
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Ext;
 import com.gwtext.client.core.ExtElement;
 import com.gwtext.client.core.Margins;
+import com.gwtext.client.core.Position;
 
 import com.gwtext.client.core.RegionPosition;
 
@@ -116,6 +120,10 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 	public ToolbarButton bt1;
 	public ToolbarButton bt2;
 	public Toolbar toolbar;
+	public String bodyStyle = "text-align:center;padding:5px 0;"
+		+ "border:1px dotted #99bbe8;background:#dfe8f6;"
+		+ "color:#15428b;cursor:default;margin:10px;"
+		+ "font:bold 11px tahoma,arial,sans-serif;";
 	
 	public void onModuleLoad() {
 
@@ -157,12 +165,26 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		toolbar.setHeight(54);
 		toolbar.setStyleName("ext-el-mask-msg");
 		
-		Image image = new Image();
-		image.setUrl("image/12.jpg");
+		Image image = new Image("title","image/12.jpg");
 		image.setWidth("960px");
-		northPanel.add(image);	
+			
+		
+		image.addListener(new ImageListenerAdapter(){   
+			
+			public void onMouseOver(Image image,EventObject e){
+				
+				ToolTip imageToolTip = new ToolTip();
+				imageToolTip.setBodyStyle(bodyStyle);
+				imageToolTip.setHtml("<p>资源填报系统全称为“国家科技基础条件平台资源调查信息管理系统”，是“国家科技基础条件平台”的子系统。平台中心实施资源调查的目的是为了解和掌握我国科技资源分布状况及利用情况，建成相应科技资源数据库，建立科技资源数据动态更新机制。初步形成国家科技基础条件资源管理信息和决策支持系统，为国家科技基础条件平台建设、国家科技计划和重大科技专项的实施，乃至科技条件建设投入提供决策参考。</p>");
+				imageToolTip.setWidth(330);
+				imageToolTip.setTrackMouse(true);
+				imageToolTip.setDismissDelay(150000);
+				imageToolTip.applyTo(image);
+				
+			}
+		});
 	
-
+		northPanel.add(image);
 
 		bt1 =new ToolbarButton("登陆");
 		//bt2 =new ToolbarButton("注销");
@@ -746,6 +768,9 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		
 		borderPanel.add(westPanel, westData);
 //****************************************************************
+		TreeNode root = new TreeNode("kaka");
+		
+		
 		Panel eastPanel = new HTMLPanel();   
         eastPanel.setTitle("其他");   
         //eastPanel.setBodyStyle("background-color:#15428b"); 
@@ -790,14 +815,31 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		navPanel_east2.setBorder(false);
 	//	navPanel_east2.setIconCls("navPanel2-icon");
 		eastPanel.add(navPanel_east2);
+		
+		
 
 		Panel navPanel_east3 = new Panel();
-		navPanel_east3.addButton(new Button("hello"));
-		navPanel_east3.setTitle("相关链接");
+		navPanel_east3.setTitle("Google搜索页面");
 		navPanel_east3.setBorder(false);
-		navPanel_east3.setHtml("<p align=center><FONT size=1><a href=\"http://www.sina.com.cn\">863计划</a></FONT></p>");
+		//navPanel_east3.setHtml("<p align=center><FONT size=1><a href=\"http://www.sina.com.cn\">863计划</a></FONT></p>");
 		eastPanel.add(navPanel_east3);
 		
+	
+       
+		Frame google = new Frame("http://www.google.com"); 
+		
+		 Panel googlePanel = new Panel();   
+	     googlePanel.setLayout(new FitLayout());   
+	     googlePanel.setIconCls("tab-icon");   
+	     googlePanel.add(google); 
+	     googlePanel.setHeight(408);
+	  
+
+	     
+	    
+	     
+	     
+	     navPanel_east3.add(googlePanel);	
 		
 		// ************************tip********************************
 		ToolTip tip1 = new ToolTip();
@@ -805,6 +847,11 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		tip1.applyTo(navPanel1);
 
 		// ******************************** center
+		
+		
+	
+		
+		
 		// panel********************************************
 
 		final TabPanel centerPanel = new TabPanel();

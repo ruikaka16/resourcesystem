@@ -42,6 +42,9 @@ import com.gwtext.client.widgets.grid.GridPanel;
 import com.gwtext.client.widgets.grid.GridView;
 import com.gwtext.client.widgets.grid.event.GridCellListenerAdapter;
 import com.gwtext.client.widgets.grid.event.GridMouseListener;
+import com.gwtext.client.widgets.grid.event.GridMouseListenerAdapter;
+import com.gwtext.client.widgets.grid.event.GridRowListener;
+import com.gwtext.client.widgets.grid.event.GridRowListenerAdapter;
 import com.gwtextux.client.data.PagingMemoryProxy;
 
 public class LoadDataPanel extends Panel {
@@ -197,12 +200,17 @@ public class LoadDataPanel extends Panel {
 		};
 		loadService.getdata(cb_load);
 
-		final ToolTip tip1 = new ToolTip();
+	
+
 
 		grid.addGridCellListener(new GridCellListenerAdapter() {
+			
+			
 			public void onCellClick(GridPanel grid, int rowIndex, int title,
 					EventObject e) {
 
+		
+				
 				Record[] records = grid.getSelectionModel().getSelections();
 				news_title = "";
 				for (int i = 0; i < records.length; ++i) {
