@@ -9,7 +9,6 @@ import java.util.List;
 
 import java.util.Map;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.gwtext.client.widgets.form.Validator;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -39,5 +38,7 @@ public interface DatabaseServiceAsync {
     public void autoComplete(AsyncCallback callback);
     
     public void getFaren(String name, AsyncCallback callback);
+    
+    public void getFarenList(AsyncCallback callback);
     
 }

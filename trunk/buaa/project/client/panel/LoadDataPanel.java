@@ -143,8 +143,6 @@ public class LoadDataPanel extends Panel {
 			    grid.setHeight(473);
 				grid.setFrame(true);
 				grid.stripeRows(true);
-				grid.setAutoExpandMax(50);
-				grid.setEnableColumnHide(true);
 				grid.setWidth(563);
 				grid.setLoadMask(true);
 				

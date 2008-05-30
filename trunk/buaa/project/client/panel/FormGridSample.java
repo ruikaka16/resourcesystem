@@ -30,44 +30,15 @@ public class FormGridSample extends Panel{
   
     public static BaseColumnConfig[] columns = new BaseColumnConfig[]{   
   
-            new ColumnConfig("单位名称", "company", 160, true, null, "company"),   
+            new ColumnConfig("单位名称", "company", 160, true, null, "company")
   
-            new ColumnConfig("Price", "price", 35, true, new Renderer() {   
-                public String render(Object value,CellMetadata cellMetadata, Record record,   
-                                            int rowIndex, int colNum, Store store) {   
-                    return nf.format(((Number) value).doubleValue());   
-                }   
-            }),   
-  
-            new ColumnConfig("Change", "change", 45, true, new Renderer() {   
-                public String render(Object value, CellMetadata cellMetadata, Record record,   
-                                            int rowIndex, int colNum, Store store) {   
-                    float val = ((Float) value).floatValue();   
-                    String valString = nfc.format(val);   
-                    if (val < 0) {   
-                        return "<span style='color:red;'>" + valString + "</span>";   
-                    } else {   
-                        return valString;   
-                    }   
-                }   
-            }, "change"),   
-  
-            new ColumnConfig("% Change", "pctChange", 65, true, null, "pctChange"),   
-  
-            new ColumnConfig("Last Updated", "lastChanged", 65, true, new Renderer() {   
-                public String render(Object value, CellMetadata cellMetadata, Record record,   
-                                            int rowIndex, int colNum, Store store) {   
-                    Date date = (Date) value;   
-                    return dateFormatter.format(date);   
-                }   
-            }),   
-            new ColumnConfig("Industry", "industry", 60, true)   
+ 
     };   
   
   
     public static RecordDef recordDef = new RecordDef(   
             new FieldDef[]{   
-                    new StringFieldDef("company"),   
+                    new StringFieldDef("name"),   
                     new FloatFieldDef("price"),   
                     new FloatFieldDef("change"),   
                     new FloatFieldDef("pctChange"),   
@@ -95,11 +66,12 @@ public class FormGridSample extends Panel{
         Panel columnOne = new Panel();   
         columnOne.setLayout(new FitLayout());   
   
-        GridPanel gridPanel = new SampleGrid();   
-        gridPanel.setHeight(300);   
-        gridPanel.setTitle("法人单位信息");   
+        SampleGrid sampleGrid = new SampleGrid();
+        
+        
+          
   
-        final RowSelectionModel sm = new RowSelectionModel(true);   
+   /*     final RowSelectionModel sm = new RowSelectionModel(true);   
         sm.addListener(new RowSelectionListenerAdapter() {   
             public void onRowSelect(RowSelectionModel sm, int rowIndex, Record record) {   
                 formPanel.getForm().loadRecord(record);   
@@ -112,10 +84,11 @@ public class FormGridSample extends Panel{
             public void execute() {   
                 sm.selectFirstRow();   
             }   
-        }, 10);   
+        }, 10);  
+        */ 
   
-        columnOne.add(gridPanel);   
-        inner.add(columnOne, new ColumnLayoutData(0.6));   
+        columnOne.add(sampleGrid);   
+        inner.add(columnOne, new ColumnLayoutData(0.4));   
   
         FieldSet fieldSet = new FieldSet();   
         fieldSet.setLabelWidth(90);   
@@ -125,9 +98,9 @@ public class FormGridSample extends Panel{
   
         //the field names msut match the data field values from the Store   
         fieldSet.add(new TextField("单位名称", "name", 120));   
-        fieldSet.add(new TextField("Price", "price", 120));   
-        fieldSet.add(new TextField("% Change", "pctChange", 120));   
-        fieldSet.add(new DateField("Last Updated", "lastChanged", 120));   
+        fieldSet.add(new TextField("上级主管", "zhuguan", 120));   
+        fieldSet.add(new TextField("单位通讯地址", "address", 120));   
+        fieldSet.add(new DateField("所在单位地址", "suozaiaddress", 110));   
         inner.add(new PaddedPanel(fieldSet, 0, 10, 0, 0), new ColumnLayoutData(0.4));   
   
         formPanel.add(inner);   

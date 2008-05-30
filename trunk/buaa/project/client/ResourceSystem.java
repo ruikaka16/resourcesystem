@@ -14,21 +14,27 @@ import com.buaa.project.client.panel.FormGridSample;
 import com.buaa.project.client.panel.LoadDataPanel;
 import com.buaa.project.client.panel.Login;
 import com.buaa.project.client.panel.PiechartPanel;
+import com.buaa.project.client.panel.SampleGrid;
 import com.buaa.project.client.window.FarenWindow;
 import com.buaa.project.client.window.LargeDeviceWindow;
 import com.buaa.project.client.window.PlantWindow;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
+import com.gwtext.client.core.EventCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Ext;
 import com.gwtext.client.core.ExtElement;
+import com.gwtext.client.core.Function;
 import com.gwtext.client.core.Margins;
+import com.gwtext.client.core.Position;
 import com.gwtext.client.core.RegionPosition;
 import com.gwtext.client.data.Node;
+import com.gwtext.client.util.DelayedTask;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Component;
 import com.gwtext.client.widgets.DatePicker;
@@ -51,6 +57,7 @@ import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.form.VType;
 import com.gwtext.client.widgets.form.event.TextFieldListenerAdapter;
+import com.gwtext.client.widgets.grid.GridPanel;
 import com.gwtext.client.widgets.layout.AccordionLayout;
 import com.gwtext.client.widgets.layout.BorderLayout;
 import com.gwtext.client.widgets.layout.BorderLayoutData;
@@ -66,7 +73,10 @@ import com.gwtextux.client.widgets.image.ImageListenerAdapter;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class ResourceSystem implements EntryPoint,AsyncCallback {
-
+	
+	private TreePanel treePanel_east;
+	private DelayedTask delayedTask = new DelayedTask();
+	private TextField searchField;
 	public Panel panel;
 	public Panel westPanel;
 	public ToolbarButton bt1;
@@ -777,6 +787,8 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 	    navPanel_east2.setIconCls("list-icon");
 		eastPanel.add(navPanel_east2);
 		
+
+		
 		
 
 		Panel navPanel_east3 = new Panel();
@@ -853,7 +865,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		centerPanelThree.setPaddings(0);
 		centerPanelThree .setTitle("Search Test");
 		centerPanelThree .setAutoScroll(true);
-		FormGridSample f = new FormGridSample();
+		SampleGrid f = new SampleGrid();
 		centerPanelThree.add(f);
 		centerPanel.add(centerPanelThree);
 		
@@ -1139,10 +1151,8 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		panel.getEl().mask("数据加载中，请稍后……");
 
 	}
-	public void unMask()
-	{
-		this.westPanel.getEl().unmask();
-	}
+
+ 
 	public Map getFormDataAsMap(Form form) {
 		// 用户名=rui&密码=rui
 		String formvalues = form.getValues();
@@ -1180,7 +1190,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 
 	}
 	
-	
+
 
 
 
