@@ -850,10 +850,9 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 //**********************************************************
 
 		Panel centerPanelThree = new Panel();
-		
+		centerPanelThree.setPaddings(0);
 		centerPanelThree .setTitle("Search Test");
 		centerPanelThree .setAutoScroll(true);
-		centerPanelThree .setAutoShow(true);
 		FormGridSample f = new FormGridSample();
 		centerPanelThree.add(f);
 		centerPanel.add(centerPanelThree);
