@@ -123,7 +123,7 @@ public class LoadDataPanel extends Panel {
 
 			public void onFailure(Throwable caught) {
 				// TODO Auto-generated method stub
-				Window.alert("Fail to getting data" + caught.toString());
+				//Window.alert("Fail to getting data" + caught.toString());
 			}
 
 			public void onSuccess(Object response) {
@@ -144,15 +144,17 @@ public class LoadDataPanel extends Panel {
 				grid.setFrame(true);
 				grid.stripeRows(true);
 				grid.setWidth(563);
-				grid.setLoadMask(true);
+				
+				ToolTip tip = new ToolTip();
+		        tip.setHtml("点击浏览新闻内容");
+		        tip.setWidth(120);
+		        tip.setBodyStyle(bodyStyle);
+		        tip.setTrackMouse(true);
+		        tip.applyTo(grid);
 				
 			
 					
-				 ToolTip tip = new ToolTip();
-			        tip.setHtml("点击浏览该新闻");
-			        tip.setWidth(120);
-			        tip.setBodyStyle(bodyStyle);
-			        tip.setTrackMouse(true);
+			
 
 
 				final PagingToolbar pagingToolbar = new PagingToolbar(store);

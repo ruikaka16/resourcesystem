@@ -162,11 +162,12 @@ public class FarenWindow extends Window{
 		final TextField dwwz = new TextField("单位网址", "dwwz");
 	//	final TextField dwsx = new TextField("单位属性", "dwsx");
 	
-		 final Store store = new SimpleStore(new String[]{"abbr", "state", "nick"}, getStates());   
+		 final Store store = new SimpleStore(new String[]{"type", "name"}, getStates());   
 	        store.load();   
 		
 		final ComboBox cb_dwsx = new ComboBox("单位属性");
 		cb_dwsx.setStore(store);
+		cb_dwsx.setDisplayField("name");
 		cb_dwsx.setSelectOnFocus(true);
 		cb_dwsx.setMinChars(1);
 		cb_dwsx.setMode(ComboBox.LOCAL);
@@ -287,13 +288,10 @@ public class FarenWindow extends Window{
 	
 		 private static String[][] getStates() {   
 		        return new String[][]{   
-		                new String[]{"AL", "Alabama", "The Heart of Dixie"},   
-		                new String[]{"AK", "Alaska", "The Land of the Midnight Sun"},   
-		                new String[]{"AZ", "Arizona", "The Grand Canyon State"},   
-		                new String[]{"AR", "Arkansas", "The Natural State"},   
-		                new String[]{"CA", "California", "The Golden State"}
-
-	
+		                new String[]{"A", "国有企业"},   
+		                new String[]{"B", "私有企业"},   
+		                new String[]{"C", "国有控股企业"}
+		           
 		        };
 		 }
 	

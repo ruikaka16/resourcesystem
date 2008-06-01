@@ -43,6 +43,7 @@ public class FarenPanel extends Panel{
 		   this.setWidth(800);
 		   this.setClosable(true);
 		   this.setFrame(true);
+		   this.setAutoScroll(true);
 		  
 
 		   
@@ -122,11 +123,11 @@ public class FarenPanel extends Panel{
 
 		
 		
-		final TextField name = new TextField("单位全称", "name");
-		final TextField zhuguan = new TextField("上一级主管单位", "company");
-		final TextField address = new TextField("单位通讯地址", "address");
-		final TextField suozaiaddress = new TextField("所在单位地址", "suozaiaddress");
-		final TextField xingzhi = new TextField("法人性质", "xingzhi");
+		final TextField name = new TextField("单位全称", "name",200);
+		final TextField zhuguan = new TextField("上一级主管单位", "company",200);
+		final TextField address = new TextField("单位通讯地址", "address",200);
+		final TextField suozaiaddress = new TextField("所在单位地址", "suozaiaddress",200);
+		final TextField xingzhi = new TextField("法人性质", "xingzhi",200);
 		
 		
 		firstColumn_first.add(name,new AnchorLayoutData("80%"));
@@ -138,7 +139,7 @@ public class FarenPanel extends Panel{
 		
 		firstPanel.add(firstColumn_first, new ColumnLayoutData(0.5));
 		
-		final TextField id = new TextField("序号", "id");
+		final TextField id = new TextField("序号", "id",200);
 
 		
 		firstColumn_sec.add(id,new AnchorLayoutData("80%"));
@@ -146,7 +147,7 @@ public class FarenPanel extends Panel{
 	
 		secPanel.add(firstColumn_sec, new ColumnLayoutData(0.5));
 		
-		final TextField id_1 = new TextField("序号", "id");
+		final TextField id_1 = new TextField("序号", "id",200);
 		
 
 		firstColumn_third.add(id_1,new AnchorLayoutData("80%"));
@@ -165,11 +166,11 @@ public class FarenPanel extends Panel{
 		secondColumn_third.setBorder(false);
 
 		
-		final TextField jigouid = new TextField("组织机构代码", "last");
-		final TextField xzzgbm = new TextField("行政主管部门", "xzzgbm");
-		final TextField zipcode = new TextField("邮政编码", "zipcode");
-		final TextField dwwz = new TextField("单位网址", "dwwz");
-		final TextField dwsx = new TextField("单位属性", "dwsx");
+		final TextField jigouid = new TextField("组织机构代码", "last",200);
+		final TextField xzzgbm = new TextField("行政主管部门", "xzzgbm",200);
+		final TextField zipcode = new TextField("邮政编码", "zipcode",200);
+		final TextField dwwz = new TextField("单位网址", "dwwz",200);
+		final TextField dwsx = new TextField("单位属性", "dwsx",200);
 		
 		
 		secondColumn_first.add(jigouid,new AnchorLayoutData("80%"));
@@ -180,12 +181,12 @@ public class FarenPanel extends Panel{
 		
 		firstPanel.add(secondColumn_first, new ColumnLayoutData(0.5));
 
-		final TextField hymc = new TextField("行业名称", "hymc");	
+		final TextField hymc = new TextField("行业名称", "hymc",200);	
 		secondColumn_sec.add(hymc,new AnchorLayoutData("80%"));
 		
 		
 		secPanel.add(secondColumn_sec, new ColumnLayoutData(0.5));
-		final TextField xkmc = new TextField("学科名称", "xkmc");	
+		final TextField xkmc = new TextField("学科名称", "xkmc",200);	
 		
 	
 		secondColumn_third.add(xkmc,new AnchorLayoutData("80%"));

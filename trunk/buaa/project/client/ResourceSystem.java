@@ -3,8 +3,11 @@ package com.buaa.project.client;
 
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import com.buaa.project.client.data.BeanDTO;
 import com.buaa.project.client.panel.ColumnPanel;
 import com.buaa.project.client.panel.DataLoad;
 import com.buaa.project.client.panel.EditorPanel;
@@ -13,6 +16,7 @@ import com.buaa.project.client.panel.Fileupload;
 import com.buaa.project.client.panel.FormGridSample;
 import com.buaa.project.client.panel.LoadDataPanel;
 import com.buaa.project.client.panel.Login;
+import com.buaa.project.client.panel.NewsWindow;
 import com.buaa.project.client.panel.PiechartPanel;
 import com.buaa.project.client.panel.SampleGrid;
 import com.buaa.project.client.window.FarenWindow;
@@ -33,7 +37,15 @@ import com.gwtext.client.core.Function;
 import com.gwtext.client.core.Margins;
 import com.gwtext.client.core.Position;
 import com.gwtext.client.core.RegionPosition;
+import com.gwtext.client.core.Template;
+import com.gwtext.client.data.ArrayReader;
+import com.gwtext.client.data.FieldDef;
+import com.gwtext.client.data.MemoryProxy;
 import com.gwtext.client.data.Node;
+import com.gwtext.client.data.Record;
+import com.gwtext.client.data.RecordDef;
+import com.gwtext.client.data.Store;
+import com.gwtext.client.data.StringFieldDef;
 import com.gwtext.client.util.DelayedTask;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Component;
@@ -41,6 +53,7 @@ import com.gwtext.client.widgets.DatePicker;
 import com.gwtext.client.widgets.HTMLPanel;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.MessageBoxConfig;
+import com.gwtext.client.widgets.PagingToolbar;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.TabPanel;
 import com.gwtext.client.widgets.ToolTip;
@@ -52,12 +65,20 @@ import com.gwtext.client.widgets.Window;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.event.PanelListenerAdapter;
 import com.gwtext.client.widgets.form.DateField;
+import com.gwtext.client.widgets.form.Field;
 import com.gwtext.client.widgets.form.Form;
 import com.gwtext.client.widgets.form.FormPanel;
+import com.gwtext.client.widgets.form.NumberField;
 import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.form.VType;
+import com.gwtext.client.widgets.form.event.FieldListenerAdapter;
 import com.gwtext.client.widgets.form.event.TextFieldListenerAdapter;
+import com.gwtext.client.widgets.grid.ColumnConfig;
+import com.gwtext.client.widgets.grid.ColumnModel;
 import com.gwtext.client.widgets.grid.GridPanel;
+import com.gwtext.client.widgets.grid.GridView;
+import com.gwtext.client.widgets.grid.event.GridCellListener;
+import com.gwtext.client.widgets.grid.event.GridCellListenerAdapter;
 import com.gwtext.client.widgets.layout.AccordionLayout;
 import com.gwtext.client.widgets.layout.BorderLayout;
 import com.gwtext.client.widgets.layout.BorderLayoutData;
@@ -66,6 +87,7 @@ import com.gwtext.client.widgets.layout.HorizontalLayout;
 import com.gwtext.client.widgets.tree.TreeNode;
 import com.gwtext.client.widgets.tree.TreePanel;
 import com.gwtext.client.widgets.tree.event.TreeNodeListenerAdapter;
+import com.gwtextux.client.data.PagingMemoryProxy;
 import com.gwtextux.client.widgets.image.Image;
 import com.gwtextux.client.widgets.image.ImageListenerAdapter;
 
@@ -87,6 +109,83 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		+ "color:#15428b;cursor:default;margin:10px;"
 		+ "font:bold 11px tahoma,arial,sans-serif;";
 	ToolTip tip;
+	
+	String news_title;
+
+	PagingMemoryProxy proxy;
+
+	private Object[][] getObj(Object response) {
+		List data = (List) response;
+
+		Iterator it = data.iterator();
+		int i = data.size();
+		int j = 0;
+		Object[][] b = new Object[i][];
+		while (it.hasNext()) {
+			final BeanDTO bean = (BeanDTO) it.next();
+			Object[] a = bean.toObjectArray();
+			b[j++] = a;
+
+		}
+
+		return b;
+	}
+	
+	private Store getStore(int i) {
+		Object[][][] data = new Object[][][] {
+				
+				new Object[][] { new Object[] { "硬件及作业信息", "Manufacturing" },
+						new Object[] { "网络质量监控信息", "Manufacturing" },
+						new Object[] { "GOS监控信息", "Manufacturing" },
+						new Object[] { "作业信息", "Manufacturing" },
+
+				},
+				new Object[][] { new Object[] { "全局配置信息", "Manufacturing" },
+						new Object[] { "节点配置信息", "Manufacturing" },
+
+				},
+				new Object[][] { new Object[] { "作业报表", "Manufacturing" },
+						new Object[] { "网络质量报表", "Manufacturing" },
+						new Object[] { "硬件日报表", "Manufacturing" },
+						new Object[] { "硬件月报表", "Manufacturing" },
+						new Object[] { "硬件年报表", "Manufacturing" },
+
+						new Object[] { "GOS日报表", "Manufacturing" },
+						new Object[] { "GOS月报表", "Manufacturing" },
+						new Object[] { "GOS年报表", "Manufacturing" },
+
+				},
+				new Object[][] { new Object[] { "3m Co", "Manufacturing" },
+						new Object[] { "Alcoa Inc", "Manufacturing" },
+						new Object[] { "Altria Group Inc", "Manufacturing" } }
+
+		};
+
+		MemoryProxy proxy = new MemoryProxy(data[i]);
+		RecordDef recordDef = new RecordDef(
+				new FieldDef[] { new StringFieldDef("name") });
+		ArrayReader reader = new ArrayReader(recordDef);
+		Store store = new Store(proxy, reader);
+		store.load();
+		return store;
+	}
+	
+	private GridPanel getNewLeftGrid(int i) {
+		GridPanel grid = new GridPanel();
+		ColumnConfig[] columns = new ColumnConfig[] { new ColumnConfig("start",
+				"name", 200, true, null, "name"), };
+		ColumnModel columnModel = new ColumnModel(columns);
+		grid.setColumnModel(columnModel);
+		grid.setBorder(false);
+		grid.setAutoExpandColumn("name");
+
+		grid.setAutoHeight(true);
+		grid.setAutoExpandMin(200);
+		grid.setStore(this.getStore(i));
+		grid.setHideColumnHeader(true);
+		return grid;
+
+	}
 	
 	public void onModuleLoad() {
 
@@ -127,6 +226,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		toolbar.setWidth(64);
 		toolbar.setHeight(54);
 		toolbar.setStyleName("ext-el-mask-msg");
+
 		
 		Image image = new Image("title","image/12.jpg");
 		image.setWidth("960px");
@@ -155,39 +255,9 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
         northPanel.add(toolbar);
 	
 
-	
-	
-
-	 
-	 //toolbar1.addText(a);
-
-
-	//northPanel2.setBorder(false);	
-	// northPanel2.add(toolbar);	
-		
-		
 		Hyperlink hy = new Hyperlink();
 		hy.setHTML("jessiena");
-		
-		//toolbar.addField(txtLoginname);
-		//toolbar.addSeparator();
-		//northPanel.add(northPanel1);
-		//northPanel.add(northPanel2);
-		
-		
-	//	LoginPanel loginPanel = new LoginPanel();
-		
-	//	northPanel.add(loginPanel);
-		
 
-		//ToolbarTextItem title = new ToolbarTextItem("欢迎访问资源填报系统");
-		//toolbar.addItem(title);
-		//title.setText("jessiena");
-		//title.setSize("1024px", "56px");
-		//title.setStyleName("ext-el-mask-msg");
-		
-	
-		
 
 // **********************tree1*********************************************
 
@@ -200,6 +270,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		treePanel1.setContainerScroll(true);
 		treePanel1.setRootVisible(true);
 		treePanel1.setIconCls("treePanel1-icon");
+		
 		// treePanel1.add(bt);
 
 		TreeNode tr1 = new TreeNode("文件管理");
@@ -294,6 +365,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		treePanel2.setRootVisible(true);
 		treePanel2.setContainerScroll(true);
 		treePanel2.setCollapsible(true);
+		treePanel2.setId("treePanel2");
 
 		TreeNode tr2 = new TreeNode("用户管理");
 		tr2.setExpanded(true); // 默认节点展开
@@ -737,7 +809,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		
 		borderPanel.add(westPanel, westData);
 //****************************************************************
-		TreeNode root = new TreeNode("kaka");
+		
 		
 		
 		Panel eastPanel = new HTMLPanel();   
@@ -745,7 +817,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
         //eastPanel.setBodyStyle("background-color:#15428b"); 
         eastPanel.setCollapsible(true);   
         eastPanel.setBorder(true);
-        eastPanel.setWidth(220); 
+        eastPanel.setWidth(200); 
         eastPanel.setIconCls("plugin-icon");
         eastPanel.setLayout(accordion1);  
         eastPanel.setHtml("<p><a href=\"MainModule.html\">相关连接</a></p>");
@@ -786,6 +858,11 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		navPanel_east2.setBorder(false);
 	    navPanel_east2.setIconCls("list-icon");
 		eastPanel.add(navPanel_east2);
+		
+
+		
+	
+
 		
 
 		
@@ -834,15 +911,225 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		centerPanel.setActiveTab(0);
 		centerPanel.setEnableTabScroll(true);
 		centerPanel.setDeferredRender(false);
+		centerPanel.setAutoShow(true);
+		
+
+		final GridPanel grid_news = new GridPanel();
+		
+		ToolTip tip = new ToolTip();
+        tip.setHtml("点击浏览该新闻");
+        tip.setWidth(120);
+        tip.setBodyStyle(bodyStyle);
+        tip.setTrackMouse(true);
+        tip.applyTo(grid_news);
+
+		final Toolbar refreshTb = new Toolbar();
+		refreshTb.addFill();
+		final ToolbarButton refreshBt = new ToolbarButton("刷新");
+
+		final String bodyStyle = "text-align:center;padding:5px 0;"
+				+ "border:1px dotted #99bbe8;background:#dfe8f6;"
+				+ "color:#15428b;cursor:default;margin:10px;"
+				+ "font:bold 11px tahoma,arial,sans-serif;";
+
+		final RecordDef recordDef = new RecordDef(new FieldDef[] {
+				new StringFieldDef("N_TITLE"), new StringFieldDef("N_AUTHOR"),
+				new StringFieldDef("N_TIME")
+
+		});
+
+			
+		ColumnConfig N_TITLE = new ColumnConfig("新闻标题", "N_TITLE", 220, true);
+		ColumnConfig N_AUTHOR = new ColumnConfig("发布单位", "N_AUTHOR", 80, true);
+		ColumnConfig N_TIME = new ColumnConfig("发布时间", "N_TIME", 56, true);
+		
+		
+		final ColumnModel columnModel  = new ColumnModel(new ColumnConfig[]{
+				 N_TITLE,
+				 N_AUTHOR,
+				 N_TIME
+			
+		});
+		 
+		
+		
+		final DatabaseServiceAsync loadService = DatabaseService.Util
+				.getInstance();
+		final AsyncCallback cb_load = new AsyncCallback() {
+
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+			//	Window.alert("Fail to getting data" + caught.toString());
+			}
+
+			public void onSuccess(Object response) {
+
+			
+				proxy = new PagingMemoryProxy(getObj(response));
+
+				ArrayReader reader = new ArrayReader(recordDef);
+
+				Store store = new Store(proxy, reader, true);
+				
+				grid_news.setStore(store);
+				
+				
+				grid_news.setColumnModel(columnModel);
+				
+				//grid_news.setHeight(473);
+				grid_news.setFrame(true);
+				//grid_news.setAutoExpandColumn("N_TITLE");
+				grid_news.stripeRows(true);
+				//grid_news.setWidth(563);
+				//grid_news.setLoadMask(true);
+				grid_news.setTitle("新闻浏览");
+				grid_news.setIconCls("grid-icon");
+				grid_news.setVisible(true);
+				
+			
+					
+				 
+
+				final PagingToolbar pagingToolbar = new PagingToolbar(store);
+
+				pagingToolbar.setPageSize(19);
+				pagingToolbar.setDisplayInfo(true);
+				pagingToolbar.setDisplayMsg("显示新闻条数 {0} - {1} of {2}");
+				pagingToolbar.setEmptyMsg("没有数据显示");
+
+				NumberField pageSizeField = new NumberField();
+				pageSizeField.setWidth(40);
+				pageSizeField.setSelectOnFocus(true);
+				pageSizeField.addListener(new FieldListenerAdapter() {
+					public void onSpecialKey(Field field, EventObject e) {
+						if (e.getKey() == EventObject.ENTER) {
+							int pageSize = Integer.parseInt(field
+									.getValueAsString());
+							pagingToolbar.setPageSize(pageSize);
+						}
+					}
+				});
+
+				ToolTip toolTip = new ToolTip("请输每页要显示的新闻条数");
+				toolTip.applyTo(pageSizeField);
+
+				pagingToolbar.addField(pageSizeField);
+				pagingToolbar.setVisible(true);
+				//pagingToolbar.addButton(refreshBt);
+				
+				store.load(0,19);
+
+				
+				
+				
+				grid_news.setBottomToolbar(pagingToolbar);
+				grid_news.doLayout();
+				GridView view = new GridView();
+			    view.setForceFit(true);
+				grid_news.setView(view);
+				
+				centerPanel.add(grid_news);
+			    centerPanel.doLayout();
+			    
+				final ExtElement element = Ext.get("main-panel");
+				element.unmask();
+
+				if (store == null) {
+					return;
+				}
+
+				List data = (List) response;
+
+				Iterator it = data.iterator();
+
+				while (it.hasNext()) {
+
+					final BeanDTO bean = (BeanDTO) it.next();
+					Object[] a = bean.toObjectArray();
+					Object[][] b = new Object[][] { a };
+					// store.add(recordDef.createRecord(bean.toObjectArray()));
+
+				}
+
+				store.commitChanges();
+
+			}
+
+		};
+		loadService.getdata(cb_load);
 
 	
+
+
+		grid_news.addGridCellListener(new GridCellListenerAdapter() {
+			
+			
+			public void onCellClick(GridPanel grid, int rowIndex, int title,
+					EventObject e) {
+
 		
-		LoadDataPanel ldp = new LoadDataPanel();
-		ldp.setTitle("新闻预览");
-		ldp.setVisible(true);
-		centerPanel.setAutoShow(true);
-		centerPanel.add(ldp);
-		centerPanel.doLayout();
+				
+				Record[] records = grid.getSelectionModel().getSelections();
+				news_title = "";
+				for (int i = 0; i < records.length; ++i) {
+					Record record = records[i];
+
+					news_title += record.getAsString("N_TITLE");
+
+				}
+
+				DatabaseServiceAsync getNewsContentService = DatabaseService.Util
+						.getInstance();
+				AsyncCallback cb_getNewsContent = new AsyncCallback() {
+
+					public void onFailure(Throwable arg0) {
+						// TODO Auto-generated method stub
+
+					}
+
+					public void onSuccess(Object result) {
+						// TODO Auto-generated method stub
+
+						// System.out.println(result);
+
+						Panel newsPanel = new HTMLPanel();
+						newsPanel.setHeight(400);
+						newsPanel.setAutoScroll(true);
+						newsPanel.setHtml(result.toString());
+						NewsWindow newWindow = new NewsWindow();
+						newWindow.setTitle(news_title);
+
+						Template template = new Template(result.toString());
+						newWindow.add(newsPanel);
+						newWindow.show();
+						final ExtElement element = Ext.get("main-panel");
+
+						element.mask();
+
+						newWindow.addListener(new PanelListenerAdapter() {
+
+							public void onClose(Panel panel) {
+
+								element.unmask();
+
+							}
+						});
+					}
+
+				};
+
+				getNewsContentService.getNewsContent(news_title,
+						cb_getNewsContent);
+
+			}
+		});
+		
+	//	LoadDataPanel ldp = new LoadDataPanel();
+	//	ldp.setTitle("新闻预览");
+	//	ldp.setVisible(true);
+	//	centerPanel.setAutoShow(true);
+	//	centerPanel.add(ldp);
+	//	centerPanel.doLayout();
 		
 
 		
@@ -867,7 +1154,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		centerPanelThree .setAutoScroll(true);
 		SampleGrid f = new SampleGrid();
 		centerPanelThree.add(f);
-		centerPanel.add(centerPanelThree);
+		//centerPanel.add(centerPanelThree);
 		
 	
 //**************************************************************************
@@ -1151,6 +1438,8 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		panel.getEl().mask("数据加载中，请稍后……");
 
 	}
+	
+	
 
  
 	public Map getFormDataAsMap(Form form) {
