@@ -134,11 +134,13 @@ public class Login extends Window {
 							final ExtElement  element1 = Ext.get("west");
 							element1.unmask();
 							
-						//	final ExtElement element2 = Ext.get("navPanel1");
-						//	element2.mask("jessiena");
+						final ExtElement element2 = Ext.get("navPanel1");
+						element2.unmask();
 							
 							final ExtElement element3 = Ext.get("login");
 							element3.remove();
+							
+						//	Ext.get("navPanel1").mask();
 							
 							final ExtElement element4 = Ext.get("logout");
 							element4.setVisible(true);
@@ -149,8 +151,7 @@ public class Login extends Window {
 							
 							
 						} else {
-							MessageBox.alert("用户名或密码不正确!");
-							txtName.setValue("");
+							MessageBox.alert("密码输入有误，请重新输入!");
 							txtPsw.setValue("");
 						}
 
@@ -192,7 +193,7 @@ public class Login extends Window {
 							
 							//toolbar.addItem(new ToolbarItem(new Image("image/add.gif").getElement()));
 						
-							MessageBox.alert("用户名验证成功!");
+							//MessageBox.alert("用户名验证成功!");
 					
 						} else {
 							MessageBox.alert("该用户名不存在，请重新输入!");

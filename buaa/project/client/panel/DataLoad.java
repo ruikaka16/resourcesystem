@@ -52,20 +52,22 @@ public class DataLoad extends Panel{
         store.load();   
   
         ColumnModel columnModel = new ColumnModel(new ColumnConfig[]{   
-                new ColumnConfig("单位名称", "name", 70, true,null),   
-                new ColumnConfig("单位网址", "website", 150, true,null) 
+                new ColumnConfig("单位名称", "name", 198, true,null),   
+                new ColumnConfig("单位网址", "website", 1, true,null) 
               
         });   
   
         GridPanel grid = new GridPanel();   
         grid.setStore(store);   
         grid.setColumnModel(columnModel);   
-        grid.setWidth(220);   
+        grid.setWidth(200);   
         grid.setAutoHeight(true);   
        // grid.setTitle("Json Grid");   
-        grid.setFrame(true);   
-        grid.stripeRows(true);   
-        grid.setIconCls("grid-icon");   
+       // grid.setFrame(true);   
+        grid.stripeRows(true);  
+        grid.setBodyBorder(false);
+        grid.setIconCls("grid-icon");  
+        grid.setHideColumnHeader(true);
         
     //  tip.setHtml("点击浏览该网页");
         ToolTip tip = new ToolTip();
@@ -75,6 +77,8 @@ public class DataLoad extends Panel{
         tip.setTrackMouse(true);
         tip.applyTo(grid);
         
+        
+
         grid.addGridCellListener(new GridCellListenerAdapter(){
         	
         	public void onCellClick(GridPanel grid, int rowIndex, int title,
@@ -92,25 +96,27 @@ public class DataLoad extends Panel{
 
 				}
 				//MessageBox.alert(name);
+				//System.out.println(name);
 				
 				Frame google = new Frame(website);
 				google.setHeight("600px");
 				google.setWidth("800px");
 				
-				Panel webPanel = new Panel();
-				webPanel.setWidth(800);
-				webPanel.setHeight(600);
-				webPanel.add(google);
+			
 				
-				Window webWin = new Window();
+				final Window webWin = new Window();
 				
 				webWin.setWidth(800);
 				webWin.setHeight(600);
-				webWin.setMaximizable(true);
-				webWin.setMinimizable(true);
+				//webWin.setMaximizable(true);
+				//webWin.setMinimizable(true);
+
+				
+				
 				webWin.setTitle(name+"官方网站");
-				webWin.add(webPanel);
+				webWin.add(google);
 				webWin.setIconCls("westPanel-icon");
+	
 				
 				webWin.show();
 				
@@ -121,8 +127,8 @@ public class DataLoad extends Panel{
         
   
         
-        this.add(grid);   
-        grid.setLoadMask("数据加载中，请稍后……");
+     this.add(grid);   
+    
         
         
         

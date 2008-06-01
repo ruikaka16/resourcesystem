@@ -108,7 +108,7 @@ public class SampleGrid extends FormPanel {
 
 	public SampleGrid() {
 
-		this.setWidth(650);
+		//this.setWidth(650);
 		this.setBorder(false);
 		this.setFrame(true);   
 	    this.setLabelAlign(Position.LEFT); 
@@ -177,6 +177,7 @@ public class SampleGrid extends FormPanel {
 				grid.setFrame(true);
 				grid.stripeRows(true);
 				grid.setWidth(200);
+				grid.setAutoHeight(true);
 				GridView view = new GridView();
 				view.setForceFit(true);
 				grid.setView(view);
@@ -264,7 +265,8 @@ public class SampleGrid extends FormPanel {
 	  
 	        Panel inner = new Panel();   
 	        inner.setLayout(new ColumnLayout());     
-	        Panel columnOne = new Panel();   
+	        Panel columnOne = new Panel();  
+	        columnOne.setHeight(400);
 	        columnOne.setLayout(new FitLayout());   
 
 

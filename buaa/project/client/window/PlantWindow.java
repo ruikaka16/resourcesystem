@@ -4,6 +4,7 @@ import com.gwtext.client.core.Template;
 import com.gwtext.client.data.Reader;
 import com.gwtext.client.data.SimpleStore;
 import com.gwtext.client.data.Store;
+import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.ToolTip;
 import com.gwtext.client.widgets.Window;
@@ -306,6 +307,11 @@ public class PlantWindow extends Window{
 		
 		
 		this.add(plantPanel);
+		Button submit = new Button("提交");
+		Button cancel = new Button("关闭");
+		
+		this.addButton(submit);
+		this.addButton(cancel);
 		
    }
 
