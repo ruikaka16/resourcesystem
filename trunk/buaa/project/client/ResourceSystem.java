@@ -19,6 +19,7 @@ import com.buaa.project.client.panel.Login;
 import com.buaa.project.client.panel.NewsWindow;
 import com.buaa.project.client.panel.PiechartPanel;
 import com.buaa.project.client.panel.SampleGrid;
+import com.buaa.project.client.theme.ThemeChanger;
 import com.buaa.project.client.window.FarenWindow;
 import com.buaa.project.client.window.LargeDeviceWindow;
 import com.buaa.project.client.window.PlantWindow;
@@ -220,6 +221,9 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 				+
 				"<p align=center>地址：北京市复兴路乙15号 | 邮编：100862 | 地理位置图 | 咨询电话：010-58881463 | 联系我们</P>");
 		borderPanel.add(southPanel,new BorderLayoutData(RegionPosition.SOUTH));
+		ThemeChanger themeChanger = new ThemeChanger();
+	    southPanel.add(themeChanger);
+		
 		
 	    toolbar = new Toolbar();
 	    toolbar.setId("login-tooblar");
@@ -253,6 +257,8 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		bt1.setId("login");
 		toolbar.addButton(bt1);
         northPanel.add(toolbar);
+        
+      
 	
 
 		Hyperlink hy = new Hyperlink();
