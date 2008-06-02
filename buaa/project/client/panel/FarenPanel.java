@@ -14,6 +14,7 @@ import com.gwtext.client.data.RecordDef;
 import com.gwtext.client.data.SimpleStore;
 import com.gwtext.client.data.Store;
 import com.gwtext.client.data.StringFieldDef;
+import com.gwtext.client.data.Record;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
@@ -23,6 +24,7 @@ import com.gwtext.client.widgets.form.FieldSet;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.form.VType;
+import com.gwtext.client.widgets.form.event.ComboBoxListener;
 import com.gwtext.client.widgets.form.event.ComboBoxListenerAdapter;
 import com.gwtext.client.widgets.layout.AnchorLayoutData;
 import com.gwtext.client.widgets.layout.ColumnLayout;
@@ -265,13 +267,10 @@ public class FarenPanel extends Panel{
 			this.add(formPanel_tn_3121_2, new RowLayoutData(60));
 			this.add(formPanel_tn_3121_3, new RowLayoutData(60));
 	
-
-		
-		Button bt = new Button("查询");
-		bt.addListener(new ButtonListenerAdapter(){
+		cb.addListener(new ComboBoxListenerAdapter(){
 			
-			public void onClick(Button button,EventObject e){
-				//MessageBox.alert(cb.getText());
+			public void onSelect(ComboBox comboBox, Record record, int index){
+				
 				DatabaseServiceAsync loadFaren  =DatabaseService.Util.getInstance();
 				
 				AsyncCallback cb_getFarenInfo = new AsyncCallback() {
@@ -310,13 +309,10 @@ public class FarenPanel extends Panel{
 					
 				};
 				loadFaren.getFaren(cb.getText(), cb_getFarenInfo);
-			
-			}
+			};
 		});
-		
-		
-		
-		this.addButton(bt);
+	
+
 		
 	}
 

@@ -45,6 +45,7 @@ import com.gwtext.client.widgets.grid.event.GridMouseListener;
 import com.gwtext.client.widgets.grid.event.GridMouseListenerAdapter;
 import com.gwtext.client.widgets.grid.event.GridRowListener;
 import com.gwtext.client.widgets.grid.event.GridRowListenerAdapter;
+import com.gwtext.client.widgets.layout.FitLayout;
 import com.gwtextux.client.data.PagingMemoryProxy;
 
 public class LoadDataPanel extends Panel {
@@ -76,6 +77,7 @@ public class LoadDataPanel extends Panel {
 		this.setPaddings(0);
 		// this.setAutoHeight(true);
 		this.setAutoShow(true);
+		this.setLayout(new FitLayout());
 		
 		//this.setWidth(558);
 		this.setIconCls("grid-icon");
@@ -140,10 +142,10 @@ public class LoadDataPanel extends Panel {
 				
 				grid.setColumnModel(columnModel);
 				
-			    grid.setHeight(473);
+			  //  grid.setHeight(473);
 				grid.setFrame(true);
 				grid.stripeRows(true);
-				grid.setWidth(563);
+				//grid.setWidth(563);
 				
 				ToolTip tip = new ToolTip();
 		        tip.setHtml("点击浏览新闻内容");
@@ -189,8 +191,7 @@ public class LoadDataPanel extends Panel {
 				view.setForceFit(true);
 				grid.setView(view);
 
-				panel.add(grid);
-				
+				panel.add(grid);	
 			    panel.doLayout();
 			    
 				final ExtElement element = Ext.get("main-panel");

@@ -37,8 +37,10 @@ public class ColumnPanel extends Panel{
        RecordDef recordDef = new RecordDef(   
                new FieldDef[]{   
                        new StringFieldDef("month"),   
-                       new IntegerFieldDef("pork"),   
-                       new IntegerFieldDef("beef")   
+                       new IntegerFieldDef("submit"),   
+                       new IntegerFieldDef("passed") ,
+                       new IntegerFieldDef("no_submit"),
+                       new IntegerFieldDef("return") ,
                }   
        );   
  
@@ -46,21 +48,35 @@ public class ColumnPanel extends Panel{
        final Store store = new Store(proxy, reader);   
        store.load();   
  
-       GenericConfig porkStyle = new GenericConfig();   
-       porkStyle.setProperty("image", "images/tube.png");   
-       porkStyle.setProperty("mode", "no-repeat");   
-       porkStyle.setProperty("color", "0x2e434d");   
-       porkStyle.setProperty("size", 40);   
+       GenericConfig submitStyle = new GenericConfig();   
+       submitStyle.setProperty("image", "images/tube.png");   
+       submitStyle.setProperty("mode", "no-repeat");   
+       submitStyle.setProperty("color", "0x2e434d");   
+       submitStyle.setProperty("size", 20);   
  
-       GenericConfig beefStyle = new GenericConfig();   
-       beefStyle.setProperty("image", "images/tube.png");   
-       beefStyle.setProperty("mode", "no-repeat");   
-       beefStyle.setProperty("color", "0xc2d81e");   
-       beefStyle.setProperty("size", 40);   
+       GenericConfig passedStyle = new GenericConfig();   
+       passedStyle.setProperty("image", "images/tube.png");   
+       passedStyle.setProperty("mode", "no-repeat");   
+       passedStyle.setProperty("color", "0xc2d81e");   
+       passedStyle.setProperty("size", 20);   
+       
+       GenericConfig no_submitStyle = new GenericConfig();   
+       no_submitStyle.setProperty("image", "images/tube.png");   
+       no_submitStyle.setProperty("mode", "no-repeat");   
+       no_submitStyle.setProperty("color", "#00b8bf");   
+       no_submitStyle.setProperty("size", 20); 
+       
+       GenericConfig returnStyle = new GenericConfig();   
+       returnStyle.setProperty("image", "images/tube.png");   
+       returnStyle.setProperty("mode", "no-repeat");   
+       returnStyle.setProperty("color", "#8dd5e7");   
+       returnStyle.setProperty("size", 20); 
  
        SeriesDefY[] seriesDef = new SeriesDefY[]{   
-               new SeriesDefY("Sales of Pork", "pork", porkStyle),   
-               new SeriesDefY("Sales of Beef", "beef", beefStyle)   
+               new SeriesDefY("已提交单位", "submit", submitStyle),   
+               new SeriesDefY("已通过单位", "passed", passedStyle),
+               new SeriesDefY("未提交单位", "no_submit", no_submitStyle), 
+               new SeriesDefY("退回单位", "return", returnStyle),
        };   
  
  
@@ -76,7 +92,7 @@ public class ColumnPanel extends Panel{
  
        this.add(chart);   
  
-       ColumnConfig monthConfig = new ColumnConfig("Month", "month", 60, true);   
+       ColumnConfig monthConfig = new ColumnConfig("月份", "month", 60, true);   
        monthConfig.setId("monthCol");   
        TextField textField = new TextField();   
        textField.setSelectOnFocus(true);   
@@ -87,17 +103,31 @@ public class ColumnPanel extends Panel{
  
        NumberField numberField2 = new NumberField();   
        numberField2.setSelectOnFocus(true);   
+       
+       NumberField numberField3 = new NumberField();   
+       numberField2.setSelectOnFocus(true);  
+       
+       NumberField numberField4 = new NumberField();   
+       numberField2.setSelectOnFocus(true); 
  
-       ColumnConfig porkConfig = new ColumnConfig("Pork", "pork", 150, true);   
-       porkConfig.setEditor(new GridEditor(numberField));   
+       ColumnConfig submitConfig = new ColumnConfig("已提交单位", "submit", 100, true);   
+       submitConfig.setEditor(new GridEditor(numberField));   
  
-       ColumnConfig beefConfig = new ColumnConfig("Beef", "beef", 150, true);   
-       beefConfig.setEditor(new GridEditor(numberField2));   
+       ColumnConfig passedConfig = new ColumnConfig("已通过单位", "passed", 100, true);   
+       passedConfig.setEditor(new GridEditor(numberField2));  
+       
+       ColumnConfig no_submitConfig = new ColumnConfig("未提交单位", "no_submit", 100, true);   
+       no_submitConfig.setEditor(new GridEditor(numberField3));
+       
+       ColumnConfig returnConfig = new ColumnConfig("退回单位", "return", 100, true);   
+       returnConfig.setEditor(new GridEditor(numberField4));
  
        ColumnModel columnModel = new ColumnModel(new ColumnConfig[]{   
-               monthConfig,   
-               porkConfig,   
-               beefConfig   
+               monthConfig,  
+               submitConfig,
+               no_submitConfig,   
+               passedConfig,
+               returnConfig   
        });   
  
        EditorGridPanel grid = new EditorGridPanel();   
@@ -120,11 +150,11 @@ public class ColumnPanel extends Panel{
 	
 	private static Object[][] getData() {   
         return new Object[][]{   
-                new Object[]{"Oct", new Integer(1354), new Integer(1442)},   
-                new Object[]{"Nov", new Integer(1326), new Integer(1496)},   
-                new Object[]{"Dec", new Integer(1292), new Integer(1582)},   
-                new Object[]{"Jan", new Integer(1387), new Integer(1597)},   
-                new Object[]{"Feb", new Integer(1376), new Integer(1603)}   
+                new Object[]{"十月", new Integer(1354), new Integer(1442), new Integer(1000), new Integer(800)},   
+                new Object[]{"十一月", new Integer(1326), new Integer(1496), new Integer(1442), new Integer(1000)},   
+                new Object[]{"十二月", new Integer(1292), new Integer(1582), new Integer(200), new Integer(699)},   
+                new Object[]{"一月", new Integer(1387), new Integer(1597), new Integer(1603), new Integer(1603)},   
+                new Object[]{"二月", new Integer(1376), new Integer(1603), new Integer(1000), new Integer(2000)}   
         };   
     }   
 

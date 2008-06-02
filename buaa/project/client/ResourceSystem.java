@@ -221,8 +221,8 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 				+
 				"<p align=center>地址：北京市复兴路乙15号 | 邮编：100862 | 地理位置图 | 咨询电话：010-58881463 | 联系我们</P>");
 		borderPanel.add(southPanel,new BorderLayoutData(RegionPosition.SOUTH));
-		ThemeChanger themeChanger = new ThemeChanger();
-	    southPanel.add(themeChanger);
+		//ThemeChanger themeChanger = new ThemeChanger();
+	    //southPanel.add(themeChanger);
 		
 		
 	    toolbar = new Toolbar();
@@ -230,6 +230,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		toolbar.setWidth(64);
 		toolbar.setHeight(54);
 		toolbar.setStyleName("ext-el-mask-msg");
+		
 
 		
 		Image image = new Image("title","image/12.jpg");
@@ -918,6 +919,16 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		centerPanel.setEnableTabScroll(true);
 		centerPanel.setDeferredRender(false);
 		centerPanel.setAutoShow(true);
+		centerPanel.setLayoutOnTabChange(true);
+		
+		final Panel centerPanel1= new Panel();
+		centerPanel1.setLayout(new FitLayout());
+		centerPanel1.setTitle("新闻浏览");
+		centerPanel1.setIconCls("grid-icon");
+		
+		centerPanel.add(centerPanel1);
+		
+		
 		
 
 		final GridPanel grid_news = new GridPanel();
@@ -988,8 +999,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 				grid_news.stripeRows(true);
 				//grid_news.setWidth(563);
 				//grid_news.setLoadMask(true);
-				grid_news.setTitle("新闻浏览");
-				grid_news.setIconCls("grid-icon");
+				
 				grid_news.setVisible(true);
 				
 			
@@ -1002,7 +1012,8 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 				pagingToolbar.setDisplayInfo(true);
 				pagingToolbar.setDisplayMsg("显示新闻条数 {0} - {1} of {2}");
 				pagingToolbar.setEmptyMsg("没有数据显示");
-
+                pagingToolbar.setVisible(true);
+				
 				NumberField pageSizeField = new NumberField();
 				pageSizeField.setWidth(40);
 				pageSizeField.setSelectOnFocus(true);
@@ -1019,23 +1030,21 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 				ToolTip toolTip = new ToolTip("请输每页要显示的新闻条数");
 				toolTip.applyTo(pageSizeField);
 
-				pagingToolbar.addField(pageSizeField);
-				pagingToolbar.setVisible(true);
+				
+				//pagingToolbar.setVisible(true);
 				//pagingToolbar.addButton(refreshBt);
 				
-				store.load(0,19);
-
 				
-				
-				
+				pagingToolbar.addField(pageSizeField);
 				grid_news.setBottomToolbar(pagingToolbar);
 				grid_news.doLayout();
 				GridView view = new GridView();
 			    view.setForceFit(true);
 				grid_news.setView(view);
 				
-				centerPanel.add(grid_news);
-			    centerPanel.doLayout();
+				store.load(0,19);
+				centerPanel1.add(grid_news);
+			    centerPanel1.doLayout();
 			    
 				final ExtElement element = Ext.get("main-panel");
 				element.unmask();

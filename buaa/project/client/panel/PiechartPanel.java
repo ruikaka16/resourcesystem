@@ -30,6 +30,7 @@ public class PiechartPanel extends Panel {
 		this.setLayout(new VerticalLayout(5));
 		this.setClosable(true);
 		this.setAutoShow(true);
+		this.setBodyBorder(false);
 		
 	   
 		this.setIconCls("pieChart-icon");
@@ -37,9 +38,9 @@ public class PiechartPanel extends Panel {
 		MemoryProxy proxy_1 = new MemoryProxy(getData_1());   
         RecordDef recordDef_1 = new RecordDef(   
                 new FieldDef[]{   
-                        new StringFieldDef("response"),   
+                        new StringFieldDef("status"),   
                         new IntegerFieldDef("count"),   
-                        new StringFieldDef("legend")   
+                        new StringFieldDef("color")   
                 }   
         );   
         
@@ -48,20 +49,21 @@ public class PiechartPanel extends Panel {
         store_1.load();   
         
         final PieChart chart = new PieChart();   
-        chart.setTitle("饼状图");   
+        //chart.setTitle("饼状图");   
         chart.setWMode("transparent");   
         chart.setStore(store_1);   
         chart.setDataField("count");   
-        chart.setCategoryField("response");   
+        chart.setCategoryField("status");   
         
         chart.setExpressInstall("js/yui/assets/expressinstall.swf");   
-        chart.setWidth(540);   
-        chart.setHeight(400);   
+        chart.setWidth(500);   
+        chart.setHeight(360); 
+        chart.setBodyBorder(false);
         
         
        
       
-        ColumnConfig responseConfig = new ColumnConfig("发送的发速度", "response", 100, true);   
+        ColumnConfig statusConfig = new ColumnConfig("提交和通过状态", "status", 100, true);   
         TextField textField = new TextField();   
         textField.setSelectOnFocus(true);   
         //responseConfig.setEditor(new GridEditor(textField));   
@@ -69,11 +71,11 @@ public class PiechartPanel extends Panel {
         NumberField numberField = new NumberField();   
         numberField.setSelectOnFocus(true);   
   
-        ColumnConfig countConfig = new ColumnConfig("发的三分所", "count", 130, true);   
+        ColumnConfig countConfig = new ColumnConfig("相应数值", "count", 130, true);   
         //countConfig.setEditor(new GridEditor(numberField));   
   
-        ColumnConfig legendConfig = new ColumnConfig(" 的发送", "legend", 60, true);   
-        legendConfig.setRenderer(new Renderer() {   
+        ColumnConfig colorConfig = new ColumnConfig("所示颜色", "color", 60, true);   
+        colorConfig.setRenderer(new Renderer() {   
             public String render(Object value, CellMetadata cellMetadata, Record record, int rowIndex, int colNum, Store store) {   
                 cellMetadata.setHtmlAttribute("style=\"background:" + value + ";\"");   
                 return "";   
@@ -81,9 +83,9 @@ public class PiechartPanel extends Panel {
         });    
   
         ColumnModel columnModel_1 = new ColumnModel(new ColumnConfig[]{   
-                responseConfig,   
+        		statusConfig,   
                 countConfig,   
-                legendConfig   
+                colorConfig   
         });   
   
         EditorGridPanel grid_1 = new EditorGridPanel();   
@@ -106,11 +108,11 @@ public class PiechartPanel extends Panel {
 	
 	private static Object[][] getData_1() {   
 	    return new Object[][]{   
-	            new Object[]{"东", new Integer(564815), "#00b8bf"},   
-	            new Object[]{"南", new Double(664182), "#8dd5e7"},   
-	            new Object[]{"西", new Double(248124), "#c0fff6"},   
-	            new Object[]{"北", new Double(271214), "#ffa928"},   
-	            new Object[]{"中", new Double(81845), "#edff9f"}   
+	            new Object[]{"已提交单位", new Integer(247), "#00b8bf"},   
+	            new Object[]{"已通过单位", new Double(238), "#8dd5e7"},   
+	            new Object[]{"未提交单位", new Double(505), "#c0fff6"},   
+	            new Object[]{"退回单位", new Double(231), "#ffa928"}
+  
 	    };   
 	}   
 
