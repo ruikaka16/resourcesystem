@@ -9,11 +9,12 @@ import java.util.Map;
 
 import com.buaa.project.client.data.BeanDTO;
 import com.buaa.project.client.panel.ColumnPanel;
-import com.buaa.project.client.panel.DataLoad;
+import com.buaa.project.client.panel.DepartmentPanel;
 import com.buaa.project.client.panel.EditorPanel;
 import com.buaa.project.client.panel.FarenPanel;
 import com.buaa.project.client.panel.Fileupload;
 import com.buaa.project.client.panel.FormGridSample;
+import com.buaa.project.client.panel.LinkListPanel;
 import com.buaa.project.client.panel.LoadDataPanel;
 import com.buaa.project.client.panel.Login;
 import com.buaa.project.client.panel.NewsWindow;
@@ -100,6 +101,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 	private TreePanel treePanel_east;
 	private DelayedTask delayedTask = new DelayedTask();
 	private TextField searchField;
+	private TabPanel centerPanel;
 	public Panel panel;
 	public Panel westPanel;
 	public ToolbarButton bt1;
@@ -384,12 +386,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		treeNode2_1.setIconCls("treeNode2_1-icon");
 		tr2.appendChild(treeNode2_1);
 
-		treeNode2_1.addListener(new TreeNodeListenerAdapter() {
-
-			public void onClick(Node node, EventObject e) {
-
-			}
-		});
+		
 
 		final TreeNode treeNode2_2 = new TreeNode("研究实验基地");
 		treeNode2_2.setText("研究实验基地");
@@ -827,7 +824,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
         eastPanel.setWidth(200); 
         eastPanel.setIconCls("plugin-icon");
         eastPanel.setLayout(accordion1);  
-        eastPanel.setHtml("<p><a href=\"MainModule.html\">相关连接</a></p>");
+       // eastPanel.setHtml("<p><a href=\"MainModule.html\">相关连接</a></p>");
   //<a href = "sina.com"></a>
        
         BorderLayoutData eastData = new BorderLayoutData(RegionPosition.EAST);   
@@ -847,32 +844,22 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 //******************************************************		
 
 		Panel navPanel_east1 = new Panel();
-		
 		navPanel_east1.setTitle("部级联席会成员单位");
 		navPanel_east1.setBorder(false);
 		navPanel_east1.setIconCls("html-icon");
-	//	navPanel_east1.setIconCls("navPanel1-icon");
-	//	navPanel_east1.setId("navPanel1");
 		eastPanel.add(navPanel_east1);
 		
-		DataLoad d = new DataLoad();
+		DepartmentPanel d = new DepartmentPanel();
 		navPanel_east1.add(d);
 		
 
 		Panel navPanel_east2 = new Panel();
-
-		navPanel_east2.setTitle("专题栏目");
+		navPanel_east2.setTitle("相关连接");
 		navPanel_east2.setBorder(false);
 	    navPanel_east2.setIconCls("list-icon");
-		eastPanel.add(navPanel_east2);
-		
-
-		
-	
-
-		
-
-		
+	    eastPanel.add(navPanel_east2);
+	    LinkListPanel linkList = new LinkListPanel();
+	    navPanel_east2.add(linkList);
 		
 
 		Panel navPanel_east3 = new Panel();
@@ -913,7 +900,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		
 		// panel********************************************
 
-		final TabPanel centerPanel = new TabPanel();
+		centerPanel = new TabPanel();
 	
 		centerPanel.setActiveTab(0);
 		centerPanel.setEnableTabScroll(true);
@@ -1256,7 +1243,18 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 						}
 		});
 //******************************************************
+		treeNode2_1.addListener(new TreeNodeListenerAdapter() {
 
+			public void onClick(Node node, EventObject e) {
+
+				SampleGrid sampGrid = new SampleGrid();
+				sampGrid.setVisible(true);
+				centerPanel.add(sampGrid);
+				centerPanel.doLayout();
+				
+			}
+		});
+//*****************************************************		
      bt1.addListener(new ButtonListenerAdapter(){
 //			
 			public void onClick(Button button,EventObject e){
@@ -1440,9 +1438,6 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		frm.add(buttonPanel);
 		window.add(frm);
 
-		treePanel2.add(btAdd);
-
-		
 		centerPanel.doLayout();
 		panel.add(borderPanel);
 		
