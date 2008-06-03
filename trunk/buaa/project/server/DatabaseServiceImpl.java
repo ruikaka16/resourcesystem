@@ -132,6 +132,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	}
 
 	public boolean loadData() throws Exception {
+	
 		Class.forName("com.mysql.jdbc.Driver");
 		String url = "jdbc:mysql://localhost:3306/test";
 		Connection conn = DriverManager.getConnection(url, "root", "rui");
@@ -145,6 +146,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 			return true;
 		 else 
 			return false;
+		
 	}
 
 	public List getdata(){

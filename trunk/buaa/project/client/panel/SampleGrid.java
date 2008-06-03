@@ -17,6 +17,7 @@ import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Position;
 import com.gwtext.client.data.*;
 
+import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.PaddedPanel;
 import com.gwtext.client.widgets.Panel;
@@ -112,6 +113,7 @@ public class SampleGrid extends FormPanel {
 		this.setBorder(false);
 		this.setFrame(true);   
 	    this.setLabelAlign(Position.LEFT); 
+	    this.setTitle("单位基本信息");
 
 		final GridPanel grid = new GridPanel();
 
@@ -136,7 +138,14 @@ public class SampleGrid extends FormPanel {
 	        fieldSet.setLabelWidth(95);   
 	        fieldSet.setTitle("法人单位详细信息");   
 	        fieldSet.setAutoHeight(true);   
-	        fieldSet.setBorder(false);   
+	        fieldSet.setBorder(true);  
+	        fieldSet.setCollapsible(true);
+	        
+	     final FieldSet fieldSetList = new FieldSet();
+	     fieldSetList.setTitle("法人单位列表");
+	     fieldSetList.setBorder(true);
+	     fieldSetList.setHeight(400);
+	    
 	  
 	        final TextField name = new TextField("单位全称", "name", 120);
 			final TextField zhuguan = new TextField("上级主管单位", "company", 120);
@@ -149,6 +158,8 @@ public class SampleGrid extends FormPanel {
 	        fieldSet.add(address);   
 	        fieldSet.add(suozaiaddress); 
 	        fieldSet.add(xingzhi); 
+	        
+	        fieldSet.addButton(new Button("删除"));
 
 		final DatabaseServiceAsync loadFarenList = DatabaseService.Util
 				.getInstance();
@@ -176,13 +187,16 @@ public class SampleGrid extends FormPanel {
 
 				grid.setFrame(true);
 				grid.stripeRows(true);
+				grid.setBorder(false);
+				grid.setAutoExpandColumn("name");
 				grid.setWidth(200);
+				grid.setAutoScroll(true);
 				grid.setAutoHeight(true);
 				GridView view = new GridView();
 				view.setForceFit(true);
 				grid.setView(view);
-				panel.add(grid);
-				panel.doLayout();
+				fieldSetList.add(grid);
+				fieldSetList.doLayout();
 
 				if (store == null) {
 					return;
@@ -221,7 +235,7 @@ public class SampleGrid extends FormPanel {
 					name_faren += record.getAsString("name");
 
 				}
-				MessageBox.alert(name_faren);
+				//MessageBox.alert(name_faren);
 				
 				DatabaseServiceAsync getFarenContentService = DatabaseService.Util
 				.getInstance();
@@ -270,10 +284,10 @@ public class SampleGrid extends FormPanel {
 	        columnOne.setLayout(new FitLayout());   
 
 
-	        columnOne.add(panel);   
+	        columnOne.add(fieldSetList);   
 	        inner.add(columnOne, new ColumnLayoutData(0.4));   
  
-	        inner.add(new PaddedPanel(fieldSet, 0, 10, 0, 0), new ColumnLayoutData(0.4)); 
+	        inner.add(new PaddedPanel(fieldSet, 0, 10, 0, 0), new ColumnLayoutData(0.5)); 
 		
 		this.add(inner);
 
