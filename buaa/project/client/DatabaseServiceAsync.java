@@ -42,4 +42,6 @@ public interface DatabaseServiceAsync {
     
     public void getFarenList(AsyncCallback callback);
     
+    public void deleteFaren(String name, AsyncCallback callback);
+    
 }

@@ -58,4 +58,6 @@ public interface DatabaseService extends RemoteService {
     
     public List getFarenList()throws Exception;
     
+    public boolean deleteFaren(String name)throws Exception;
+    
 }
