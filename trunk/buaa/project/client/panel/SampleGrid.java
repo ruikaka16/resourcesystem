@@ -17,11 +17,15 @@ import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Position;
 import com.gwtext.client.data.*;
 
+import com.gwtext.client.util.Format;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.PaddedPanel;
 import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.Toolbar;
+import com.gwtext.client.widgets.ToolbarButton;
 
+import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.DateField;
 import com.gwtext.client.widgets.form.FieldSet;
 import com.gwtext.client.widgets.form.FormPanel;
@@ -114,6 +118,8 @@ public class SampleGrid extends FormPanel {
 		this.setFrame(true);   
 	    this.setLabelAlign(Position.LEFT); 
 	    this.setTitle("单位基本信息");
+	    
+
 
 		final GridPanel grid = new GridPanel();
 
@@ -159,7 +165,53 @@ public class SampleGrid extends FormPanel {
 	        fieldSet.add(suozaiaddress); 
 	        fieldSet.add(xingzhi); 
 	        
-	        fieldSet.addButton(new Button("删除"));
+	        Button bt = new Button("删除");
+	        fieldSet.addButton(bt);
+	       bt.addListener( new ButtonListenerAdapter() {   
+	    	   
+	    	     public void onClick(Button button, EventObject e) {   
+	               
+	    	    	 
+	    	    	 MessageBox.alert(name.getText());
+	    	    	 DatabaseServiceAsync deleteFaren_service = DatabaseService.Util.getInstance();
+	    	    	 
+	    	    
+	    	    	 
+	    	    	 AsyncCallback cb_deleteFaren = new AsyncCallback(){
+
+	    	    		 
+	    	    		 
+						public void onFailure(Throwable arg0) {
+							// TODO Auto-generated method stub
+							
+						}
+
+						public void onSuccess(Object result) {
+							 
+							
+							Boolean ok = (Boolean)result;
+							
+							if(ok.booleanValue()){
+								
+								MessageBox.alert("ok");
+								
+							}
+							else
+								MessageBox.alert("删除失败！");
+							
+							
+						}
+
+	    	    		
+	    	    	 };
+	    	    	 
+	    	    	 
+	    	    	 deleteFaren_service.deleteFaren(name.getText(), cb_deleteFaren);
+	    	    	 
+	            }   
+	        });   
+
+	     
 
 		final DatabaseServiceAsync loadFarenList = DatabaseService.Util
 				.getInstance();
@@ -172,7 +224,8 @@ public class SampleGrid extends FormPanel {
 
 			public void onSuccess(Object response) {
 				// TODO Auto-generated method stub
-
+		
+			  
 				proxy = new MemoryProxy(getObj(response));
 
 				ArrayReader reader = new ArrayReader(recordDef);
@@ -190,6 +243,8 @@ public class SampleGrid extends FormPanel {
 				grid.setBorder(false);
 				grid.setAutoExpandColumn("name");
 				grid.setWidth(200);
+				
+				
 				grid.setAutoScroll(true);
 				grid.setAutoHeight(true);
 				GridView view = new GridView();
@@ -211,7 +266,7 @@ public class SampleGrid extends FormPanel {
 					final BeanDTO bean = (BeanDTO) it.next();
 					Object[] a = bean.toObjectArray();
 					Object[][] b = new Object[][] { a };
-					//store.add(recordDef.createRecord(bean.toObjectArray()));
+					store.add(recordDef.createRecord(bean.toObjectArray()));
 
 				}
 
@@ -221,6 +276,8 @@ public class SampleGrid extends FormPanel {
 
 		};
 		loadFarenList.getFarenList(cb_loadFarenList);
+		
+		
 		
 		grid.addGridCellListener(new GridCellListenerAdapter(){
 			

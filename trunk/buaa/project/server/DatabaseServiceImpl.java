@@ -315,16 +315,28 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		     } 
 		    
 		     return faren;
-
-		    }
+    }
 		catch (Exception ex) {
 		      ex.printStackTrace();
 		    }
 		    return null;
 		  }
-	
+
+	public boolean deleteFaren(String name) throws Exception {
+		
+
+		Class.forName("com.mysql.jdbc.Driver");
+		String url = "jdbc:mysql://localhost:3306/test";
+		Connection conn = DriverManager.getConnection(url, "root", "rui");
+	      String cmd = "delete from faren where name='" + name + "'" ;
+	    Statement stmt = conn.createStatement();
+	    stmt.executeUpdate(cmd);
+	    return true;
 		
 	}
+	
+		
+}
 
 	
 
