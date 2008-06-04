@@ -733,6 +733,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		treePanel6.setContainerScroll(true);
 		treePanel6.setRootVisible(true);
 		treePanel6.setId("treePanel6");
+		treePanel6.setUseArrows(true);
 
 		TreeNode tr6 = new TreeNode("进度管理");
 		tr6.setIconCls("treeNode1-icon");
