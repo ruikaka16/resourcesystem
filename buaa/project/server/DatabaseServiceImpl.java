@@ -65,8 +65,6 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		String sql = "select *  from user where id='" + username
 				+ "'and psw = '" + password + "'";
 
-		System.out.println(username);
-
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
 
@@ -332,6 +330,36 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	    Statement stmt = conn.createStatement();
 	    stmt.executeUpdate(cmd);
 	    return true;
+		
+	}
+
+	public String userType(String name) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+		Class.forName("com.mysql.jdbc.Driver");
+		String url = "jdbc:mysql://localhost:3306/test";
+		Connection conn = DriverManager.getConnection(url, "root", "rui");
+		
+		String sql = "select type from user where id = '"+ name +"'";
+		
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		
+		
+		while(rs.next()){
+			
+			String type = rs.getString("type");
+			return type;
+		
+			}
+		}
+		
+		catch(Exception ex){
+			
+			ex.printStackTrace();
+		}
+		
+		return null;
 		
 	}
 	

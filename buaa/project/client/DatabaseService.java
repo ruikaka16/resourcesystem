@@ -60,4 +60,6 @@ public interface DatabaseService extends RemoteService {
     
     public boolean deleteFaren(String name)throws Exception;
     
+    public String userType(String name)throws Exception;
+    
 }
