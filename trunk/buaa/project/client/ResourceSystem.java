@@ -272,18 +272,19 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 
 		final TreePanel treePanel1 = new TreePanel();
 		treePanel1.setWidth(200);
-		treePanel1.setHeight(600);
+		treePanel1.setHeight(340);
+		treePanel1.setBodyBorder(false);
 		treePanel1.setCollapsible(true);
 		treePanel1.setAnimate(true);
 		treePanel1.setEnableDD(true);
 		treePanel1.setContainerScroll(true);
 		treePanel1.setRootVisible(true);
+		treePanel1.setId("treePanel1");
 		treePanel1.setIconCls("treePanel1-icon");
 		
 		// treePanel1.add(bt);
 
 		TreeNode tr1 = new TreeNode("文件管理");
-		TreeNode tr8 = new TreeNode("kaka");
 		tr1.setIconCls("treeNode1-icon");
 		tr1.setExpanded(true);
 		treePanel1.setRootNode(tr1);
@@ -291,6 +292,7 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		
 		final TreeNode treeNode1_1 = new TreeNode("新闻发布");
 		treeNode1_1.setText("新闻发布");
+		treeNode1_1.setId("treeNode1_1");
 		treeNode1_1.setIconCls("treeNode1_2-icon");
 		tr1.appendChild(treeNode1_1);
 		tip = new ToolTip();
@@ -304,11 +306,13 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		
 		final TreeNode treeNode1_2 = new TreeNode("文件浏览");
 		treeNode1_2.setText("文件浏览");
+		treeNode1_1.setId("treeNode1_1");
 		treeNode1_2.setIconCls("treeNode1_1-icon");
 		tr1.appendChild(treeNode1_2);
 
 		final TreeNode treeNode1_3 = new TreeNode("文件下载");
 		treeNode1_3.setText("文件下载");
+		treeNode1_1.setId("treeNode1_3");
 		treeNode1_3.setIconCls("treeNode1_2-icon");
 		tr1.appendChild(treeNode1_3);
 		
@@ -367,22 +371,24 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		// *******************************tree2*************************************
 		final TreePanel treePanel2 = new TreePanel();
 		treePanel2.setWidth(200);
-		treePanel2.setHeight(600);
+		treePanel2.setHeight(340);
 		treePanel2.setAnimate(true);
 		treePanel2.setEnableDD(true);
 		treePanel2.setContainerScroll(true);
 		treePanel2.setRootVisible(true);
+		treePanel2.setId("treePanel2");
 		treePanel2.setContainerScroll(true);
 		treePanel2.setCollapsible(true);
-		treePanel2.setId("treePanel2");
+		
 
 		TreeNode tr2 = new TreeNode("用户管理");
 		tr2.setExpanded(true); // 默认节点展开
 		treePanel2.setRootNode(tr2);
 		tr2.setIconCls("treeNode1-icon");
 
-		final TreeNode treeNode2_1 = new TreeNode("单位基本信息");
-		treeNode2_1.setText("单位基本信息");
+		final TreeNode treeNode2_1 = new TreeNode("法人单位基本信息");
+		treeNode2_1.setText("法人单位基本信息");
+		treeNode2_1.setId("treeNode2_1");
 		treeNode2_1.setIconCls("treeNode2_1-icon");
 		tr2.appendChild(treeNode2_1);
 
@@ -390,16 +396,19 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 
 		final TreeNode treeNode2_2 = new TreeNode("研究实验基地");
 		treeNode2_2.setText("研究实验基地");
+		treeNode2_2.setId("treeNode2_2");
 		treeNode2_2.setIconCls("treeNode2_2-icon");
 		tr2.appendChild(treeNode2_2);
 
 		final TreeNode treeNode2_3 = new TreeNode("资源保存机构");
 		treeNode2_3.setText("资源保存机构 ");
+		treeNode2_3.setId("treeNode2_3");
 		treeNode2_3.setIconCls("treeNode2_3-icon");
 		tr2.appendChild(treeNode2_3);
 
 		final TreeNode treeNode2_4 = new TreeNode("其他填报部门");
 		treeNode2_4.setText("其他填报部门");
+		treeNode2_4.setId("treeNode2_4");
 		treeNode2_4.setIconCls("treeNode2_4-icon");
 		tr2.appendChild(treeNode2_4);
 
@@ -407,11 +416,12 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 
 		final TreePanel treePanel3 = new TreePanel();
 		treePanel3.setWidth(200);
-		treePanel3.setHeight(600);
+		treePanel3.setHeight(340);
 		treePanel3.setAnimate(true);
 		treePanel3.setEnableDD(true);
 		treePanel3.setContainerScroll(true);
 		treePanel3.setRootVisible(true);
+		treePanel3.setId("treePanel3");
 
 		TreeNode tr3 = new TreeNode("数据管理");
 		tr3.setExpanded(true); 
@@ -498,11 +508,12 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		// ********************************tree4********************
 		final TreePanel treePanel4 = new TreePanel();
 		treePanel4.setWidth(200);
-		treePanel4.setHeight(600);
+		treePanel4.setHeight(340);
 		treePanel4.setAnimate(true);
 		treePanel4.setEnableDD(true);
 		treePanel4.setContainerScroll(true);
 		treePanel4.setRootVisible(true);
+		treePanel4.setId("treePanel4");
 
 		TreeNode tr4 = new TreeNode("审核意见");
 		tr4.setExpanded(true);
@@ -519,11 +530,13 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 		// ****************************tree5**************************
 		final TreePanel treePanel5 = new TreePanel();
 		treePanel5.setWidth(200);
-		treePanel5.setHeight(600);
+		treePanel5.setHeight(340);
+		treePanel5.setId("treePanel5");
 		treePanel5.setAnimate(true);
 		treePanel5.setEnableDD(true);
 		treePanel5.setContainerScroll(true);
 		treePanel5.setRootVisible(true);
+		
 
 		TreeNode tr5 = new TreeNode("数据采集");
 		tr5.setExpanded(true);
@@ -714,11 +727,12 @@ public class ResourceSystem implements EntryPoint,AsyncCallback {
 // ********************************tree6*******************************
 		final TreePanel treePanel6 = new TreePanel();
 		treePanel6.setWidth(200);
-		treePanel6.setHeight(600);
+		treePanel6.setHeight(340);
 		treePanel6.setAnimate(true);
 		treePanel6.setEnableDD(true);
 		treePanel6.setContainerScroll(true);
 		treePanel6.setRootVisible(true);
+		treePanel6.setId("treePanel6");
 
 		TreeNode tr6 = new TreeNode("进度管理");
 		tr6.setIconCls("treeNode1-icon");

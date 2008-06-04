@@ -44,4 +44,6 @@ public interface DatabaseServiceAsync {
     
     public void deleteFaren(String name, AsyncCallback callback);
     
+    public void userType(String name, AsyncCallback callback);
+    
 }

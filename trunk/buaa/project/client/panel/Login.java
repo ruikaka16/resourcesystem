@@ -125,6 +125,7 @@ public class Login extends Window {
 
 					public void onSuccess(Object result) {
 					
+						System.out.println(result.toString()+"********");
 						Boolean ok = (Boolean) result;
 
 						if (ok.booleanValue()) {
@@ -134,21 +135,47 @@ public class Login extends Window {
 							final ExtElement  element1 = Ext.get("west");
 							element1.unmask();
 							
-						final ExtElement element2 = Ext.get("navPanel1");
-						element2.unmask();
+					DatabaseServiceAsync typeService = DatabaseService.Util.getInstance();
+					
+					AsyncCallback cb_type = new  AsyncCallback(){
+
+						public void onFailure(Throwable arg0) {
+							// TODO Auto-generated method stub
 							
-							final ExtElement element3 = Ext.get("login");
-							element3.remove();
+						}
+
+						public void onSuccess(Object type) {
+							// TODO Auto-generated method stub
 							
-						//	Ext.get("navPanel1").mask();
+							String id = (String)type;
+							
+							
+							if(id.equals("1")){//1代表中心管理员
+								
+								Ext.get("treePanel1").mask("您没有权限！");
+								Ext.get("treePanel2").mask("您没有权限！");
+								Ext.get("treePanel3").mask("您没有权限！");
+								Ext.get("treePanel4").mask("您没有权限！");
+								Ext.get("treePanel5").mask("您没有权限！");
+								Ext.get("treePanel6").mask("您没有权限！");
+							
+								
+								
+							}
+							if(id.equals("2")){//2代表法人单位 
+																
+								Ext.get("treePanel1").mask("您没有权限！");
+								Ext.get("treeNode2_1").mask();
+							}
+						}
+						
+					};
+					typeService.userType(txtName.getText(), cb_type);
+
 							
 							final ExtElement element4 = Ext.get("logout");
 							element4.setVisible(true);
-							
-							
-				            
-							
-							
+	
 							
 						} else {
 							MessageBox.alert("密码输入有误，请重新输入!");

@@ -113,11 +113,13 @@ public class SampleGrid extends FormPanel {
 
 	public SampleGrid() {
 
-		//this.setWidth(650);
+	
 		this.setBorder(false);
 		this.setFrame(true);   
 	    this.setLabelAlign(Position.LEFT); 
 	    this.setTitle("单位基本信息");
+	    this.setIconCls("list-icon");
+	    this.setClosable(true);
 	    
 
 
