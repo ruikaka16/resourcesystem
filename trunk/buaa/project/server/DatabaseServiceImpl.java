@@ -36,16 +36,15 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		Connection conn = DriverManager.getConnection(url, "root", "rui");
 
 		StringBuffer sqlQuery = new StringBuffer(
-				"insert into test(id,psw,email)");
-		sqlQuery.append("values(?,?,?)");
+				"insert into user(id,psw)");
+		sqlQuery.append("values(?,?)");
 		PreparedStatement ps = conn.prepareStatement(sqlQuery.toString());
 
 		ps.setString(1, URLDecoder.decode(formData.get("username").toString(),
 				"UTF-8"));
 		ps.setString(2, URLDecoder.decode(formData.get("password").toString(),
 				"UTF-8"));
-		ps.setString(3, URLDecoder.decode(formData.get("email").toString(),
-				"UTF-8"));
+	
 
 		ps.execute();
 		conn.close();

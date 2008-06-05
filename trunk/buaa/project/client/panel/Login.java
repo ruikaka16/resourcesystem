@@ -30,7 +30,7 @@ public class Login extends Window {
 	TextField txtPsw;
 	ResourceSystem l = new ResourceSystem();
 		
-	public Login() {
+	public Login ()  {
 		
 		this.setTitle("身份验证");
 		this.setWidth(475);
