@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.buaa.project.client.DatabaseService;
 import com.buaa.project.client.DatabaseServiceAsync;
-import com.buaa.project.client.data.BeanDTO;
+import com.buaa.project.client.data.BeanNewsDTO;
 import com.buaa.project.client.data.BeanFarenDTO;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -27,7 +27,9 @@ import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.MessageBoxConfig;
 import com.gwtext.client.widgets.PaddedPanel;
+import com.gwtext.client.widgets.PagingToolbar;
 import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.ToolTip;
 import com.gwtext.client.widgets.Toolbar;
 import com.gwtext.client.widgets.ToolbarButton;
 import com.gwtext.client.widgets.WaitConfig;
@@ -36,11 +38,14 @@ import com.gwtext.client.widgets.Window;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.event.PanelListenerAdapter;
 import com.gwtext.client.widgets.form.DateField;
+import com.gwtext.client.widgets.form.Field;
 import com.gwtext.client.widgets.form.FieldSet;
 import com.gwtext.client.widgets.form.Form;
 import com.gwtext.client.widgets.form.FormPanel;
+import com.gwtext.client.widgets.form.NumberField;
 import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.form.VType;
+import com.gwtext.client.widgets.form.event.FieldListenerAdapter;
 import com.gwtext.client.widgets.grid.*;
 import com.gwtext.client.widgets.grid.event.GridCellListener;
 import com.gwtext.client.widgets.grid.event.GridCellListenerAdapter;
@@ -49,6 +54,7 @@ import com.gwtext.client.widgets.layout.ColumnLayoutData;
 import com.gwtext.client.widgets.layout.FitLayout;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
 import com.gwtext.client.widgets.menu.Menu;
+import com.gwtextux.client.data.PagingMemoryProxy;
 
 
 public class SampleGrid extends FormPanel {
@@ -144,11 +150,11 @@ public class SampleGrid extends FormPanel {
 		
 		BaseColumnConfig[] columns = new BaseColumnConfig[] {
 
-			new ColumnConfig("单位名称", "name", 200, true, null, "name")
+			new ColumnConfig("单位名称", "username", 200, true, null, "username")
 			};
 		
 		final RecordDef recordDef = new RecordDef(
-				new FieldDef[] { new StringFieldDef("name")
+				new FieldDef[] { new StringFieldDef("username")
 				});
 
 		final ColumnModel columnModel = new ColumnModel(columns);
@@ -165,25 +171,43 @@ public class SampleGrid extends FormPanel {
 	     final FieldSet fieldSetList = new FieldSet();
 	     fieldSetList.setTitle("法人单位列表");
 	     fieldSetList.setBorder(true);
-	     fieldSetList.setHeight(400);
+	     fieldSetList.setHeight(500);
+	     fieldSetList.setWidth(500);
 	    
 	  
-	        final TextField name = new TextField("单位全称", "name", 120);
-			final TextField zhuguan = new TextField("上级主管单位", "company", 120);
+	        final TextField username = new TextField("单位全称", "name", 120);
+	        final TextField zhuguan = new TextField("上级主管单位", "company", 120);
 			final TextField address = new TextField("单位通讯地址", "address", 120);
 			final TextField suozaiaddress = new TextField("所在单位地址", "suozaiaddress", 120);
 			final TextField xingzhi = new TextField("法人性质", "xingzhi", 120);
-	        //the field names msut match the data field values from the Store   
-	        fieldSet.add(name);   
+	       
+			Toolbar toolbar = new Toolbar();
+			ToolbarButton delete = new ToolbarButton("删除");
+			ToolbarButton update = new ToolbarButton("修改");
+			ToolbarButton add = new ToolbarButton("添加");
+			
+			toolbar.addButton(add);
+			toolbar.addSpacer();
+			toolbar.addButton(update);
+			toolbar.addSpacer();
+			toolbar.addButton(delete);
+			toolbar.addSpacer();
+			
+			
+			//the field names msut match the data field values from the Store   
+	        fieldSet.add(username);   
 	        fieldSet.add(zhuguan);   
 	        fieldSet.add(address);   
 	        fieldSet.add(suozaiaddress); 
 	        fieldSet.add(xingzhi); 
+	       // fieldSet.add(toolbar);
 	        
 	    
 	       // fieldSet.addButton(bt);
 
-
+	        final Toolbar toolbarGrid = new Toolbar();
+	        ToolbarButton refresh = new ToolbarButton("刷新");
+	        toolbarGrid.addButton(refresh);
 	     
 
 		final DatabaseServiceAsync loadFarenList = DatabaseService.Util
@@ -198,8 +222,7 @@ public class SampleGrid extends FormPanel {
 			public void onSuccess(Object response) {
 				// TODO Auto-generated method stub
 		
-			  
-				proxy = new MemoryProxy(getObj(response));
+				proxy = new PagingMemoryProxy(getObj(response));
 
 				ArrayReader reader = new ArrayReader(recordDef);
 
@@ -214,12 +237,37 @@ public class SampleGrid extends FormPanel {
 				grid.setFrame(true);
 				grid.stripeRows(true);
 				grid.setBorder(false);
-				grid.setAutoExpandColumn("name");
-				grid.setWidth(200);
+				grid.setAutoExpandColumn("username");
+				grid.setWidth(270);
 				
+				final PagingToolbar pagingToolbar = new PagingToolbar(store);
+
+				pagingToolbar.setPageSize(16);
+				pagingToolbar.setDisplayInfo(true);
+				pagingToolbar.setDisplayMsg("单位条数 {0} - {1} of {2}");
+				//pagingToolbar.setEmptyMsg("没有数据显示");
+
+				NumberField pageSizeField = new NumberField();
+				pageSizeField.setWidth(20);
+				pageSizeField.setSelectOnFocus(true);
+				pageSizeField.addListener(new FieldListenerAdapter() {
+					public void onSpecialKey(Field field, EventObject e) {
+						if (e.getKey() == EventObject.ENTER) {
+							int pageSize = Integer.parseInt(field
+									.getValueAsString());
+							pagingToolbar.setPageSize(pageSize);
+						}
+					}
+				});
+
 				
-				grid.setAutoScroll(true);
-				grid.setAutoHeight(true);
+
+				pagingToolbar.addField(pageSizeField);
+				//pagingToolbar.addButton(refreshBt);
+				grid.setBottomToolbar(pagingToolbar);
+				store.load(0,16);
+
+			
 				GridView view = new GridView();
 				view.setForceFit(true);
 				grid.setView(view);
@@ -236,7 +284,7 @@ public class SampleGrid extends FormPanel {
 
 				while (it.hasNext()) {
 
-					final BeanDTO bean = (BeanDTO) it.next();
+					final BeanNewsDTO bean = (BeanNewsDTO) it.next();
 					Object[] a = bean.toObjectArray();
 					Object[][] b = new Object[][] { a };
 					store.add(recordDef.createRecord(bean.toObjectArray()));
@@ -262,7 +310,7 @@ public class SampleGrid extends FormPanel {
 				for (int i = 0; i < records.length; ++i) {
 					Record record = records[i];
 
-					name_faren += record.getAsString("name");
+					name_faren += record.getAsString("username");
 
 				}
 				//MessageBox.alert(name_faren);
@@ -285,7 +333,7 @@ public class SampleGrid extends FormPanel {
 						while(it.hasNext()){
 							
 							BeanFarenDTO bean = (BeanFarenDTO)it.next();
-							name.setValue(bean.getName());
+							username.setValue(bean.getUsername());
 							address.setValue(bean.getAddrress());
 							xingzhi.setValue(bean.getXingzhi());
 							suozaiaddress.setValue(bean.getSuozaiaddress());
@@ -305,19 +353,71 @@ public class SampleGrid extends FormPanel {
 			
 	});
 		
+//*************************刷新		
+		refresh.addListener(new ButtonListenerAdapter(){
+			
+			public void onClick(Button button ,EventObject e){
+				
+				DatabaseServiceAsync loadService = DatabaseService.Util
+				.getInstance();
+
+		AsyncCallback cb_load = new AsyncCallback() {
+
+			public void onFailure(Throwable arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onSuccess(Object response) {
+				// TODO Auto-generated method stub
+				
+				Store store = grid.getStore();
+				store.removeAll();
+				store.commitChanges();
+
+				store.reload();
+				final GridPanel grid1 = new GridPanel();
+
+				grid1.setFrame(true);
+				grid1.stripeRows(true);
+				grid1.setBorder(false);
+				grid1.setAutoExpandColumn("name");
+				grid1.setWidth(280);
+				
+				grid1.setBottomToolbar(toolbarGrid);
+				grid1.setAutoScroll(true);
+				grid1.setAutoHeight(true);
+				GridView view = new GridView();
+				view.setForceFit(true);
+				grid1.setView(view);
+				fieldSetList.add(grid1);
+				fieldSetList.doLayout();
+
+				if (store == null) {
+					return;
+				}
+
+				List data = (List) response;
+				Iterator it = data.iterator();
+				while (it.hasNext()) {
+
+					final BeanFarenDTO bean = (BeanFarenDTO) it.next();
 		
+					Object[] a = bean.toObjectArray();
+					Object[][] b = new Object[][] { a };
+
+				}
+
+			}
+
+		};
+		loadService.getdata(cb_load);
+			}
+		});
 			
-			Toolbar toolbar = new Toolbar();
-			ToolbarButton delete = new ToolbarButton("删除");
-			ToolbarButton update = new ToolbarButton("修改");
-			ToolbarButton add = new ToolbarButton("添加");
 			
-			toolbar.addButton(add);
-			toolbar.addSpacer();
-			toolbar.addButton(update);
-			toolbar.addSpacer();
-			toolbar.addButton(delete);
-			toolbar.addSpacer();
+		
+
 	        
 			Panel wholePanel = new Panel();
 			wholePanel.setBodyBorder(true);
@@ -331,7 +431,7 @@ public class SampleGrid extends FormPanel {
 		    	     public void onClick(Button button, EventObject e) {   
 		               
 		    	    	 
-		    	    	 MessageBox.alert(name.getText());
+		    	    	// MessageBox.alert(userid.getText());
 		    	    	 DatabaseServiceAsync deleteFaren_service = DatabaseService.Util.getInstance();
 		    	    	 
 		    	    
@@ -352,7 +452,7 @@ public class SampleGrid extends FormPanel {
 								
 								if(ok.booleanValue()){
 									
-									MessageBox.alert("ok");
+									MessageBox.alert("删除成功");
 									
 								}
 								else
@@ -365,7 +465,7 @@ public class SampleGrid extends FormPanel {
 		    	    	 };
 		    	    	 
 		    	    	 
-		    	    	 deleteFaren_service.deleteFaren(name.getText(), cb_deleteFaren);
+		    	    	 deleteFaren_service.deleteFaren(username.getText(), cb_deleteFaren);
 		    	    	 
 		            }   
 		        });   
@@ -375,25 +475,25 @@ public class SampleGrid extends FormPanel {
 	        Panel inner = new Panel();   
 	        inner.setLayout(new ColumnLayout());     
 	        Panel columnOne = new Panel();  
-	        columnOne.setHeight(400);
+	        //columnOne.setHeight(350);
 	        columnOne.setLayout(new FitLayout());   
 
 
 	        columnOne.add(fieldSetList);   
-	        inner.add(columnOne, new ColumnLayoutData(0.4));   
+	        inner.add(columnOne, new ColumnLayoutData(0.5));   
  
 	        inner.add(new PaddedPanel(fieldSet, 0, 10, 0, 0), new ColumnLayoutData(0.5)); 
 		    wholePanel.add(inner);
 		    wholePanel.add(toolbar);
 			//delete.setWidth("40px");
-		    
+//**************************************************************		    
 			final Window window = new Window();
 			window.setTitle("添加法人单位");
 			window.setIconCls("paste-icon");
 			window.setResizable(true);
 			window.setLayout(new FitLayout());
-			window.setWidth(400);
-			window.setHeight(100);
+			window.setWidth(360);
+			window.setHeight(240);
 			window.setModal(false);
 			window.setAutoHeight(false);
 			window.setIconCls("window-icon");
@@ -406,14 +506,16 @@ public class SampleGrid extends FormPanel {
 			frm.setWidth(300);
 			frm.setFrame(true);
 
-			final TextField  txtUsername = new TextField("用户名", "username");
-			txtUsername.setId("name");
+			final TextField  txtUserid = new TextField("单位登陆名称", "username");
+			txtUserid.setId("name");
+			final TextField txtUsername = new TextField("单位名称", "password");
 			final TextField txtPassword = new TextField("密码", "password");
 			
+			
 
-			txtUsername.setRegex("^[a-zA-Z]*$");
-			txtUsername.setRegexText("只允许输入字母");
-			txtUsername.setAllowBlank(false);
+			txtUserid.setRegex("^[a-zA-Z]*$");
+			txtUserid.setRegexText("只允许输入字母");
+			txtUserid.setAllowBlank(false);
 
 			txtPassword.setPassword(true);
 			txtPassword.setRegex("^[a-zA-Z]*$");
@@ -423,7 +525,7 @@ public class SampleGrid extends FormPanel {
 			
 
 		
-
+			frm.add(txtUserid);
 			frm.add(txtUsername);
 			frm.add(txtPassword);
 		

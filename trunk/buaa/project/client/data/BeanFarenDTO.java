@@ -4,7 +4,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class BeanFarenDTO implements IsSerializable {
 
-	public String name;
+	public String userid;
 
 	public String zhuguan;
 
@@ -31,9 +31,15 @@ public class BeanFarenDTO implements IsSerializable {
 	public String hymc;
 
 	public String xkmc;
+	
+	public String username;
 
-	public String getName() {
-		return this.name;
+	public String getUsername() {
+		return this.username;
+	}
+	
+	public String getUserid() {
+		return this.userid;
 	}
 
 	public String getZhuguan() {
@@ -88,11 +94,15 @@ public class BeanFarenDTO implements IsSerializable {
 		return this.xkmc;
 	}
 
-	public void setName(String name) {
+	public void setUserid(String userid) {
 
-		this.name = name;
+		this.userid = userid;
 	}
 
+	public void setUsername(String username) {
+
+		this.username = username;
+	}
 	public void setZhuguan(String zhuguan) {
 
 		this.zhuguan = zhuguan;
@@ -159,7 +169,7 @@ public class BeanFarenDTO implements IsSerializable {
 	}
 	public Object[] toObjectArray() {
 		return new Object[] { 
-				name
+				username
 
 		};
 	}
