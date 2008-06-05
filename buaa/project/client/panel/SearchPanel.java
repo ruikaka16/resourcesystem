@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.buaa.project.client.DatabaseService;
 import com.buaa.project.client.DatabaseServiceAsync;
-import com.buaa.project.client.data.BeanDTO;
+import com.buaa.project.client.data.BeanNewsDTO;
 import com.buaa.project.client.data.BeanFarenDTO;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -39,7 +39,7 @@ public class SearchPanel extends Panel {
         this.setTitle("法人单位信息");
         
         
-        final Store store = new SimpleStore("name", new Object[]{});  
+        final Store store = new SimpleStore("username", new Object[]{});  
         store.load();   
   
         final ComboBox cb = new ComboBox("单位名称");   
@@ -47,7 +47,7 @@ public class SearchPanel extends Panel {
         
         cb.setFieldLabel("法人单位名称");   
         cb.setStore(store);   
-        cb.setDisplayField("name");   
+        cb.setDisplayField("username");   
         cb.setMode(ComboBox.LOCAL);   
         cb.setEmptyText("请输入单位名称");   
         cb.setLoadingText("搜索中");   
@@ -59,7 +59,7 @@ public class SearchPanel extends Panel {
         cb.setHideTrigger(true);  
         
         
-        final RecordDef recordDef = new RecordDef(new FieldDef[]{new StringFieldDef("name")});
+        final RecordDef recordDef = new RecordDef(new FieldDef[]{new StringFieldDef("username")});
 
   
         FormPanel form1 = new FormPanel();  

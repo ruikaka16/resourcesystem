@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.buaa.project.client.DatabaseService;
 import com.buaa.project.client.DatabaseServiceAsync;
-import com.buaa.project.client.data.BeanDTO;
+import com.buaa.project.client.data.BeanNewsDTO;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -99,7 +99,7 @@ public class Test extends Panel{
 
 			       List data = (List)result;
 			       for (Iterator it = data.iterator(); it.hasNext();) {
-			    	   BeanDTO bean = (BeanDTO)it.next();
+			    	   BeanNewsDTO bean = (BeanNewsDTO)it.next();
 			    	   store.add(recordDef.createRecord(bean.toObjectArray()));
 			       }
 			       store.commitChanges();

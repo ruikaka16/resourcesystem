@@ -18,7 +18,7 @@ import java.util.Map;
 
 
 import com.buaa.project.client.DatabaseService;
-import com.buaa.project.client.data.BeanDTO;
+import com.buaa.project.client.data.BeanNewsDTO;
 import com.buaa.project.client.data.BeanFarenDTO;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -36,14 +36,16 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		Connection conn = DriverManager.getConnection(url, "root", "rui");
 
 		StringBuffer sqlQuery = new StringBuffer(
-				"insert into user(id,psw)");
-		sqlQuery.append("values(?,?)");
+				"insert into user(id,psw,name)");
+		sqlQuery.append("values(?,?,?)");
 		PreparedStatement ps = conn.prepareStatement(sqlQuery.toString());
 
-		ps.setString(1, URLDecoder.decode(formData.get("username").toString(),
+		ps.setString(1, URLDecoder.decode(formData.get("userid").toString(),
 				"UTF-8"));
 		ps.setString(2, URLDecoder.decode(formData.get("password").toString(),
 				"UTF-8"));
+		ps.setString(3, URLDecoder.decode(formData.get("username").toString(),
+		"UTF-8"));
 	
 
 		ps.execute();
@@ -159,7 +161,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		
 		List userInfo = new ArrayList(); 
 		while(rs.next()){
-			BeanDTO bean  = new BeanDTO();
+			BeanNewsDTO bean  = new BeanNewsDTO();
 			bean.setN_TITLE(rs.getString("N_TITLE"));
 			bean.setN_AUTHOR(rs.getString("N_AUTHOR"));
 			bean.setN_TIME(rs.getString("N_TIME"));
@@ -223,13 +225,13 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 			String url = "jdbc:mysql://localhost:3306/test";
 			Connection conn = DriverManager.getConnection(url, "root", "rui");
 		      String cmd =
-		          "select name from faren ";
+		          "select username from faren ";
 		     Statement stmt = conn.createStatement();
 		     ResultSet rs = stmt.executeQuery(cmd);
 		     List faren = new ArrayList(); 
 		     while(rs.next()){	
 		    	 BeanFarenDTO b = new BeanFarenDTO();
-		    	 b.setName(rs.getString("name"));
+		    	 b.setUsername(rs.getString("username"));
 		    	 faren.add(b);
 		    	 
 
@@ -244,19 +246,19 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		    return null;
 		  }
 
-	public List getFaren(String name) throws Exception {
+	public List getFaren(String username) throws Exception {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/test";
 			Connection conn = DriverManager.getConnection(url, "root", "rui");
 		      String cmd =
-		          "select * from faren where name = '"+ name +"' ";
+		          "select * from faren where username = '"+ username +"' ";
 		     Statement stmt = conn.createStatement();
 		     ResultSet rs = stmt.executeQuery(cmd);
 		     List faren = new ArrayList(); 
 		     while(rs.next()){	
 		    	 BeanFarenDTO b = new BeanFarenDTO();
-		    	 b.setName(rs.getString("name"));
+		    	 b.setUserid(rs.getString("userid"));
 		    	 b.setAddress(rs.getString("address"));
 		    	 b.setDwsz(rs.getString("dwwz"));
 		    	 b.setDwsz(rs.getString("dwsx"));
@@ -269,6 +271,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		    	 b.setXzzgbm(rs.getString("xzzgbm"));
 		    	 b.setZhuguan(rs.getString("zhuguan"));
 		    	 b.setZipcode(rs.getString("zipcode"));
+		    	 b.setUsername(rs.getString("username"));
 		    	 b.setSuoziaddress(rs.getString("suozaiaddress"));
 		    	 faren.add(b);
 		     } 
@@ -294,7 +297,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		     List faren = new ArrayList(); 
 		     while(rs.next()){	
 		    	 BeanFarenDTO b = new BeanFarenDTO();
-		    	 b.setName(rs.getString("name"));
+		    	 b.setUserid(rs.getString("userid"));
 		    	 b.setAddress(rs.getString("address"));
 		    	 b.setDwsz(rs.getString("dwwz"));
 		    	 b.setDwsz(rs.getString("dwsx"));
@@ -308,6 +311,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		    	 b.setZhuguan(rs.getString("zhuguan"));
 		    	 b.setZipcode(rs.getString("zipcode"));
 		    	 b.setSuoziaddress(rs.getString("suozaiaddress"));
+		    	 b.setUsername(rs.getString("username"));
 		    	 faren.add(b);
 		     } 
 		    
@@ -319,13 +323,13 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		    return null;
 		  }
 
-	public boolean deleteFaren(String name) throws Exception {
+	public boolean deleteFaren(String username) throws Exception {
 		
 
 		Class.forName("com.mysql.jdbc.Driver");
 		String url = "jdbc:mysql://localhost:3306/test";
 		Connection conn = DriverManager.getConnection(url, "root", "rui");
-	      String cmd = "delete from faren where name='" + name + "'" ;
+	      String cmd = "delete from faren where username='" + username + "'" ;
 	    Statement stmt = conn.createStatement();
 	    stmt.executeUpdate(cmd);
 	    return true;

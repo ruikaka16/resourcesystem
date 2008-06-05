@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.buaa.project.client.data.BeanDTO;
+import com.buaa.project.client.data.BeanNewsDTO;
 import com.buaa.project.client.panel.ColumnPanel;
 import com.buaa.project.client.panel.DepartmentPanel;
 import com.buaa.project.client.panel.EditorPanel;
@@ -13,7 +13,7 @@ import com.buaa.project.client.panel.FarenPanel;
 import com.buaa.project.client.panel.Fileupload;
 import com.buaa.project.client.panel.FormGridSample;
 import com.buaa.project.client.panel.LinkListPanel;
-import com.buaa.project.client.panel.LoadDataPanel;
+import com.buaa.project.client.panel.LoadNewsPanel;
 import com.buaa.project.client.panel.Login;
 import com.buaa.project.client.panel.NewsWindow;
 import com.buaa.project.client.panel.PiechartPanel;
@@ -127,7 +127,7 @@ public class ResourceSystem implements EntryPoint {
 		int j = 0;
 		Object[][] b = new Object[i][];
 		while (it.hasNext()) {
-			final BeanDTO bean = (BeanDTO) it.next();
+			final BeanNewsDTO bean = (BeanNewsDTO) it.next();
 			Object[] a = bean.toObjectArray();
 			b[j++] = a;
 
@@ -985,7 +985,7 @@ public class ResourceSystem implements EntryPoint {
 
 				while (it.hasNext()) {
 
-					final BeanDTO bean = (BeanDTO) it.next();
+					final BeanNewsDTO bean = (BeanNewsDTO) it.next();
 					Object[] a = bean.toObjectArray();
 					Object[][] b = new Object[][] { a };
 					// store.add(recordDef.createRecord(bean.toObjectArray()));

@@ -206,14 +206,14 @@ public class FarenPanel extends Panel{
 	
 	        
 	        
-	        final Store store = new SimpleStore("name", new Object[]{});  
+	        final Store store = new SimpleStore("username", new Object[]{});  
 	        store.load();   
 	  
 	        final ComboBox cb = new ComboBox("单位名称");   
 	        cb.setMinChars(1); 
 	        cb.setFieldLabel("法人单位名称");   
 	        cb.setStore(store);   
-	        cb.setDisplayField("name");   
+	        cb.setDisplayField("username");   
 	        cb.setMode(ComboBox.LOCAL);   
 	        cb.setEmptyText("请输入单位名称");   
 	        cb.setLoadingText("搜索中");   
@@ -225,7 +225,7 @@ public class FarenPanel extends Panel{
 	        cb.setHideTrigger(true);  
 	        
 	        
-	        final RecordDef recordDef = new RecordDef(new FieldDef[]{new StringFieldDef("name")});
+	        final RecordDef recordDef = new RecordDef(new FieldDef[]{new StringFieldDef("username")});
 
 	  
 	        FormPanel form1 = new FormPanel();  
@@ -291,7 +291,7 @@ public class FarenPanel extends Panel{
 							
 							address.setValue(bean.getAddrress());
 							xingzhi.setValue(bean.getXingzhi());
-							name.setValue(bean.getName());
+							name.setValue(bean.getUserid());
 							zhuguan.setValue(bean.getZhuguan());
 							zipcode.setValue(bean.getZipcode());
 							hymc.setValue(bean.getHymc());

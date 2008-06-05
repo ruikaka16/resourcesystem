@@ -54,11 +54,11 @@ public interface DatabaseService extends RemoteService {
 
     public List autoComplete() throws Exception;
     
-    public List getFaren(String name)throws Exception;
+    public List getFaren(String username)throws Exception;
     
     public List getFarenList()throws Exception;
     
-    public boolean deleteFaren(String name)throws Exception;
+    public boolean deleteFaren(String username)throws Exception;
     
     public String userType(String name)throws Exception;
     
