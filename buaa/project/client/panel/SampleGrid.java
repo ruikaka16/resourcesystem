@@ -35,6 +35,7 @@ import com.gwtext.client.widgets.ToolbarButton;
 import com.gwtext.client.widgets.WaitConfig;
 import com.gwtext.client.widgets.Window;
 
+import com.gwtext.client.widgets.MessageBox.PromptCallback;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.event.PanelListenerAdapter;
 import com.gwtext.client.widgets.form.DateField;
@@ -71,45 +72,27 @@ public class SampleGrid extends FormPanel {
 	
 	private String name_faren;
 
-/*	private static BaseColumnConfig[] columns = new BaseColumnConfig[] {
-
-	new ColumnConfig("单位名称", "name", 300, true, null, "name")
-
-	// new ColumnConfig("Price", "price", 35, true, new Renderer() {
-	// public String render(Object value, CellMetadata cellMetadata, Record
-	// record,
-	// int rowIndex, int colNum, Store store) {
-	// return nf.format(((Number) value).doubleValue());
-	// }
-	// }),
-
-	// new ColumnConfig("Change", "change", 45, true, new Renderer() {
-	// public String render(Object value, CellMetadata cellMetadata, Record
-	// record,
-	// int rowIndex, int colNum, Store store) {
-	// float val = ((Float) value).floatValue();
-	// String valString = nfc.format(val);
-	// if (val < 0) {
-	// return "<span style='color:red;'>" + valString + "</span>";
-	// } else {
-	// return valString;
-	// }
-	// }
-	// }, "change"),
-
-	// new ColumnConfig("% Change", "pctChange", 65, true, null, "pctChange"),
-
-	// new ColumnConfig("Last Updated", "lastChanged", 65, true, new Renderer()
-	// {
-	// public String render(Object value, CellMetadata cellMetadata, Record
-	// record,
-	// int rowIndex, int colNum, Store store) {
-	// Date date = (Date) value;
-	// return dateFormatter.format(date);
-	// }
-	// }),
-	// new ColumnConfig("Industry", "industry", 60, true)
-	};*/
+/*
+ * private static BaseColumnConfig[] columns = new BaseColumnConfig[] {
+ * 
+ * new ColumnConfig("单位名称", "name", 300, true, null, "name")
+ *  // new ColumnConfig("Price", "price", 35, true, new Renderer() { // public
+ * String render(Object value, CellMetadata cellMetadata, Record // record, //
+ * int rowIndex, int colNum, Store store) { // return nf.format(((Number)
+ * value).doubleValue()); // } // }),
+ *  // new ColumnConfig("Change", "change", 45, true, new Renderer() { // public
+ * String render(Object value, CellMetadata cellMetadata, Record // record, //
+ * int rowIndex, int colNum, Store store) { // float val = ((Float)
+ * value).floatValue(); // String valString = nfc.format(val); // if (val < 0) { //
+ * return "<span style='color:red;'>" + valString + "</span>"; // } else { //
+ * return valString; // } // } // }, "change"),
+ *  // new ColumnConfig("% Change", "pctChange", 65, true, null, "pctChange"),
+ *  // new ColumnConfig("Last Updated", "lastChanged", 65, true, new Renderer() // { //
+ * public String render(Object value, CellMetadata cellMetadata, Record //
+ * record, // int rowIndex, int colNum, Store store) { // Date date = (Date)
+ * value; // return dateFormatter.format(date); // } // }), // new
+ * ColumnConfig("Industry", "industry", 60, true) };
+ */
 
 	
 
@@ -182,7 +165,7 @@ public class SampleGrid extends FormPanel {
 			final TextField xingzhi = new TextField("法人性质", "xingzhi", 120);
 	       
 			Toolbar toolbar = new Toolbar();
-			ToolbarButton delete = new ToolbarButton("删除");
+			final ToolbarButton delete = new ToolbarButton("删除");
 			ToolbarButton update = new ToolbarButton("修改");
 			ToolbarButton add = new ToolbarButton("添加");
 			
@@ -194,7 +177,7 @@ public class SampleGrid extends FormPanel {
 			toolbar.addSpacer();
 			
 			
-			//the field names msut match the data field values from the Store   
+			// the field names msut match the data field values from the Store
 	        fieldSet.add(username);   
 	        fieldSet.add(zhuguan);   
 	        fieldSet.add(address);   
@@ -245,7 +228,7 @@ public class SampleGrid extends FormPanel {
 				pagingToolbar.setPageSize(16);
 				pagingToolbar.setDisplayInfo(true);
 				pagingToolbar.setDisplayMsg("单位条数 {0} - {1} of {2}");
-				//pagingToolbar.setEmptyMsg("没有数据显示");
+				// pagingToolbar.setEmptyMsg("没有数据显示");
 
 				NumberField pageSizeField = new NumberField();
 				pageSizeField.setWidth(20);
@@ -263,7 +246,7 @@ public class SampleGrid extends FormPanel {
 				
 
 				pagingToolbar.addField(pageSizeField);
-				//pagingToolbar.addButton(refreshBt);
+				// pagingToolbar.addButton(refreshBt);
 				grid.setBottomToolbar(pagingToolbar);
 				store.load(0,16);
 
@@ -313,7 +296,7 @@ public class SampleGrid extends FormPanel {
 					name_faren += record.getAsString("username");
 
 				}
-				//MessageBox.alert(name_faren);
+				// MessageBox.alert(name_faren);
 				
 				DatabaseServiceAsync getFarenContentService = DatabaseService.Util
 				.getInstance();
@@ -353,7 +336,7 @@ public class SampleGrid extends FormPanel {
 			
 	});
 		
-//*************************刷新		
+// *************************刷新
 		refresh.addListener(new ButtonListenerAdapter(){
 			
 			public void onClick(Button button ,EventObject e){
@@ -430,52 +413,66 @@ public class SampleGrid extends FormPanel {
 		    	   
 		    	     public void onClick(Button button, EventObject e) {   
 		               
-		    	    	 
-		    	    	// MessageBox.alert(userid.getText());
-		    	    	 DatabaseServiceAsync deleteFaren_service = DatabaseService.Util.getInstance();
-		    	    	 
-		    	    
-		    	    	 
-		    	    	 AsyncCallback cb_deleteFaren = new AsyncCallback(){
-
-		    	    		 
-		    	    		 
-							public void onFailure(Throwable arg0) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							public void onSuccess(Object result) {
-								 
-								
-								Boolean ok = (Boolean)result;
-								
-								if(ok.booleanValue()){
-									
-									MessageBox.alert("删除成功");
-									
-								}
-								else
-									MessageBox.alert("删除失败！");
-								
-								
-							}
-
+		    	    	 MessageBox.show(new MessageBoxConfig(){
 		    	    		
-		    	    	 };
-		    	    	 
-		    	    	 
-		    	    	 deleteFaren_service.deleteFaren(username.getText(), cb_deleteFaren);
-		    	    	 
-		            }   
-		        });   
-			
-			
+		    	    		 {
+		    	    			 setTitle("确认删除该项");
+		    	    			 setMsg("确实要将该项删除？");
+		    	    			 setButtons(MessageBox.YESNOCANCEL);
+		    	    			 setCallback(new PromptCallback(){
+
+									public void execute(String Yes, String text) {
+										// TODO Auto-generated method stub
+										
+										System.out.println("Button Click : " +   
+		                                        Format.format("You clicked the {0} button", Yes));
+										
+										 DatabaseServiceAsync deleteFaren_service = DatabaseService.Util.getInstance();
+						    	    	 AsyncCallback cb_deleteFaren = new AsyncCallback(){
+
+						    	    		 
+						    	    		 
+												public void onFailure(Throwable arg0) {
+													// TODO Auto-generated
+													// method stub
+													
+												}
+
+												public void onSuccess(Object result) {
+													 
+													
+													Boolean ok = (Boolean)result;
+													
+													if(ok.booleanValue()){
+														
+														MessageBox.alert("删除成功");
+														
+													}
+													else
+														MessageBox.alert("删除失败！");
+													
+													
+												}
+
+							    	    		
+							    	    	 };
+							    	    	 
+							    	    	 
+							    	    	 deleteFaren_service.deleteFaren(username.getText(), cb_deleteFaren);
+									}
+		    	    				 
+		    	    			 });
+		    	    			 setAnimEl(delete.getId()); 
+		    	    		 }
+		    	    	 });
+		    	     }
+			});
+		
 			
 	        Panel inner = new Panel();   
 	        inner.setLayout(new ColumnLayout());     
 	        Panel columnOne = new Panel();  
-	        //columnOne.setHeight(350);
+	        // columnOne.setHeight(350);
 	        columnOne.setLayout(new FitLayout());   
 
 
@@ -485,8 +482,8 @@ public class SampleGrid extends FormPanel {
 	        inner.add(new PaddedPanel(fieldSet, 0, 10, 0, 0), new ColumnLayoutData(0.5)); 
 		    wholePanel.add(inner);
 		    wholePanel.add(toolbar);
-			//delete.setWidth("40px");
-//**************************************************************		    
+			// delete.setWidth("40px");
+// **************************************************************
 			final Window window = new Window();
 			window.setTitle("添加法人单位");
 			window.setIconCls("paste-icon");
@@ -502,7 +499,7 @@ public class SampleGrid extends FormPanel {
 			final FormPanel frm = new FormPanel();
 
 			frm.setPaddings(20);
-			//frm.setTitle("用户信息");
+			// frm.setTitle("用户信息");
 			frm.setWidth(300);
 			frm.setFrame(true);
 
@@ -568,7 +565,8 @@ public class SampleGrid extends FormPanel {
 									Timer timer = new Timer() {
 										public void run() {
 											MessageBox.hide();
-											// System.out.println("Done, Your fake data
+											// System.out.println("Done, Your
+											// fake data
 											// was saved!");
 										}
 									};
@@ -584,31 +582,33 @@ public class SampleGrid extends FormPanel {
 					service.saveData(getFormDataAsMap(frm.getForm()), callback);
 					
 					
-				//	String item = frm.getId(name);
+				// String item = frm.getId(name);
 					
-					//item.
+					// item.
 					
-				//	 txtUsername2 = (TextField)frmf.getId();
+				// txtUsername2 = (TextField)frmf.getId();
 					
-					/*TextField txtUsername2 = (TextField)frm.getComponent(3);
-					System.out.println(txtUsername2.getText());
+					/*
+					 * TextField txtUsername2 = (TextField)frm.getComponent(3);
+					 * System.out.println(txtUsername2.getText());
+					 * 
+					 * TextField txtUsername3 = (TextField)frm.getComponent(5);
+					 * System.out.println(txtUsername3.getText());
+					 */
 					
-					TextField txtUsername3 = (TextField)frm.getComponent(5);
-					System.out.println(txtUsername3.getText());*/
 					
-					
-				//	if (frm.getForm().isValid()) {
+				// if (frm.getForm().isValid()) {
 
 				//		
-				//		Map formData = getFormDataAsMap(frm.getForm());
+				// Map formData = getFormDataAsMap(frm.getForm());
 
 						
 
 					
-				//	} else {
+				// } else {
 
-				//		MessageBox.alert("输入有误", "请重新输入!");
-				//	}
+				// MessageBox.alert("输入有误", "请重新输入!");
+				// }
 
 				}
 
@@ -664,7 +664,7 @@ public class SampleGrid extends FormPanel {
 			String[] oneItem = nameValuePairs[i].split("=");
 
 			formData.put(oneItem[0], oneItem[1]);
-			//System.out.println(formData.get(oneItem[1]));
+			// System.out.println(formData.get(oneItem[1]));
 		}
           
 		return formData;
