@@ -23,6 +23,7 @@ import com.buaa.project.client.window.FarenWindow;
 import com.buaa.project.client.window.LargeDeviceWindow;
 import com.buaa.project.client.window.PlantWindow;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -38,6 +39,7 @@ import com.gwtext.client.core.Margins;
 import com.gwtext.client.core.Position;
 import com.gwtext.client.core.RegionPosition;
 import com.gwtext.client.core.Template;
+import com.gwtext.client.core.UrlParam;
 import com.gwtext.client.data.ArrayReader;
 import com.gwtext.client.data.FieldDef;
 import com.gwtext.client.data.MemoryProxy;
@@ -47,8 +49,10 @@ import com.gwtext.client.data.RecordDef;
 import com.gwtext.client.data.Store;
 import com.gwtext.client.data.StringFieldDef;
 import com.gwtext.client.util.DelayedTask;
+import com.gwtext.client.widgets.BoxComponent;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Component;
+import com.gwtext.client.widgets.Container;
 import com.gwtext.client.widgets.DatePicker;
 import com.gwtext.client.widgets.HTMLPanel;
 import com.gwtext.client.widgets.MessageBox;
@@ -90,6 +94,8 @@ import com.gwtext.client.widgets.tree.event.TreeNodeListenerAdapter;
 import com.gwtextux.client.data.PagingMemoryProxy;
 import com.gwtextux.client.widgets.image.Image;
 import com.gwtextux.client.widgets.image.ImageListenerAdapter;
+import com.gwtextux.client.widgets.upload.UploadDialog;
+import com.gwtextux.client.widgets.upload.UploadDialogListener;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -648,21 +654,263 @@ public class ResourceSystem implements EntryPoint {
 
 			public void onClick(Node node, EventObject e) {
 
-				Fileupload fileUpload = new Fileupload();
-				fileUpload.setVisible(true);
-				fileUpload.show();
+				 UploadDialog dialog = new UploadDialog();   
+	             dialog.setUrl("UploadSvc");   
+	                //dialog.setPermittedExtensions(new String[]{"jpg", "gif"});   
+	             UrlParam param[] = new UrlParam[2];   
+	             param[0]=new UrlParam("name1", "value1");   
+	             param[1]=new UrlParam("name2", "value2");   
+	             dialog.setBaseParams(param);   
+	             dialog.setPostVarName("myvar");   
+	             dialog.show();
 
 				final ExtElement element = Ext.get("main-panel");
 
 				element.mask();
 
-				fileUpload.addListener(new PanelListenerAdapter() {
+				dialog.addListener(new UploadDialogListener() {
+
+					public boolean onBeforeAdd(UploadDialog source, String filename) {
+						// TODO Auto-generated method stub
+						return false;
+					}
+
+					public void onFileAdd(UploadDialog source, String filename) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onFileRemove(UploadDialog source, String filename) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onFileUploadStart(UploadDialog source, String filename) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onResetQueue(UploadDialog source) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onUploadComplete(UploadDialog source) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onUploadError(UploadDialog source, String filename, JavaScriptObject data) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onUploadFailed(UploadDialog source, String filename) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onUploadStart(UploadDialog source) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onUploadStop(UploadDialog source) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onUploadSuccess(UploadDialog source, String filename, JavaScriptObject data) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onActivate(Window source) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onDeactivate(Window source) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onMaximize(Window source) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onMinimize(Window source) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onResize(Window source, int width, int height) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onRestore(Window source) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public boolean doBeforeClose(Panel panel) {
+						// TODO Auto-generated method stub
+						return false;
+					}
+
+					public boolean doBeforeCollapse(Panel panel, boolean animate) {
+						// TODO Auto-generated method stub
+						return false;
+					}
+
+					public boolean doBeforeExpand(Panel panel, boolean animate) {
+						// TODO Auto-generated method stub
+						return false;
+					}
+
+					public void onActivate(Panel panel) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onBodyResize(Panel panel, String width, String height) {
+						// TODO Auto-generated method stub
+						
+					}
 
 					public void onClose(Panel panel) {
-
+						// TODO Auto-generated method stub
 						element.unmask();
-
 					}
+
+					public void onCollapse(Panel panel) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onDeactivate(Panel panel) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onExpand(Panel panel) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onTitleChange(Panel panel, String title) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public boolean doBeforeAdd(Container self, Component component, int index) {
+						// TODO Auto-generated method stub
+						return false;
+					}
+
+					public boolean doBeforeRemove(Container self, Component component) {
+						// TODO Auto-generated method stub
+						return false;
+					}
+
+					public void onAdd(Container self, Component component, int index) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onAfterLayout(Container self) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onRemove(Container self, Component component) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onMove(BoxComponent component, int x, int y) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onResize(BoxComponent component, int adjWidth, int adjHeight, int rawWidth, int rawHeight) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public boolean doBeforeDestroy(Component component) {
+						// TODO Auto-generated method stub
+						return false;
+					}
+
+					public boolean doBeforeHide(Component component) {
+						// TODO Auto-generated method stub
+						return false;
+					}
+
+					public boolean doBeforeRender(Component component) {
+						// TODO Auto-generated method stub
+						return false;
+					}
+
+					public boolean doBeforeShow(Component component) {
+						// TODO Auto-generated method stub
+						return false;
+					}
+
+					public boolean doBeforeStateRestore(Component component, JavaScriptObject state) {
+						// TODO Auto-generated method stub
+						return false;
+					}
+
+					public boolean doBeforeStateSave(Component component, JavaScriptObject state) {
+						// TODO Auto-generated method stub
+						return false;
+					}
+
+					public void onDestroy(Component component) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onDisable(Component component) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onEnable(Component component) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onHide(Component component) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onRender(Component component) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onShow(Component component) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onStateRestore(Component component, JavaScriptObject state) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onStateSave(Component component, JavaScriptObject state) {
+						// TODO Auto-generated method stub
+						
+					}
+
+				
 				});
 
 			}
@@ -792,7 +1040,7 @@ public class ResourceSystem implements EntryPoint {
 
 		Panel eastPanel = new HTMLPanel();
 		eastPanel.setTitle("其他");
-		// eastPanel.setBodyStyle("background-color:#15428b");
+		// eastPanel.setBodyStyle("background-color:#8DA9F8");
 		eastPanel.setCollapsible(true);
 		eastPanel.setBorder(true);
 		eastPanel.setWidth(200);
